@@ -4,6 +4,7 @@ using IMC_Integrated_Medical_Care_.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMC_Integrated_Medical_Care_.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20240103174500_Roles Seeding")]
+    partial class RolesSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                             Id = "8fa1d802-1a62-44bb-9f8d-6803a4295c73",
                             ConcurrencyStamp = "8fa1d802-1a62-44bb-9f8d-6803a4295c73",
                             Name = "Service_Provider",
-                            NormalizedName = "SERVICE_PROVIDER"
+                            NormalizedName = "WRITER"
                         },
                         new
                         {

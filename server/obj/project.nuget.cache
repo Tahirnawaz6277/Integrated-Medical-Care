@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v8/pIQCpQ2gGCmAoi/1htcnX0v3TPV+BJo1gp+BaKUO81oZs30QhacXLfVIN9ZTgYWPE7xrCFxg933Th+GmJyg==",
+  "dgSpecHash": "rvUsTUnO3DW4yk/lFM2p0oCylsAvvNm8rRG2jXCjxZCbs3BQ3VD6IQXk5RwiZAGIhe+Q/qG2Svpar3PzIy8qKg==",
   "success": true,
-  "projectFilePath": "D:\\DotNet\\IMC(Integrated Medical Care)\\IMC(Integrated Medical Care).csproj",
+  "projectFilePath": "F:\\Final Year Project Data\\imc\\server\\IMC(Integrated Medical Care).csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Basit\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Basit\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

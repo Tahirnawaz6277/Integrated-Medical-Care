@@ -1,30 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace server.Models
+namespace IMC_Integrated_Medical_Care_.Models
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
-        [Key]
-        public int  Id { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
+        
+        public string? password { get; set; }
+        public string? contact { get; set; }
+        public string? gender { get; set; }
+        //public string roleId { get; set; }
+        //[ForeignKey("RoleId")] 
+                             
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-        public string Contact { get; set; }
-
-        public string Gender { get; set; }
-
-        public int RoleId { get; set; }
-
-        [ForeignKey(nameof(RoleId))]
-        //public IdentityRole Role { get; set; }
-
-        [Timestamp]
-        public byte[] createdAt { get; set; }
-
-   
     }
 }

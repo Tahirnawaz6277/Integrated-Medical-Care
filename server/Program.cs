@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Identity;
+using IMC_Integrated_Medical_Care_.DbContext;
 using Microsoft.EntityFrameworkCore;
-using server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,37 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<ImcContextClass>(options =>
+builder.Services.AddDbContext<DbContextClass>(option =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("IMCConectionstring"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("IMCConnectionString"));
 });
-
-
-
-
-
-//----- Inject the UserManager related services
-
-builder.Services.AddIdentityCore<User>()
-    .AddRoles<IdentityRole>()
-    .AddTokenProvider<DataProtectorTokenProvider<User>>("imc")
-    .AddEntityFrameworkStores<ImcContextClass>()
-    .AddDefaultTokenProviders();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredUniqueChars = 1;
-    options.Password.RequiredLength = 6;
-
-});
-
-builder.Services.AddDataProtection();
-
 
 var app = builder.Build();
 
@@ -50,7 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
- 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

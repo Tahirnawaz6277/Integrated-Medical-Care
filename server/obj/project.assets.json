@@ -11908,11 +11908,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DotNet\\IMC(Integrated Medical Care)\\IMC(Integrated Medical Care).csproj",
+      "projectUniqueName": "F:\\Final Year Project Data\\imc\\server\\IMC(Integrated Medical Care).csproj",
       "projectName": "IMC(Integrated Medical Care)",
-      "projectPath": "D:\\DotNet\\IMC(Integrated Medical Care)\\IMC(Integrated Medical Care).csproj",
+      "projectPath": "F:\\Final Year Project Data\\imc\\server\\IMC(Integrated Medical Care).csproj",
       "packagesPath": "C:\\Users\\Basit\\.nuget\\packages\\",
-      "outputPath": "D:\\DotNet\\IMC(Integrated Medical Care)\\obj\\",
+      "outputPath": "F:\\Final Year Project Data\\imc\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Basit\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace IMC_Integrated_Medical_Care_.Models
 {
@@ -7,12 +6,12 @@ namespace IMC_Integrated_Medical_Care_.Models
     {
         public string? firstName { get; set; }
         public string? lastName { get; set; }
-        
+
         public string? password { get; set; }
         public string? contact { get; set; }
         public string? gender { get; set; }
         public string role { get; set; }
-                             
+
 
     }
 }

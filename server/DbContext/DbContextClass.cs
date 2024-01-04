@@ -7,7 +7,8 @@ namespace IMC_Integrated_Medical_Care_.DbContext
 {
     public class DbContextClass : IdentityDbContext
     {
-        public DbContextClass(DbContextOptions options) : base(options) {
+        public DbContextClass(DbContextOptions options) : base(options)
+        {
 
 
         }

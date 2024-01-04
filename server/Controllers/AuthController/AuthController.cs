@@ -28,6 +28,7 @@ namespace IMC_Integrated_Medical_Care_.Controllers.AuthController
                 return BadRequest(ModelState);
             }
 
+            //user object
             var user = new User
             {
                 firstName = register.firstName,

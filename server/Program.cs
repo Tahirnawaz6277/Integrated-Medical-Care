@@ -1,4 +1,5 @@
 using IMC_Integrated_Medical_Care_.DbContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,19 @@ builder.Services.AddDbContext<DbContextClass>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("IMCConnectionString"));
 });
+
+
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+
+    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("IMC")
+    .AddEntityFrameworkStores<DbContextClass>()
+    .AddDefaultTokenProviders();
+
+
+
+
 
 var app = builder.Build();
 

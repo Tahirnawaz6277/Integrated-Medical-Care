@@ -522,3 +522,9 @@ F:\Final Year Project Data\imc\server\obj\Debug\net7.0\refint\IMC(Integrated Med
 F:\Final Year Project Data\imc\server\obj\Debug\net7.0\IMC(Integrated Medical Care).pdb
 F:\Final Year Project Data\imc\server\obj\Debug\net7.0\IMC(Integrated Medical Care).genruntimeconfig.cache
 F:\Final Year Project Data\imc\server\obj\Debug\net7.0\ref\IMC(Integrated Medical Care).dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.Caching.Abstractions.dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+F:\Final Year Project Data\imc\server\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll

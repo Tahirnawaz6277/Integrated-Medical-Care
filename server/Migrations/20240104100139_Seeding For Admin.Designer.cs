@@ -4,6 +4,7 @@ using IMC_Integrated_Medical_Care_.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMC_Integrated_Medical_Care_.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20240104100139_Seeding For Admin")]
+    partial class SeedingForAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,6 +171,24 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
 
                     b.UseTphMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "df00cfe7-73a6-4675-a3cf-42c804bd6bb9",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAX+iyfiMgvLMavqdTsYUc/QdsHzTQr3oh1S1Wz/SEg9bmd+zSLZL25zdWJ9Nyxtcw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5a4dec39-5284-4da3-ad3c-f29719ffe664",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -283,29 +304,6 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "57ff4499-fa9b-4488-a41d-37febfbbc32d",
-                            Email = "Muhammadtalha@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MUHAMMADTALHA@GMAIL.COM",
-                            NormalizedUserName = "MUHAMMADTALHA@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAYTCXU4JnRx0PD9bpDxMmubfGepg9+35BppXS9vAXKazJAhVBEd76bbSx5V0hc8hQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2babcf4c-b315-43b4-aed3-dc937be4017e",
-                            TwoFactorEnabled = false,
-                            UserName = "Muhammadtalha@gmail.com",
-                            Role = "Admin",
-                            contact = "03457689432",
-                            firstName = "Muhammad",
-                            gender = "Male",
-                            lastName = "Talha"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

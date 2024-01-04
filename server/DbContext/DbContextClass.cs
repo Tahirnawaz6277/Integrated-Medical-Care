@@ -41,8 +41,8 @@ namespace IMC_Integrated_Medical_Care_.DbContext
                 {
                     Id=ServiceProviderRoleId,
                     ConcurrencyStamp=ServiceProviderRoleId,
-                    Name="Service_Provider" ,
-                    NormalizedName="Service_Provider".ToUpper(),
+                    Name="ServiceProvider" ,
+                    NormalizedName="ServiceProvider".ToUpper(),
 
               }  ,
                  new IdentityRole
@@ -55,8 +55,39 @@ namespace IMC_Integrated_Medical_Care_.DbContext
               }
 
             };
-
             builder.Entity<IdentityRole>().HasData(roles);
+
+            // seeding For Admin   User
+
+            var adminUser = new User
+            {
+                Id = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
+                 firstName ="Muhammad",
+                 lastName ="Talha",
+                 contact = "03457689432",
+                 gender ="Male",
+                 Role="Admin",
+                UserName = "Muhammadtalha@gmail.com",
+                NormalizedUserName = "MUHAMMADTALHA@GMAIL.COM",
+                Email = "Muhammadtalha@gmail.com",
+                NormalizedEmail = "MUHAMMADTALHA@GMAIL.COM",
+                EmailConfirmed = true
+            };
+
+            string adminPassword = "talha@123"; // Replace with a secure password
+
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, adminPassword);
+
+
+            builder.Entity<User>().HasData(adminUser);
+
+            // Assign Admin role to the Admin user
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = AdminRoleId,
+                UserId = adminUser.Id
+            });
         }
 
     }

@@ -8,6 +8,6 @@
         public string password { get; set; }
         public string? contact { get; set; }
         public string? gender { get; set; }
-        public string role { get; set; }
+        public string Role { get; set; }
     }
 }

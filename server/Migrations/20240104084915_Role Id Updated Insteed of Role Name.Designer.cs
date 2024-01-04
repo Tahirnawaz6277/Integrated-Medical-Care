@@ -4,6 +4,7 @@ using IMC_Integrated_Medical_Care_.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMC_Integrated_Medical_Care_.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20240104084915_Role Id Updated Insteed of Role Name")]
+    partial class RoleIdUpdatedInsteedofRoleName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,8 +63,8 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                         {
                             Id = "8fa1d802-1a62-44bb-9f8d-6803a4295c73",
                             ConcurrencyStamp = "8fa1d802-1a62-44bb-9f8d-6803a4295c73",
-                            Name = "ServiceProvider",
-                            NormalizedName = "SERVICEPROVIDER"
+                            Name = "Service_Provider",
+                            NormalizedName = "SERVICE_PROVIDER"
                         },
                         new
                         {
@@ -230,13 +233,6 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
-                            RoleId = "4e050638-06b1-4d94-9462-757e387f70a5"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -262,50 +258,26 @@ namespace IMC_Integrated_Medical_Care_.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("RoleId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("contact")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("firstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("lastName")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "57ff4499-fa9b-4488-a41d-37febfbbc32d",
-                            Email = "Muhammadtalha@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MUHAMMADTALHA@GMAIL.COM",
-                            NormalizedUserName = "MUHAMMADTALHA@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAYTCXU4JnRx0PD9bpDxMmubfGepg9+35BppXS9vAXKazJAhVBEd76bbSx5V0hc8hQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2babcf4c-b315-43b4-aed3-dc937be4017e",
-                            TwoFactorEnabled = false,
-                            UserName = "Muhammadtalha@gmail.com",
-                            Role = "Admin",
-                            contact = "03457689432",
-                            firstName = "Muhammad",
-                            gender = "Male",
-                            lastName = "Talha"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

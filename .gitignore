@@ -54,6 +54,7 @@ Thumbs.db
 /Server/**/bin/Debug/net7.0
 /Server/**/obj
 /Server/obj
+/Server/obj/**
 /Server/**/Properties
 /Server/Properties
 /Server/Server.csproj.user

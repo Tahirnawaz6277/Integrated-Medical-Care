@@ -47,20 +47,21 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+yarn.lock
 
-#Server
-/Server/.vs
-/Server/.vs/**
-/Server/**/bin/Debug/net7.0
-/Server/**/obj
-/Server/obj
-/Server/obj/**
-/Server/**/Properties
-/Server/Properties
-/Server/Server.csproj.user
-/Server/appsettings.Development.json
+# DOtNEt Core
+**/obj/**
+**/v15/**
+**/v17/**
+server/**/.vs/**
+server/**/Properties/**
+server/**/bin/**
+server/**/obj/**
+server/**/*.csproj.user
+*.user
+server/**/*.csproj.user
 
-#App
-/App/package-lock.json
-/App/.vscode
-
+# app
+app/build**
+package-lock.json
+App/.vscode/launch.json

@@ -1,4 +1,4 @@
-namespace Server
+namespace Imc
 {
     public class WeatherForecast
     {

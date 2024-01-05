@@ -50,9 +50,10 @@ Thumbs.db
 
 #Server
 /Server/.vs
-/Server/**/.vs
+/Server/.vs/**
 /Server/**/bin/Debug/net7.0
 /Server/**/obj
+/Server/obj
 /Server/**/Properties
 /Server/Server.csproj.user
 /Server/appsettings.Development.json
@@ -60,3 +61,4 @@ Thumbs.db
 #App
 /App/package-lock.json
 /App/.vscode
+

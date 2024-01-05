@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\IMC(Integrated Medical Care).props" />
-</Project>

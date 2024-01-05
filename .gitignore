@@ -55,6 +55,7 @@ Thumbs.db
 /Server/**/obj
 /Server/obj
 /Server/**/Properties
+/Server/Properties
 /Server/Server.csproj.user
 /Server/appsettings.Development.json
 

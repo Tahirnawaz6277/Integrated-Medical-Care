@@ -1,6 +1,6 @@
 ﻿namespace imc_web_api.Dtos
 {
-    public class RegisterationDTO
+    public class RegisterRequestDTO
     {
         public string firstName { get; set; }
         public string lastName { get; set; }

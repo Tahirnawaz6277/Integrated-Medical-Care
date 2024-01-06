@@ -75,6 +75,7 @@ namespace imc_web_api
                 RoleId = AdminRoleId,
                 UserId = adminUser.Id
             });
+            builder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.UserId, iur.RoleId });
         }
     }
 }

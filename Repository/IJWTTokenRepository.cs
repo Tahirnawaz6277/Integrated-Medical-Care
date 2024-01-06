@@ -2,7 +2,7 @@
 
 namespace imc_web_api.Repository
 {
-    public interface IJWTToken
+    public interface IJWTTokenRepository
     {
         string CreateJWTToken(user user, string role);
     }

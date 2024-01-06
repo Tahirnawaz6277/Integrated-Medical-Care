@@ -1,4 +1,4 @@
-namespace Imc
+namespace imc_web_api
 {
     public class WeatherForecast
     {

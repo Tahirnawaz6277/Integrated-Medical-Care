@@ -2,13 +2,13 @@
 using imc_web_api.Models;
 using imc_web_api.Repository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Service.AuthService
 {
     public class RegisterService : IRegistrationService
     {
-
+      //creat api
+    
         private readonly IRegisterRepository _registerRepository;
         private readonly UserManager<user> _userManager;
         public RegisterService(IRegisterRepository registerRepository  , UserManager<user> userManager)

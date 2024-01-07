@@ -8,7 +8,8 @@ namespace imc_web_api.Service.AuthService
     public class RegisterService : IRegistrationService
     {
       //creat api
-    
+      //update api
+      
         private readonly IRegisterRepository _registerRepository;
         private readonly UserManager<user> _userManager;
         public RegisterService(IRegisterRepository registerRepository  , UserManager<user> userManager)

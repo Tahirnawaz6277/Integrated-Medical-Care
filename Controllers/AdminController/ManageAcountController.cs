@@ -1,7 +1,7 @@
 ﻿using imc_web_api.Models;
+using imc_web_api.Service.AdminServices.ManageAccountServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Controllers.AdminController
 {
@@ -10,10 +10,12 @@ namespace imc_web_api.Controllers.AdminController
     public class ManageAcountController : ControllerBase
     {
         private readonly UserManager<user> _userManager;
+        private readonly IManageAccountService _manageAccountService;
 
-        public ManageAcountController(UserManager<user> userManager)
+        public ManageAcountController(UserManager<user> userManager, IManageAccountService manageAccountService)
         {
             _userManager = userManager;
+            _manageAccountService = manageAccountService;
         }
 
         [HttpPost]
@@ -27,29 +29,28 @@ namespace imc_web_api.Controllers.AdminController
         [Route("GetUsers")]
         public async Task<List<user>> GetUsers()
         {
-            var result =await _userManager.Users.ToListAsync();
-            return result;
+            return await _manageAccountService.GetUsers();
         }
 
         [HttpGet]
-        [Route("GetUserById")]
-        public async Task<IActionResult> GetUserById()
+        [Route("GetUserById/{id:Guid}")]
+        public async Task<user> GetUserById(Guid id)
         {
-            return null;
+            return await _manageAccountService.GetUserById(id);
         }
 
         [HttpPut]
         [Route("UpdateUser /{id:Guid}")]
-        public async Task<IActionResult> UpdateUser([FromBody] int id)
+        public async Task<IActionResult> UpdateUser(Guid id)
         {
             return null;
         }
 
         [HttpDelete]
         [Route("DeleteUser /{id:Guid}")]
-        public async Task<IActionResult> DeleteUser([FromBody] int id)
+        public async Task<user> DeleteUser(Guid id)
         {
-            return null;
+            return await _manageAccountService.DeleteUser(id);
         }
     }
 }

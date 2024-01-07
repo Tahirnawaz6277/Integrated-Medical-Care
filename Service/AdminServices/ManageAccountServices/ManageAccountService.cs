@@ -1,7 +1,6 @@
 ﻿using imc_web_api.Dtos;
 using imc_web_api.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageAccountServices
@@ -15,6 +14,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             _userManager = userManager;
         }
 
+        //---> AddUser
         public async Task<user> AddUser(RegisterRequestDTO UserInputReguest)
         {
             try
@@ -56,16 +56,46 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             }
         }
 
-        public Task<IActionResult> DeleteUser(Guid id)
+        //---> DeleteUser
+        public async Task<user> DeleteUser(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result == null)
+                {
+                    return null;
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<user> GetUserById()
+        //---> GetUserById
+        public async Task<user> GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+                if (user == null)
+                {
+                    return null;
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
+        //---> GetUsers
         public async Task<List<user>> GetUsers()
         {
             try
@@ -78,6 +108,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             }
         }
 
+        //---> UpdateUser
         public Task<user> UpdateUser(Guid id, RegisterRequestDTO UserInputReguest)
         {
             throw new NotImplementedException();

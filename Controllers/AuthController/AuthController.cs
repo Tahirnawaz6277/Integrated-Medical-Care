@@ -1,6 +1,7 @@
 ﻿using imc_web_api.Dtos;
 using imc_web_api.Models;
 using imc_web_api.Repository;
+using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AuthService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

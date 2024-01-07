@@ -1,6 +1,8 @@
 using imc_web_api;
 using imc_web_api.Models;
 using imc_web_api.Repository;
+using imc_web_api.Repository.AuthRepository;
+using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AuthService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IRegistrationService, RegisterService>();
 builder.Services.AddScoped<IJWTTokenRepository,JWTTokenRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IManageAccountService , ManageAccountService>();
 
 // Data protection Middleware
 builder.Services.AddDataProtection();

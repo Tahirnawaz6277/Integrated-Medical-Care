@@ -1,4 +1,5 @@
-﻿using imc_web_api.Models;
+﻿using imc_web_api.Dtos;
+using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("CreateUser")]
-        public async Task<IActionResult> CreateUser()
+        public async Task<user> CreateUser([FromBody] RegisterRequestDTO UserInputReguest)
         {
-            return null;
+            return await _manageAccountService.AddUser(UserInputReguest);
         }
 
         [HttpGet]

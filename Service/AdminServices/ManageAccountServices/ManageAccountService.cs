@@ -1,4 +1,4 @@
-﻿using imc_web_api.Dtos;
+﻿using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

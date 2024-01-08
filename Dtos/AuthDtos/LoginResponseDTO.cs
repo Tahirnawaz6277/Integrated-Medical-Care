@@ -1,4 +1,4 @@
-﻿namespace imc_web_api.Dtos
+﻿namespace imc_web_api.Dtos.AuthDtos
 {
     public class LoginResponseDTO
     {

@@ -1,4 +1,4 @@
-﻿using imc_web_api.Dtos;
+﻿using imc_web_api.Dtos.AuthDtos;
 
 namespace imc_web_api.Repository.AuthRepository
 {

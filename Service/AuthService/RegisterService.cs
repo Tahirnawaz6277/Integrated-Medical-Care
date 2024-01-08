@@ -1,4 +1,4 @@
-﻿using imc_web_api.Dtos;
+﻿using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Repository;
 using imc_web_api.Repository.AuthRepository;

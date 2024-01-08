@@ -1,4 +1,4 @@
-﻿using imc_web_api.Dtos;
+﻿using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using Microsoft.AspNetCore.Identity;
@@ -44,7 +44,7 @@ namespace imc_web_api.Controllers.AdminController
         [Route("UpdateUser /{id:Guid}")]
         public async Task<user> UpdateUser(Guid id, [FromBody] RegisterRequestDTO UserInputRequest)
         {
-           return await _manageAccountService.UpdateUser(id, UserInputRequest);
+            return await _manageAccountService.UpdateUser(id, UserInputRequest);
         }
 
         [HttpDelete]

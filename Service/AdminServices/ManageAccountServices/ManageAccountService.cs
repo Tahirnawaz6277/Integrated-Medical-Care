@@ -63,12 +63,18 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             {
                 var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
 
+                if (user == null)
+                {
+                    throw new Exception("User not found");
+                }
+
                 var result = await _userManager.DeleteAsync(user);
 
-                if (result == null)
+                if (!result.Succeeded)
                 {
-                    return null;
+                    throw new Exception("Failed to delete user.");
                 }
+
                 return user;
             }
             catch (Exception ex)
@@ -109,9 +115,41 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         }
 
         //---> UpdateUser
-        public Task<user> UpdateUser(Guid id, RegisterRequestDTO UserInputReguest)
+        public async Task<user> UpdateUser(Guid id, RegisterRequestDTO UserInputReguest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id.ToString());
+
+                if (existingUser != null)
+                {
+                    existingUser.firstName = UserInputReguest.firstName;
+                    existingUser.lastName = UserInputReguest.lastName;
+                    existingUser.Email = UserInputReguest.Email;
+                    existingUser.UserName = UserInputReguest.Email;
+                    existingUser.contact = UserInputReguest.contact;
+                    existingUser.gender = UserInputReguest.gender;
+                    existingUser.Role = UserInputReguest.Role;
+
+                    var result = await _userManager.UpdateAsync(existingUser);
+                    if (result.Succeeded)
+                    {
+                        return existingUser;
+                    }
+                    else
+                    {
+                        throw new Exception("Faild to update user!");
+                    }
+                }
+                else
+                {
+                    throw new Exception("User not exist!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred during user update. Details: {ex.Message}");
+            }
         }
     }
 }

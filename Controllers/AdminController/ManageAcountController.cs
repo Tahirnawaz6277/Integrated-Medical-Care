@@ -42,9 +42,9 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPut]
         [Route("UpdateUser /{id:Guid}")]
-        public async Task<IActionResult> UpdateUser(Guid id)
+        public async Task<user> UpdateUser(Guid id, [FromBody] RegisterRequestDTO UserInputRequest)
         {
-            return null;
+           return await _manageAccountService.UpdateUser(id, UserInputRequest);
         }
 
         [HttpDelete]

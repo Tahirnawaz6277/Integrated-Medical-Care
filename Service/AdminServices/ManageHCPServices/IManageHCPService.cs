@@ -1,13 +1,15 @@
-﻿using imc_web_api.Models;
+﻿using imc_web_api.Dtos.HCPDtos;
+using imc_web_api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Service.AdminServices.ManageHCPServices
 {
     public interface IManageHCPService
     {
-        public Task AddProvider {get;set;}
-        public Task DeleteProvider { get; set; }
-        public Task UpdateProvider { get; set; }
-        public Task<List<serviceprovidertype>> GetProviders { get; set; }
+        public Task<IActionResult> AddProvider(HCPRequestDTO UserInputReges);
+        public Task DeleteProvider();
+        public Task UpdateProvider();
+        public Task<List<serviceprovidertype>> GetProviders();
 
     }
 }

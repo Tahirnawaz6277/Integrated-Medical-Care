@@ -1,5 +1,4 @@
 ﻿using imc_web_api.Dtos.HCPDtos;
-using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +9,12 @@ namespace imc_web_api.Controllers.AdminController
     public class ManageHCPController : ControllerBase
     {
         private readonly IManageHCPService _manageHCPService;
+        private readonly ImcDbContext _imcDbContext;
 
-        public ManageHCPController(IManageHCPService manageHCPService)
+        public ManageHCPController(IManageHCPService manageHCPService, ImcDbContext imcDbContext)
         {
             _manageHCPService = manageHCPService;
+            _imcDbContext = imcDbContext;
         }
 
         //-->Add HCP
@@ -21,8 +22,7 @@ namespace imc_web_api.Controllers.AdminController
         [Route("AddHCP")]
         public async Task<IActionResult> AddHCP([FromBody] HCPRequestDTO UserInputReguest)
         {
-                
-           
+            //return await _manageHCPService.AddProvider(UserInputReguest);
             return null;
         }
 

@@ -4,12 +4,23 @@ namespace imc_web_api.Models
 {
     public class service
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string ServiceName { get; set; }
+        public decimal charges { get; set; }
 
-        [ForeignKey("ServiceProviderId")]
-        public service ServiceProvider { get; set; }
+        public string image { get; set; }
+        public int AvailableQuantity { get; set; }
 
-        public int ServiceProviderId { get; set; }
+        public int TotalQuantity { get; set; }
+        public string Status { get; set; }
+
+        public Guid CreatedByProviderTypeId { get; set; }
+
+        [ForeignKey("CreatedByProviderTypeId")]
+        public serviceprovidertype ServiceProviderType { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
     }
 }

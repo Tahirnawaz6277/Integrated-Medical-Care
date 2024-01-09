@@ -1,6 +1,5 @@
 using imc_web_api;
 using imc_web_api.Models;
-using imc_web_api.Repository;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AuthService;
@@ -23,19 +22,18 @@ builder.Services.AddDbContext<ImcDbContext>(options =>
 
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IRegistrationService, RegisterService>();
-builder.Services.AddScoped<IJWTTokenRepository,JWTTokenRepository>();
+builder.Services.AddScoped<IJWTTokenRepository, JWTTokenRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IManageAccountService , ManageAccountService>();
+builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 
 // Data protection Middleware
 builder.Services.AddDataProtection();
 // Now we Inject This line adds the Identity framework to your ASP.NET Core application.
-builder.Services.AddIdentityCore<user>()
-    .AddRoles<IdentityRole>()
+builder.Services.AddIdentity<user, IdentityRole>()
+
     .AddTokenProvider<DataProtectorTokenProvider<user>>("IMC")
     .AddEntityFrameworkStores<ImcDbContext>()
     .AddDefaultTokenProviders();
-
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -45,7 +43,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredUniqueChars = 1;
     options.Password.RequiredLength = 6;
-
 });
 
 var app = builder.Build();

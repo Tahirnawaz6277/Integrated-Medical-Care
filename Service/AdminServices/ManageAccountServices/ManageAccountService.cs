@@ -24,16 +24,16 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 {
                     var newUser = new user
                     {
-                        firstName = UserInputReguest.firstName,
-                        lastName = UserInputReguest.lastName,
+                        FirstName = UserInputReguest.FirstName,
+                        LastName = UserInputReguest.LastName,
                         Email = UserInputReguest.Email,
                         UserName = UserInputReguest.Email,
-                        contact = UserInputReguest.contact,
-                        gender = UserInputReguest.gender,
+                        PhoneNumber = UserInputReguest.PhoneNumber,
+                        Gender = UserInputReguest.Gender,
                         Role = UserInputReguest.Role,
                     };
 
-                    var CreatedUser = await _userManager.CreateAsync(newUser, UserInputReguest.password);
+                    var CreatedUser = await _userManager.CreateAsync(newUser, UserInputReguest.Password);
                     if (CreatedUser.Succeeded)
                     {
                         await _userManager.AddToRoleAsync(newUser, UserInputReguest.Role);
@@ -123,12 +123,12 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 
                 if (existingUser != null)
                 {
-                    existingUser.firstName = UserInputReguest.firstName;
-                    existingUser.lastName = UserInputReguest.lastName;
+                    existingUser.FirstName = UserInputReguest.FirstName;
+                    existingUser.LastName = UserInputReguest.LastName;
                     existingUser.Email = UserInputReguest.Email;
                     existingUser.UserName = UserInputReguest.Email;
-                    existingUser.contact = UserInputReguest.contact;
-                    existingUser.gender = UserInputReguest.gender;
+                    existingUser.PhoneNumber = UserInputReguest.PhoneNumber;
+                    existingUser.Gender = UserInputReguest.Gender;
                     existingUser.Role = UserInputReguest.Role;
 
                     var result = await _userManager.UpdateAsync(existingUser);

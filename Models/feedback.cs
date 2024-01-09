@@ -4,22 +4,21 @@ namespace imc_web_api.Models
 {
     public class feedback
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
+        public decimal Rating { get; set; }
 
-        public int UserId { get; set; }
+        public string ratedById { get; set; }
 
-        [ForeignKey("UserId")]
+        [ForeignKey("ratedById")]
         public user User { get; set; }
 
-        public int ServiceId { get; set; }
+        public Guid ratedToId { get; set; }
 
-        [ForeignKey("ServiceId")]
+        [ForeignKey("ratedToId")]
         public service Service { get; set; }
 
-        public int OrderId { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        [ForeignKey("OrderId")]
-        public order Order { get; set; }
     }
 }

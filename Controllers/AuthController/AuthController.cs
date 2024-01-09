@@ -1,6 +1,5 @@
 ﻿using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
-using imc_web_api.Repository;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AuthService;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,8 @@ namespace imc_web_api.Controllers.AuthController
         private readonly IJWTTokenRepository _jWTTokenRepository;
         private readonly IRegistrationService _registrationService;
         private readonly ILoginService _loginService;
-        public AuthController(UserManager<user> manager  , IJWTTokenRepository jWTTokenRepository , IRegistrationService registrationService , ILoginService loginService)
+
+        public AuthController(UserManager<user> manager, IJWTTokenRepository jWTTokenRepository, IRegistrationService registrationService, ILoginService loginService)
         {
             _userManager = manager;
             _jWTTokenRepository = jWTTokenRepository;
@@ -35,7 +35,8 @@ namespace imc_web_api.Controllers.AuthController
                 var result = await _registrationService.AddUser(userData);
 
                 return Ok(new
-                {      Message = "User Registerd Successfully!",
+                {
+                    Message = "User Registerd Successfully!",
                     Data = result
                 });
             }
@@ -45,22 +46,16 @@ namespace imc_web_api.Controllers.AuthController
             }
         }
 
-
-
-
-
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO UserData)
         {
-
             try
             {
                 var result = await _loginService.Login(UserData);
 
                 return Ok(new
                 {
-                   
                     Data = result
                 });
             }

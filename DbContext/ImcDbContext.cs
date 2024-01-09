@@ -1,23 +1,52 @@
 ﻿using imc_web_api.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api
 {
-    public class ImcDbContext : DbContext
+    public class ImcDbContext : IdentityDbContext
     {
         public ImcDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public DbSet<user> User { get; set; }
+        public DbSet<user> Users { get; set; }
+        public DbSet<serviceprovidertype> ServiceProviderTypes { get; set; }
+        public DbSet<user_qualification> User_Qualifications { get; set; }
+
+        public DbSet<service> Services { get; set; }
+
+        //public DbSet<promotion> Promotions { get; set; }
+        //public DbSet<order> Orders { get; set; }
+        //public DbSet<feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<user>()
+                .HasOne(u => u.ServiceProviderType)
+                .WithOne(u => u.User)
+                .HasForeignKey<user>(u => u.ServiceProvidertypeId)
+                 .IsRequired(false)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<user>()
+               .HasOne(u => u.User_Qualification)
+               .WithOne(u => u.User)
+               .HasForeignKey<user>(u => u.User_QualificationId)
+                    .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<service>()
+              .HasOne(s => s.ServiceProviderType)
+              .WithMany(s => s.givenServices)
+              .HasForeignKey(s => s.CreatedByProviderTypeId)
+              .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
-            var AdminRoleId = "4e050638-06b1-4d94-9462-757e387f70a5";
-            var ServiceProviderRoleId = "8fa1d802-1a62-44bb-9f8d-6803a4295c73";
-            var CustomerRoleId = "7aa03b52-a1b4-42de-a645-583f99b0eebb";
+            var AdminRoleId = Guid.NewGuid().ToString();
+            var ServiceProviderRoleId = Guid.NewGuid().ToString();
+            var CustomerRoleId = Guid.NewGuid().ToString();
 
             var roles = new List<IdentityRole>()
             {
@@ -45,26 +74,39 @@ namespace imc_web_api
             };
             builder.Entity<IdentityRole>().HasData(roles);
 
+            // Data seeding for serviceProviderType
+
+            var providerTypeData = new List<serviceprovidertype>
+            {
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Doctor" },
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Pharmacy" },
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Ambulance" },
+            };
+
+            builder.Entity<serviceprovidertype>().HasData(providerTypeData);
+
             // seeding For Admin   User
 
             var adminUser = new user
             {
-                Id = "7da58f98-178a-4bb0-b8fe-f4518ad64d21",
-                firstName = "Muhammad",
-                lastName = "Talha",
-                contact = "03457689432",
-                gender = "Male",
+                Id = Guid.NewGuid().ToString(),
+                FirstName = "Aamir",
+                LastName = "nawaz",
+                PhoneNumber = "03457689432",
+                Gender = "Male",
                 Role = "Admin",
-                UserName = "muhammadtalha@gmail.com",
-                NormalizedUserName = "muhammadtalha@gmail.com",
-                Email = "muhammadtalha@gmail.com",
-                NormalizedEmail = "muhammadtalha@gmail.com",
-                EmailConfirmed = true
+                UserName = "Aamir@gmail.com",
+                NormalizedUserName = "Aamir@gmail.com",
+                Email = "Aamir@gmail.com",
+                NormalizedEmail = "Aamir@gmail.com",
+                EmailConfirmed = true,
+                ServiceProvidertypeId = null,
+                User_QualificationId = null,
             };
 
-            string adminPassword = "talha@123"; // Replace with a secure password
+            string adminPassword = "Aamir@123"; // Replace with a secure password
 
-            var passwordHasher = new PasswordHasher<IdentityUser>();
+            var passwordHasher = new PasswordHasher<user>();
             adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, adminPassword);
 
             builder.Entity<user>().HasData(adminUser);
@@ -73,7 +115,7 @@ namespace imc_web_api
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = AdminRoleId,
-                UserId = adminUser.Id
+                UserId = adminUser.Id.ToString()
             });
             builder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.UserId, iur.RoleId });
         }

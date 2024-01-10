@@ -2,6 +2,6 @@
 {
     public class HCPRequestDTO
     {
-        public string Name { get; set; }
+        public string ProviderName { get; set; }
     }
 }

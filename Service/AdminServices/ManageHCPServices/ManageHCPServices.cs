@@ -1,6 +1,5 @@
 ﻿using imc_web_api.Dtos.HCPDtos;
 using imc_web_api.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Service.AdminServices.ManageHCPServices
 {
@@ -13,21 +12,27 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             _imcDbContext = imcDbContext;
         }
 
-        public async Task<IActionResult> AddProvider(HCPRequestDTO UserInputRegest)
+        public async Task<serviceprovidertype> AddProvider(HCPRequestDTO UserInputRegest)
         {
             try
             {
+                // Convert HCPRequestDTO to    serviceprovidertype Model
+                var HCP = new serviceprovidertype
+                {
+                    ProviderName = UserInputRegest.ProviderName
+                };
+
+                if (UserInputRegest == null)
+                {
+                    throw new ArgumentNullException(nameof(UserInputRegest), "User input is null.");
+                }
+
                 if (UserInputRegest != null)
                 {
-                   var addedProvider =  await _imcDbContext.AddAsync(UserInputRegest);
-                   await _imcDbContext.SaveChangesAsync();
+                    var AddedProvider = await _imcDbContext.ServiceProviderTypes.AddAsync(HCP);
+                    await _imcDbContext.SaveChangesAsync();
 
-                    //var result = new serviceprovidertype
-                    //{
-                    //      addedProvider
-                    //};
-
-                    return null;
+                    return HCP;
                 }
                 else
                 {
@@ -36,7 +41,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while adding the provider."+ ex.Message);
+                throw new Exception("An error occurred while adding the provider." + ex.Message);
             }
         }
 

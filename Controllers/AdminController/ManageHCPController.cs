@@ -22,12 +22,21 @@ namespace imc_web_api.Controllers.AdminController
         [Route("AddHCP")]
         public async Task<IActionResult> AddHCP([FromBody] HCPRequestDTO UserInputReguest)
         {
-            //return await _manageHCPService.AddProvider(UserInputReguest);
-            return null;
+            var HCP_Result = await _manageHCPService.AddProvider(UserInputReguest);
+
+            var HCPDto_Result = new HCPRequestDTO
+            {
+                ProviderName = HCP_Result.ProviderName
+            };
+            return Ok(new
+            {
+                Data = HCPDto_Result,
+                Message = "Provider Added Successfully!"
+            });
         }
 
         //-->Update HCP
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateHCP")]
         public Task<IActionResult> UpdateHCP()
         {
@@ -35,9 +44,9 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->GetAll HCP
-        [HttpPost]
-        [Route("GetHCP")]
-        public Task<IActionResult> GetHCP()
+        [HttpGet]
+        [Route("GetHCPs")]
+        public Task<IActionResult> GetHCPs()
         {
             return null;
         }
@@ -51,7 +60,7 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->Delete HCP
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteHCP")]
         public Task<IActionResult> DeleteHCP(Guid id)
         {

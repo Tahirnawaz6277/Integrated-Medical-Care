@@ -1,4 +1,5 @@
 ﻿using imc_web_api.Dtos.HCPDtos;
+using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,17 +46,17 @@ namespace imc_web_api.Controllers.AdminController
         //-->Get HCP By Id
         [HttpGet]
         [Route("GetHCP/{id:Guid}")]
-        public Task<IActionResult> GetHCP(Guid id)
+        public async Task<serviceprovidertype> GetUserById(Guid id)
         {
-            return null;
+            return await _manageHCPService.GetProviderById(id);
         }
 
         //-->Delete HCP
         [HttpPost]
         [Route("DeleteHCP")]
-        public Task<IActionResult> DeleteHCP(Guid id)
+        public async Task<serviceprovidertype> DeleteHCP(Guid id)
         {
-            return null;
+            return await _manageHCPService.DeleteProvider(id);
         }
     }
 }

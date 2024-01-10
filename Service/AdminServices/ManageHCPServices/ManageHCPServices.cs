@@ -43,22 +43,35 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
 
         public async Task<serviceprovidertype> DeleteProvider(Guid id)
         {
-            var HcpUser = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (HcpUser != null)
+            try
             {
-                _imcDbContext.ServiceProviderTypes.Remove(HcpUser);
-                await _imcDbContext.SaveChangesAsync();
-                return HcpUser;
+                var serviceProvider = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(x => x.Id == id);
 
+                if (serviceProvider != null)
+                {
+                    _imcDbContext.ServiceProviderTypes.Remove(serviceProvider);
+                    await _imcDbContext.SaveChangesAsync();
+                    return serviceProvider;
+                }
+
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while deleting provider with this ID  {ex.Message}");
+            }
         }
 
-       
-        public Task<List<serviceprovidertype>> GetProviders()
+        public async Task<List<serviceprovidertype>> GetProviders()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _imcDbContext.ServiceProviderTypes.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving providers {ex.Message}");
+            }
         }
 
         public Task UpdateProvider()

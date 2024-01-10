@@ -36,11 +36,11 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->GetAll HCP
-        [HttpPost]
+        [HttpGet]
         [Route("GetHCP")]
-        public Task<IActionResult> GetHCP()
+        public async Task<List<serviceprovidertype>> GetHCP()
         {
-            return null;
+            return await _manageHCPService.GetProviders();
         }
 
         //-->Get HCP By Id
@@ -52,7 +52,7 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->Delete HCP
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteHCP")]
         public async Task<serviceprovidertype> DeleteHCP(Guid id)
         {

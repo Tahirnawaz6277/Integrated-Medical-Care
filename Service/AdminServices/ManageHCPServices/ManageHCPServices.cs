@@ -74,11 +74,6 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             }
         }
 
-        public Task UpdateProvider()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<serviceprovidertype> GetProviderById(Guid id)
         {
             try
@@ -93,6 +88,30 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+        public async Task<serviceprovidertype> UpdateProvider(Guid id, HCPRequestDTO inputRequestDTO)
+        {
+            try
+            {
+                var serviceProvider = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(e => e.Id == id);
+
+                if (serviceProvider != null)
+                {
+                    // Update properties based on inputRequestDTO
+                    serviceProvider.ProviderName = inputRequestDTO.Name;
+
+                   
+                    await _imcDbContext.SaveChangesAsync();
+                    return serviceProvider;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception($"An error occurred while updating provider with ID {id}: {ex.Message}");
             }
         }
     }

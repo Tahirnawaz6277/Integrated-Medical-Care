@@ -28,11 +28,11 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->Update HCP
-        [HttpPost]
-        [Route("UpdateHCP")]
-        public Task<IActionResult> UpdateHCP()
+        [HttpPut]
+        [Route("UpdateHCP/{id:Guid}")]
+        public async Task<serviceprovidertype> UpdateHCP(Guid id,[FromBody] HCPRequestDTO InputRequest)
         {
-            return null;
+            return await _manageHCPService.UpdateProvider(id, InputRequest);
         }
 
         //-->GetAll HCP

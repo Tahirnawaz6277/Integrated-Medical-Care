@@ -1,6 +1,6 @@
 ﻿using imc_web_api.Dtos.HCPDtos;
 using imc_web_api.Models;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageHCPServices
@@ -14,21 +14,24 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             _imcDbContext = imcDbContext;
         }
 
-        public async Task<IActionResult> AddProvider(HCPRequestDTO UserInputRegest)
+        public async Task<serviceprovidertype> AddProvider(HCPRequestDTO UserInputReqest)
         {
             try
             {
-                if (UserInputRegest != null)
+                // Convert HCPRequestDTO to    serviceprovidertype Model
+                var HCP = new serviceprovidertype
                 {
-                    var addedProvider = await _imcDbContext.AddAsync(UserInputRegest);
+                    ProviderName = UserInputReqest.ProviderName
+                };
+
+                if (UserInputReqest != null)
+                {
+                    var AddedProvider = await _imcDbContext.ServiceProviderTypes.AddAsync(HCP);
+
                     await _imcDbContext.SaveChangesAsync();
 
-                    //var result = new serviceprovidertype
-                    //{
-                    //      addedProvider
-                    //};
 
-                    return null;
+                    return HCP;
                 }
                 else
                 {
@@ -37,7 +40,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while adding the provider." + ex.Message);
+                throw new Exception("An error occurred while adding the provider." + ex.Message,ex);
             }
         }
 
@@ -99,7 +102,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
 
                 if (serviceProvider != null)
                 {
-                    serviceProvider.ProviderName = inputRequestDTO.Name;
+                    serviceProvider.ProviderName = inputRequestDTO.ProviderName;
 
                     await _imcDbContext.SaveChangesAsync();
                     return serviceProvider;

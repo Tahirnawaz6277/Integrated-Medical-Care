@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace imc_web_api.Migrations
 {
     /// <inheritdoc />
-    public partial class DBiNIT : Migration
+    public partial class dbinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -234,30 +234,30 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "252576d2-82a7-4dfd-ae9a-6518baf0f6f2", "252576d2-82a7-4dfd-ae9a-6518baf0f6f2", "Admin", "ADMIN" },
-                    { "50589d17-5496-4ee9-bd21-c051bc06c842", "50589d17-5496-4ee9-bd21-c051bc06c842", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "eb2e7ea6-534d-4211-9bca-750e9b1f1f2b", "eb2e7ea6-534d-4211-9bca-750e9b1f1f2b", "Customer", "CUSTOMER" }
+                    { "3e625318-cedb-4700-b513-ec4ee6653aed", "3e625318-cedb-4700-b513-ec4ee6653aed", "Admin", "ADMIN" },
+                    { "ab016526-6e43-4bb0-af1d-5d82778d85de", "ab016526-6e43-4bb0-af1d-5d82778d85de", "ServiceProvider", "SERVICEPROVIDER" },
+                    { "c2991711-eeae-423a-a338-1ee96e743396", "c2991711-eeae-423a-a338-1ee96e743396", "Customer", "CUSTOMER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
-                values: new object[] { "57544ba0-9da2-49f3-ac21-e6bf018a90a1", 0, "f98a8bed-742b-426c-8f2e-188f9255738e", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEKKQqqp9O84HNDpF9RIwPHHj4klSsb4gmXBQ+LFOVpg0/knIapLPWcKkhRU5ljLS7Q==", "03457689432", false, "Admin", "b22ba1e5-a85e-4705-8b0e-b05d15693e96", null, false, "Aamir@gmail.com", null });
+                values: new object[] { "9106186f-87ac-4a8b-89c9-c828a290ada6", 0, "565c5442-643a-4f79-b226-0b5bf215d4fd", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEF4mjqj97UIVG7yegWVC5Wf0tEZY/T9GCN8QzSv4xCymrTR/t9P3M2ZppmSl4SVN7w==", "03457689432", false, "Admin", "d2a64c8b-35c3-46db-bbd5-e032fb78c2a6", null, false, "Aamir@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "ServiceProviderTypes",
                 columns: new[] { "Id", "ProviderName" },
                 values: new object[,]
                 {
-                    { new Guid("2707e094-34ac-48a4-b452-b6be72d64df8"), "Pharmacy" },
-                    { new Guid("5416a43a-75d8-44d9-92ca-89dd22eb82b6"), "Doctor" },
-                    { new Guid("c6609b31-d92e-4a8e-9e75-61130e886fe7"), "Ambulance" }
+                    { new Guid("00a159e4-e40f-4dea-9544-8a8d9bef12c6"), "Doctor" },
+                    { new Guid("04265801-236f-4773-b382-5859a1426e30"), "Ambulance" },
+                    { new Guid("5ac5bd5b-7771-47be-9ac6-fdf105e52935"), "Pharmacy" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "252576d2-82a7-4dfd-ae9a-6518baf0f6f2", "57544ba0-9da2-49f3-ac21-e6bf018a90a1" });
+                values: new object[] { "3e625318-cedb-4700-b513-ec4ee6653aed", "9106186f-87ac-4a8b-89c9-c828a290ada6" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

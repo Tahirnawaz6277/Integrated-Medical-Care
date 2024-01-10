@@ -78,7 +78,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
         {
             try
             {
-                var checkhcp = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(u => u.Id == id);
+                var checkhcp = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(sp => sp.Id == id);
                 if (checkhcp == null)
                 {
                     return null;
@@ -90,27 +90,27 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
                 throw new Exception(ex.Message);
             }
         }
+
         public async Task<serviceprovidertype> UpdateProvider(Guid id, HCPRequestDTO inputRequestDTO)
         {
             try
             {
-                var serviceProvider = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(e => e.Id == id);
+                var serviceProvider = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(sp => sp.Id == id);
 
                 if (serviceProvider != null)
                 {
-                    // Update properties based on inputRequestDTO
                     serviceProvider.ProviderName = inputRequestDTO.Name;
 
-                   
                     await _imcDbContext.SaveChangesAsync();
                     return serviceProvider;
                 }
-
-                return null;
+                else
+                {
+                    throw new Exception("Provider Record Not Exist");
+                }
             }
             catch (Exception ex)
             {
-                
                 throw new Exception($"An error occurred while updating provider with ID {id}: {ex.Message}");
             }
         }

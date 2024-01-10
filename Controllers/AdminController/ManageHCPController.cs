@@ -30,15 +30,15 @@ namespace imc_web_api.Controllers.AdminController
         //-->Update HCP
         [HttpPut]
         [Route("UpdateHCP/{id:Guid}")]
-        public async Task<serviceprovidertype> UpdateHCP(Guid id,[FromBody] HCPRequestDTO InputRequest)
+        public async Task<serviceprovidertype> UpdateHCP(Guid id, [FromBody] HCPRequestDTO InputRequest)
         {
             return await _manageHCPService.UpdateProvider(id, InputRequest);
         }
 
         //-->GetAll HCP
         [HttpGet]
-        [Route("GetHCP")]
-        public async Task<List<serviceprovidertype>> GetHCP()
+        [Route("GetHCPs")]
+        public async Task<List<serviceprovidertype>> GetHCPs()
         {
             return await _manageHCPService.GetProviders();
         }
@@ -46,7 +46,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->Get HCP By Id
         [HttpGet]
         [Route("GetHCP/{id:Guid}")]
-        public async Task<serviceprovidertype> GetUserById(Guid id)
+        public async Task<serviceprovidertype> GetHCPById(Guid id)
         {
             return await _manageHCPService.GetProviderById(id);
         }

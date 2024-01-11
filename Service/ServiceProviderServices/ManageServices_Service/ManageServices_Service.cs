@@ -1,7 +1,7 @@
 ﻿using imc_web_api.Models;
-using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
+using Microsoft.EntityFrameworkCore;
 
-namespace imc_web_api.Service.ServiceProviderService.ManageServices
+namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices
 {
     public class ManageServices_Service : IManageServices_Service
     {
@@ -18,7 +18,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices
             {
                 if (serviceInputRequest != null)
                 {
-                    await _dbContext.Services.AddAsync(serviceInputRequest);
+                    await _dbContext.AddAsync(serviceInputRequest);
                     await _dbContext.SaveChangesAsync();
                     return serviceInputRequest;
                 }
@@ -32,7 +32,6 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices
                 throw new Exception("Failed to add service", ex);
             }
         }
-        
 
         public Task<service> DeleteService(Guid id)
         {
@@ -44,9 +43,16 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices
             throw new NotImplementedException();
         }
 
-        public Task<List<service>> GetServices()
+        public async Task<List<service>> GetServices()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.Services.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving providers {ex.Message}");
+            }
         }
 
         public Task<service> UpdateService(Guid id, service ServiceInputRequest)

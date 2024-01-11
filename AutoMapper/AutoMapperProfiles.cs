@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using imc_web_api.Dtos.AdminDtos.HCPDtos;
+using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
 
 namespace imc_web_api.AutoMapper
@@ -10,6 +11,10 @@ namespace imc_web_api.AutoMapper
         {
             CreateMap<serviceprovidertype, HCPRequestDTO>().ReverseMap();
             CreateMap<serviceprovidertype, HCPResponseDTO>().ReverseMap();
+
+
+            CreateMap<service, ServiceRequestDTO>().ReverseMap();
+            CreateMap<service, ServiceResponseDTO>().ReverseMap();
         }
     }
 }

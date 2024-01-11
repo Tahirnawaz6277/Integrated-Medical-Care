@@ -40,7 +40,6 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
                 throw new Exception("An error occurred while adding the provider." + ex.Message, ex);
             }
         }
-
         public async Task<serviceprovidertype> DeleteProvider(Guid id)
         {
             try

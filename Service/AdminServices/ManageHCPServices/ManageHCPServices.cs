@@ -1,4 +1,6 @@
-﻿using imc_web_api.Dtos.HCPDtos;
+﻿using AutoMapper;
+using imc_web_api.Dtos.AdminDtos.HCPDtos;
+
 using imc_web_api.Models;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,30 +10,25 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
     public class ManageHCPServices : IManageHCPService
     {
         private readonly ImcDbContext _imcDbContext;
+        private readonly IMapper _mapper;
 
-        public ManageHCPServices(ImcDbContext imcDbContext)
+        public ManageHCPServices(ImcDbContext imcDbContext, IMapper mapper)
         {
             _imcDbContext = imcDbContext;
+            _mapper = mapper;
         }
 
-        public async Task<serviceprovidertype> AddProvider(HCPRequestDTO UserInputReqest)
+        public async Task<serviceprovidertype> AddProvider(serviceprovidertype UserInputReqest)
         {
             try
             {
-                // Convert HCPRequestDTO to    serviceprovidertype Model
-                var HCP = new serviceprovidertype
-                {
-                    ProviderName = UserInputReqest.ProviderName
-                };
-
                 if (UserInputReqest != null)
                 {
-                    var AddedProvider = await _imcDbContext.ServiceProviderTypes.AddAsync(HCP);
+                    await _imcDbContext.ServiceProviderTypes.AddAsync(UserInputReqest);
 
                     await _imcDbContext.SaveChangesAsync();
 
-
-                    return HCP;
+                    return UserInputReqest;
                 }
                 else
                 {
@@ -40,7 +37,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while adding the provider." + ex.Message,ex);
+                throw new Exception("An error occurred while adding the provider." + ex.Message, ex);
             }
         }
 

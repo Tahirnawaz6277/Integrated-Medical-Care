@@ -4,7 +4,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManageServicesController : ControllerBase
+    public class ManageServiceController : ControllerBase
     {
 
 

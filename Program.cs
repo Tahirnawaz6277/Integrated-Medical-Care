@@ -1,4 +1,5 @@
 using imc_web_api;
+using imc_web_api.AutoMapper;
 using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
@@ -27,7 +28,7 @@ builder.Services.AddScoped<IJWTTokenRepository, JWTTokenRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware
 builder.Services.AddDataProtection();
 // Now we Inject This line adds the Identity framework to your ASP.NET Core application.

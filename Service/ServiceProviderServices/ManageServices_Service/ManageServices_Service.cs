@@ -83,7 +83,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving Service {ex.Message}");
+                throw new Exception($"An error occurred while retrieving providers {ex.Message}");
             }
         }
 

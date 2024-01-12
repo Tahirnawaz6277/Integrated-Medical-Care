@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using imc_web_api.Dtos.AdminDtos.HCPDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
@@ -34,6 +35,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
             {
                 Data = ServiceDtoResult,
                 Message = "Service Added Successfully!"
+                Message = "Provider Added Successfully!"
             });
         }
 
@@ -46,6 +48,9 @@ namespace imc_web_api.Controllers.ServiceProviderController
 
             var se = await _manageServices.UpdateService(id, model);
             return se;
+        public async Task<HCPResponseDTO> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
+        {
+            return null;
         }
 
         //-->GetAll Service
@@ -73,6 +78,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
                 Data = service,
                 Message = "Service Retreiving Sucessfully!"
             });
+            return null;
         }
 
         //-->Delete Service
@@ -87,6 +93,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
                 Message = "Service Deleted Successfully!"
             });
             ;
+            return null;
         }
     }
 }

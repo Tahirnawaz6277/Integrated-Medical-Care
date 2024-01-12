@@ -2,6 +2,7 @@
 using imc_web_api.Dtos.AdminDtos.HCPDtos;
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
+using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
 
 namespace imc_web_api.AutoMapper
@@ -13,6 +14,7 @@ namespace imc_web_api.AutoMapper
             //Mapping for serviceProvider
             CreateMap<serviceprovidertype, HCPRequestDTO>().ReverseMap();
             CreateMap<serviceprovidertype, HCPResponseDTO>().ReverseMap();
+
 
             //Mapping for Qualification
             CreateMap<user_qualification, QualificationRequestDTO>().ReverseMap();

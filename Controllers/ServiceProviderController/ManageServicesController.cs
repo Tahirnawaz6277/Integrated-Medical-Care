@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using imc_web_api.Dtos.AdminDtos.HCPDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
@@ -32,16 +31,19 @@ namespace imc_web_api.Controllers.ServiceProviderController
             return Ok(new
             {
                 Data = ServiceDtoResult,
-                Message = "Provider Added Successfully!"
+                Message = "Service Added Successfully!"
             });
         }
 
         //-->Update Service
         [HttpPut]
         [Route("UpdateService/{id:Guid}")]
-        public async Task<HCPResponseDTO> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
+        public async Task<service> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
         {
-            return null;
+            var model = _mapper.Map<service>(ServiceInputRequest);
+
+            var se = await _manageServices.UpdateService(id, model);
+            return se;
         }
 
         //-->GetAll Service
@@ -59,7 +61,16 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Route("GetServiceById/{id:Guid}")]
         public async Task<IActionResult> GetServiceById(Guid id)
         {
-            return null;
+            var service = await _manageServices.GetServiceById(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            return Ok(new
+            {
+                Data = service,
+                Message = "Service Retreiving Sucessfully!"
+            });
         }
 
         //-->Delete Service
@@ -67,7 +78,13 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Route("DeleteService")]
         public async Task<IActionResult> DeleteService(Guid id)
         {
-            return null;
+            var DeleteService = await _manageServices.DeleteService(id);
+            return Ok(new
+            {
+                Data = DeleteService,
+                Message = "Service Deleted Successfully!"
+            });
+            ;
         }
     }
 }

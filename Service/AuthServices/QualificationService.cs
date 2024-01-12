@@ -93,7 +93,6 @@ namespace imc_web_api.Service.AuthServices
         {
             if (id == Guid.Empty)
             {
-                //testing
                 throw new ArgumentNullException("ID is required", nameof(id));
             }
             try

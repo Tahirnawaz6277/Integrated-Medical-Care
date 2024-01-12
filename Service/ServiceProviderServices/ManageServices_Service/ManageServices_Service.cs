@@ -1,7 +1,7 @@
 ﻿using imc_web_api.Models;
-using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
+using Microsoft.EntityFrameworkCore;
 
-namespace imc_web_api.Service.ServiceProviderService.ManageServices
+namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices
 {
     public class ManageServices_Service : IManageServices_Service
     {
@@ -18,13 +18,13 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices
             {
                 if (serviceInputRequest != null)
                 {
-                    await _dbContext.Services.AddAsync(serviceInputRequest);
+                    await _dbContext.AddAsync(serviceInputRequest);
                     await _dbContext.SaveChangesAsync();
                     return serviceInputRequest;
                 }
                 else
                 {
-                    throw new Exception("Service input request cannot be null");
+                    throw new Exception("Service not found");
                 }
             }
             catch (Exception ex)
@@ -32,26 +32,95 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices
                 throw new Exception("Failed to add service", ex);
             }
         }
-        
 
-        public Task<service> DeleteService(Guid id)
+        public async Task<service> DeleteService(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Service = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+                if (Service == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    _dbContext.Services.Remove(Service);
+                    await _dbContext.SaveChangesAsync();
+                    return Service;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while Deleting Service with this id {ex.Message}");
+            }
         }
 
-        public Task<service> GetServiceById(Guid id)
+        public async Task<service> GetServiceById(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Service = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+                if (Service == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return Service;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving Service {ex.Message}");
+            }
         }
 
-        public Task<List<service>> GetServices()
+        public async Task<List<service>> GetServices()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.Services.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving Service {ex.Message}");
+            }
         }
 
-        public Task<service> UpdateService(Guid id, service ServiceInputRequest)
+        public async Task<service> UpdateService(Guid id, service ServiceInputRequest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (id == null && ServiceInputRequest == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var ExistingService = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+                    if (ExistingService != null)
+                    {
+                        ExistingService.ServiceName = ServiceInputRequest.ServiceName;
+                        ExistingService.image = ServiceInputRequest.image;
+                        ExistingService.Status = ServiceInputRequest.Status;
+                        ExistingService.ServiceProviderType = ServiceInputRequest.ServiceProviderType;
+                        ExistingService.Id = id;
+                        ExistingService.charges = ServiceInputRequest.charges;
+                        ExistingService.AvailableQuantity = ServiceInputRequest.AvailableQuantity;
+                        ExistingService.TotalQuantity = ServiceInputRequest.TotalQuantity;
+                        await _dbContext.SaveChangesAsync();
+                        return ExistingService;
+                    }
+                    else
+                    {
+                        throw new Exception("Service Record Not Exist");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while updating Service with ID {id}: {ex.Message}");
+            }
         }
     }
 }

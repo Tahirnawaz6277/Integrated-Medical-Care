@@ -7,6 +7,7 @@ using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
 using imc_web_api.Service.AuthService;
 using imc_web_api.Service.AuthServices;
+using imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
+builder.Services.AddScoped<IManageServices_Service ,ManageServices_Service >();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware
 builder.Services.AddDataProtection();

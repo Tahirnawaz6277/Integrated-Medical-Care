@@ -12,8 +12,8 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
-    [Migration("20240110232853_dbinit")]
-    partial class dbinit
+    [Migration("20240112104241_Db Init")]
+    partial class DbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,22 +54,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3e625318-cedb-4700-b513-ec4ee6653aed",
-                            ConcurrencyStamp = "3e625318-cedb-4700-b513-ec4ee6653aed",
+                            Id = "1ff498b2-e554-4069-b7af-5b24842850d8",
+                            ConcurrencyStamp = "1ff498b2-e554-4069-b7af-5b24842850d8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ab016526-6e43-4bb0-af1d-5d82778d85de",
-                            ConcurrencyStamp = "ab016526-6e43-4bb0-af1d-5d82778d85de",
+                            Id = "9f92260f-4304-4b3f-a6a9-f2f5192021d1",
+                            ConcurrencyStamp = "9f92260f-4304-4b3f-a6a9-f2f5192021d1",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "c2991711-eeae-423a-a338-1ee96e743396",
-                            ConcurrencyStamp = "c2991711-eeae-423a-a338-1ee96e743396",
+                            Id = "381421ea-d71d-4cd8-98fd-a39aa2543067",
+                            ConcurrencyStamp = "381421ea-d71d-4cd8-98fd-a39aa2543067",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -237,8 +237,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9106186f-87ac-4a8b-89c9-c828a290ada6",
-                            RoleId = "3e625318-cedb-4700-b513-ec4ee6653aed"
+                            UserId = "dbce9a15-c57c-4469-8b75-8bcb258b50c9",
+                            RoleId = "1ff498b2-e554-4069-b7af-5b24842850d8"
                         });
                 });
 
@@ -321,17 +321,17 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("00a159e4-e40f-4dea-9544-8a8d9bef12c6"),
+                            Id = new Guid("c38ac659-e63f-4cb3-915b-03ab451f7134"),
                             ProviderName = "Doctor"
                         },
                         new
                         {
-                            Id = new Guid("5ac5bd5b-7771-47be-9ac6-fdf105e52935"),
+                            Id = new Guid("9bc6d72c-3daa-4a1a-91b5-599de1bacee2"),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
-                            Id = new Guid("04265801-236f-4773-b382-5859a1426e30"),
+                            Id = new Guid("c287054d-bc80-4dde-96cc-8d5d5146a964"),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -350,12 +350,39 @@ namespace imc_web_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("userId")
-                        .HasColumnType("int");
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("userId")
+                        .IsUnique();
+
                     b.ToTable("User_Qualifications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3ab416d0-2d5f-4a69-8c6a-d5a0ec6e23e3"),
+                            experience = "10 YEAR",
+                            qualification = "MBBS",
+                            userId = "7a08ad40-156c-438b-8249-37c5adb710b0"
+                        },
+                        new
+                        {
+                            Id = new Guid("a89792b3-8d6e-48ae-bcd0-336be82bdf0f"),
+                            experience = "3 YEAR",
+                            qualification = "MD",
+                            userId = "5bfa61db-540d-48e6-9fca-94a7011c9487"
+                        },
+                        new
+                        {
+                            Id = new Guid("63910dcf-8432-4a1a-8539-195052f876bc"),
+                            experience = "1 YEAR",
+                            qualification = "BDS",
+                            userId = "817f7cdd-a590-4d83-99a4-28ff4270fc48"
+                        });
                 });
 
             modelBuilder.Entity("imc_web_api.Models.user", b =>
@@ -388,33 +415,98 @@ namespace imc_web_api.Migrations
                         .IsUnique()
                         .HasFilter("[ServiceProvidertypeId] IS NOT NULL");
 
-                    b.HasIndex("User_QualificationId")
-                        .IsUnique()
-                        .HasFilter("[User_QualificationId] IS NOT NULL");
-
                     b.HasDiscriminator().HasValue("user");
 
                     b.HasData(
                         new
                         {
-                            Id = "9106186f-87ac-4a8b-89c9-c828a290ada6",
+                            Id = "dbce9a15-c57c-4469-8b75-8bcb258b50c9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "565c5442-643a-4f79-b226-0b5bf215d4fd",
+                            ConcurrencyStamp = "251aa8ee-5746-475f-83d8-f4a046150060",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF4mjqj97UIVG7yegWVC5Wf0tEZY/T9GCN8QzSv4xCymrTR/t9P3M2ZppmSl4SVN7w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHzSCjvwyGgUP0uoS8PQYim7UU01aThEwIdrg+b7XiNC0wk3+KDdMSWNgZHZBf7fMQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d2a64c8b-35c3-46db-bbd5-e032fb78c2a6",
+                            SecurityStamp = "bb6fbd27-56b3-4e43-b079-dc7668a82a66",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
                             FirstName = "Aamir",
                             Gender = "Male",
                             LastName = "nawaz",
                             Role = "Admin"
+                        },
+                        new
+                        {
+                            Id = "7a08ad40-156c-438b-8249-37c5adb710b0",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bc76a07b-c84a-4e4e-aaf8-a811e3ebf770",
+                            Email = "Aqib@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "Aqib@gmail.com",
+                            NormalizedUserName = "Aqib@gmail.com",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEtuYA4As0HMnqRDEzBi/Ijr9ukm23douSF5ncERSH760SBabKGKkYmUcQyScgqZDg==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2b06efe2-27bb-452d-b4df-bcf3e71a556f",
+                            TwoFactorEnabled = false,
+                            UserName = "Aqib@gmail.com",
+                            FirstName = "Aqib",
+                            Gender = "Male",
+                            LastName = "nawaz",
+                            Role = "Provider",
+                            ServiceProvidertypeId = new Guid("c38ac659-e63f-4cb3-915b-03ab451f7134"),
+                            User_QualificationId = new Guid("3ab416d0-2d5f-4a69-8c6a-d5a0ec6e23e3")
+                        },
+                        new
+                        {
+                            Id = "5bfa61db-540d-48e6-9fca-94a7011c9487",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3e794512-75bf-4ea2-9190-ba19df31e03c",
+                            Email = "Waheed@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "Waheed@gmail.com",
+                            NormalizedUserName = "Waheed@gmail.com",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH175qLo3b5MO7A3OcTuHckVAfEzkxlGpG1tiR2eIalnJ6LGug3tqzuMyVXgZKrh7Q==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "95f3047f-47dd-4f18-b1c4-88baadde2f9e",
+                            TwoFactorEnabled = false,
+                            UserName = "Waheed@gmail.com",
+                            FirstName = "Waheed",
+                            Gender = "Male",
+                            LastName = "Quraishi",
+                            Role = "Provider",
+                            ServiceProvidertypeId = new Guid("9bc6d72c-3daa-4a1a-91b5-599de1bacee2"),
+                            User_QualificationId = new Guid("a89792b3-8d6e-48ae-bcd0-336be82bdf0f")
+                        },
+                        new
+                        {
+                            Id = "817f7cdd-a590-4d83-99a4-28ff4270fc48",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0e1dff4b-98d7-4134-8c4b-0daf6f84b717",
+                            Email = "Hameed@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "Hameed@gmail.com",
+                            NormalizedUserName = "Hameed@gmail.com",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFnB94eZ00oSiY+v0GKM4qlS8qkgc3h+hn8h90y6ZQ9BS6ti1Ms+CV83NCkvZ5s6Qg==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a1cb0b8d-9a80-46fb-a88d-13547d8ec96f",
+                            TwoFactorEnabled = false,
+                            UserName = "Hameed@gmail.com",
+                            FirstName = "Hameed",
+                            Gender = "Male",
+                            LastName = "Khan",
+                            Role = "Provider",
+                            ServiceProvidertypeId = new Guid("c287054d-bc80-4dde-96cc-8d5d5146a964"),
+                            User_QualificationId = new Guid("63910dcf-8432-4a1a-8539-195052f876bc")
                         });
                 });
 
@@ -480,6 +572,17 @@ namespace imc_web_api.Migrations
                     b.Navigation("ServiceProviderType");
                 });
 
+            modelBuilder.Entity("imc_web_api.Models.user_qualification", b =>
+                {
+                    b.HasOne("imc_web_api.Models.user", "User")
+                        .WithOne("User_Qualification")
+                        .HasForeignKey("imc_web_api.Models.user_qualification", "userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("imc_web_api.Models.user", b =>
                 {
                     b.HasOne("imc_web_api.Models.serviceprovidertype", "ServiceProviderType")
@@ -487,14 +590,7 @@ namespace imc_web_api.Migrations
                         .HasForeignKey("imc_web_api.Models.user", "ServiceProvidertypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("imc_web_api.Models.user_qualification", "User_Qualification")
-                        .WithOne("User")
-                        .HasForeignKey("imc_web_api.Models.user", "User_QualificationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("ServiceProviderType");
-
-                    b.Navigation("User_Qualification");
                 });
 
             modelBuilder.Entity("imc_web_api.Models.serviceprovidertype", b =>
@@ -505,10 +601,9 @@ namespace imc_web_api.Migrations
                     b.Navigation("givenServices");
                 });
 
-            modelBuilder.Entity("imc_web_api.Models.user_qualification", b =>
+            modelBuilder.Entity("imc_web_api.Models.user", b =>
                 {
-                    b.Navigation("User")
-                        .IsRequired();
+                    b.Navigation("User_Qualification");
                 });
 #pragma warning restore 612, 618
         }

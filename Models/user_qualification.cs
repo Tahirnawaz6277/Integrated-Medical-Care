@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace imc_web_api.Models
 {
@@ -11,7 +12,8 @@ namespace imc_web_api.Models
 
         public string experience { get; set; }
 
-        public int userId { get; set; }
+        public string userId { get; set; }
+        [ForeignKey("userId")]  
         public user User { get; set; }
     }
 }

@@ -37,6 +37,13 @@ namespace imc_web_api
                     .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<user_qualification>()
+               .HasOne(u => u.User)
+               .WithOne(u => u.User_Qualification)
+               .HasForeignKey<user_qualification>(u => u.userId)
+                    .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<service>()
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
@@ -74,17 +81,6 @@ namespace imc_web_api
             };
             builder.Entity<IdentityRole>().HasData(roles);
 
-            // Data seeding for serviceProviderType
-
-            var providerTypeData = new List<serviceprovidertype>
-            {
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Doctor" },
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Pharmacy" },
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Ambulance" },
-            };
-
-            builder.Entity<serviceprovidertype>().HasData(providerTypeData);
-
             // seeding For Admin   User
 
             var adminUser = new user
@@ -118,6 +114,111 @@ namespace imc_web_api
                 UserId = adminUser.Id.ToString()
             });
             builder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.UserId, iur.RoleId });
+
+            // Data seeding for serviceProviderType
+
+            var providerTypeData = new List<serviceprovidertype>
+            {
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Doctor" },
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Pharmacy" },
+                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Ambulance" },
+            };
+
+            builder.Entity<serviceprovidertype>().HasData(providerTypeData);
+
+            //--->> Data seeding for Qualification
+
+            var qualification = new List<user_qualification>()
+            {
+               new user_qualification{
+                   Id = Guid.NewGuid(),
+                qualification = "MBBS",
+                experience = "10 YEAR",
+               },
+                 new user_qualification{
+                   Id = Guid.NewGuid(),
+                qualification = "MD",
+                experience = "3 YEAR",
+               }
+                 ,
+                   new user_qualification{
+                   Id = Guid.NewGuid(),
+                qualification = "BDS",
+                experience = "1 YEAR",
+               }
+            };
+
+       
+            //--->> Data seeding for User_Provider_doctor
+
+            var provider_Doctor = new List<user>()
+            {
+                new user
+                {
+                   Id = Guid.NewGuid().ToString(),
+                FirstName = "Aqib",
+                LastName = "nawaz",
+                PhoneNumber = "03457689432",
+                Gender = "Male",
+                Role = "Provider",
+                UserName = "Aqib@gmail.com",
+                NormalizedUserName = "Aqib@gmail.com",
+                Email = "Aqib@gmail.com",
+                NormalizedEmail = "Aqib@gmail.com",
+                EmailConfirmed = true,
+                ServiceProvidertypeId = providerTypeData[0].Id,
+                User_QualificationId = qualification[0].Id,
+                },
+                new user
+                {
+                   Id = Guid.NewGuid().ToString(),
+                FirstName = "Waheed",
+                LastName = "Quraishi",
+                PhoneNumber = "03457689432",
+                Gender = "Male",
+                Role = "Provider",
+                UserName = "Waheed@gmail.com",
+                NormalizedUserName = "Waheed@gmail.com",
+                Email = "Waheed@gmail.com",
+                NormalizedEmail = "Waheed@gmail.com",
+                EmailConfirmed = true,
+                ServiceProvidertypeId = providerTypeData[1].Id,
+                User_QualificationId = qualification[1] .Id,
+                },
+                new user
+                {
+                   Id = Guid.NewGuid().ToString(),
+                FirstName = "Hameed",
+                LastName = "Khan",
+                PhoneNumber = "03457689432",
+                Gender = "Male",
+                Role = "Provider",
+                UserName = "Hameed@gmail.com",
+                NormalizedUserName = "Hameed@gmail.com",
+                Email = "Hameed@gmail.com",
+                NormalizedEmail = "Hameed@gmail.com",
+                EmailConfirmed = true,
+                ServiceProvidertypeId = providerTypeData[2].Id,
+                User_QualificationId = qualification[2].Id,
+                }
+            };
+            qualification[0].userId = provider_Doctor[0].Id.ToString();
+            qualification[1].userId = provider_Doctor[1].Id.ToString();
+            qualification[2].userId = provider_Doctor[2].Id.ToString();
+
+            builder.Entity<user_qualification>().HasData(qualification);
+            string provider_DoctorPass = "Aamir@123"; // Replace with a secure password
+            string provider_DoctorPass1 = "Waheed@123"; // Replace with a secure password
+
+            string provider_DoctorPass2 = "Hameed@123"; // Replace with a secure password
+
+            var passHasher = new PasswordHasher<user>();
+            provider_Doctor[0].PasswordHash = passwordHasher.HashPassword(provider_Doctor[0], provider_DoctorPass);
+
+            provider_Doctor[1].PasswordHash = passwordHasher.HashPassword(provider_Doctor[1], provider_DoctorPass1);
+            provider_Doctor[2].PasswordHash = passwordHasher.HashPassword(provider_Doctor[2], provider_DoctorPass2);
+
+            builder.Entity<user>().HasData(provider_Doctor);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
 using imc_web_api.Models;
@@ -5,6 +6,7 @@ using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
 using imc_web_api.Service.AuthService;
+using imc_web_api.Service.AuthServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +30,7 @@ builder.Services.AddScoped<IJWTTokenRepository, JWTTokenRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
+builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware
 builder.Services.AddDataProtection();
@@ -46,6 +49,14 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredUniqueChars = 1;
     options.Password.RequiredLength = 6;
+});
+
+//--- cycle error resolve
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    
 });
 
 var app = builder.Build();

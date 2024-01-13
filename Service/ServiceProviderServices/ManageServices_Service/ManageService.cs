@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices
 {
-    public class ManageServices_Service : IManageServices_Service
+    public class ManageService : IManageService
     {
         private readonly ImcDbContext _dbContext;
 
-        public ManageServices_Service(ImcDbContext dbContext)
+        public ManageService(ImcDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using imc_web_api.Dtos.AdminDtos.HCPDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
 using Microsoft.AspNetCore.Mvc;
-// comments
+
 namespace imc_web_api.Controllers.ServiceProviderController
 {
     [Route("api/[controller]")]
@@ -12,45 +11,44 @@ namespace imc_web_api.Controllers.ServiceProviderController
     public class ManageServicesController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IManageServices_Service _manageServices;
+        private readonly IManageService _manageServices;
 
-        public ManageServicesController(IMapper mapper, IManageServices_Service manageServices)
+        public ManageServicesController(IMapper mapper, IManageService manageServices)
         {
             _mapper = mapper;
             _manageServices = manageServices;
         }
 
-        // changes
+        //--> Add Service
 
         [HttpPost]
-        [Route("AddService/")]
-        public async Task<IActionResult> CreateService([FromBody] ServiceRequestDTO serviceRequest)
+        [Route("AddService")]
+        public async Task<IActionResult> AddService([FromBody] ServiceRequestDTO ServiceInputRequest)
         {
-            //Dto to model mapping
-            var ServiceModel = _mapper.Map<service>(serviceRequest);
+            var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
             var ServiceDtoResult = await _manageServices.AddService(ServiceModel);
-            //model to dto mapping
-            var Servicedto = _mapper.Map<service>(ServiceDtoResult);
+
+            var ServiceDtp_Result = _mapper.Map<service>(ServiceDtoResult);
             return Ok(new
             {
-                Data = ServiceDtoResult,
+                Data = ServiceDtp_Result,
                 Message = "Service Added Successfully!"
-                Message = "Provider Added Successfully!"
             });
         }
 
         //-->Update Service
         [HttpPut]
         [Route("UpdateService/{id:Guid}")]
-        public async Task<service> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
+        public async Task<IActionResult> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
         {
-            var model = _mapper.Map<service>(ServiceInputRequest);
+            var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
 
-            var se = await _manageServices.UpdateService(id, model);
-            return se;
-        public async Task<HCPResponseDTO> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
-        {
-            return null;
+            var UpdatedService = await _manageServices.UpdateService(id, ServiceModel);
+            return Ok(new
+            {
+                Data = UpdatedService,
+                Message = "Service Updated!"
+            });
         }
 
         //-->GetAll Service
@@ -58,27 +56,20 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Route("GetServices")]
         public async Task<List<ServiceResponseDTO>> GetServices()
         {
-            var Service_Model_Result = await _manageServices.GetServices();
-            var Service_DTO_Result = _mapper.Map<List<ServiceResponseDTO>>(Service_Model_Result = await _manageServices.GetServices());
-            return Service_DTO_Result;
+            var ServiceModel = await _manageServices.GetServices();
+            var ServiceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(ServiceModel);
+            return ServiceDtoResult;
         }
 
         // -->Get Service By Id
         [HttpGet]
         [Route("GetServiceById/{id:Guid}")]
-        public async Task<IActionResult> GetServiceById(Guid id)
+        public async Task<ServiceResponseDTO> GetServiceById(Guid id)
         {
-            var service = await _manageServices.GetServiceById(id);
-            if (service == null)
-            {
-                return NotFound();
-            }
-            return Ok(new
-            {
-                Data = service,
-                Message = "Service Retreiving Sucessfully!"
-            });
-            return null;
+            var ServiceModel = await _manageServices.GetServiceById(id);
+            var ServiceDtoResult = _mapper.Map<ServiceResponseDTO>(ServiceModel);
+
+            return ServiceDtoResult;
         }
 
         //-->Delete Service
@@ -92,8 +83,6 @@ namespace imc_web_api.Controllers.ServiceProviderController
                 Data = DeleteService,
                 Message = "Service Deleted Successfully!"
             });
-            ;
-            return null;
         }
     }
 }

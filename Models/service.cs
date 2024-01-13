@@ -19,6 +19,7 @@ namespace imc_web_api.Models
         [ForeignKey("CreatedByProviderTypeId")]
         public serviceprovidertype ServiceProviderType { get; set; }
 
+        public List<feedback> User_Feedbacks { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }

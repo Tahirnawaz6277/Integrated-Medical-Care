@@ -19,7 +19,7 @@ namespace imc_web_api
 
         //public DbSet<promotion> Promotions { get; set; }
         //public DbSet<order> Orders { get; set; }
-        //public DbSet<feedback> Feedbacks { get; set; }
+        public DbSet<feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,6 +49,32 @@ namespace imc_web_api
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<feedback>()
+           .HasOne(f => f.User)
+           .WithMany(u => u.User_Feedbacks)
+           .HasForeignKey(f => f.ratedById)
+           .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<feedback>()
+           .HasOne(f => f.Service)
+           .WithMany(s => s.User_Feedbacks)
+           .HasForeignKey(f => f.ratedToId)
+           .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the relationship for PromoteToUser in promotion
+            builder.Entity<promotion>()
+                .HasOne(p => p.PromoteToUser)
+                .WithMany(u => u.PromoteTo)
+                .HasForeignKey(p => p.PromoteToId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the relationship for PromoteByUser in promotion
+            builder.Entity<promotion>()
+                .HasOne(p => p.PromoteByUser)
+                .WithMany(u => u.PromoteBy)
+                .HasForeignKey(p => p.PromoteById)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();
@@ -148,7 +174,6 @@ namespace imc_web_api
                }
             };
 
-       
             //--->> Data seeding for User_Provider_doctor
 
             var provider_Doctor = new List<user>()

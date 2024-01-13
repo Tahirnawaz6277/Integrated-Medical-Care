@@ -9,7 +9,6 @@ namespace imc_web_api.Models
         public decimal Rating { get; set; }
 
         public string ratedById { get; set; }
-
         [ForeignKey("ratedById")]
         public user User { get; set; }
 

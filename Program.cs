@@ -1,19 +1,19 @@
-using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
 using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
+using imc_web_api.Service.AdminServices.ManageFeedBackServicess;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
+using imc_web_api.Service.AdminServices.NewFolder;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AuthService;
-
 using imc_web_api.Service.AuthServices;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +37,7 @@ builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddScoped<IManageService, ManageService>();
+builder.Services.AddScoped<IManageFeedbackService, ManageFeedBackService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

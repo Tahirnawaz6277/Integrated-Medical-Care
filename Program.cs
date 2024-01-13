@@ -7,6 +7,7 @@ using imc_web_api.Service.AdminServices.ManageFeedBackServicess;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AdminServices.NewFolder;
+using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AuthService;
 using imc_web_api.Service.AuthServices;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
@@ -40,6 +41,8 @@ builder.Services.AddScoped<IManageService, ManageService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 
 builder.Services.AddScoped<IManageFeedbackService, ManageFeedBackService>();
+builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware
 builder.Services.AddDataProtection();

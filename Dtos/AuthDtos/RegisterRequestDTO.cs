@@ -12,7 +12,7 @@ namespace imc_web_api.Dtos.AuthDtos
         public string? PhoneNumber { get; set; }
         public string? Gender { get; set; }
         public string Role { get; set; }
-        public Guid ServiceProvidertypeId { get; set; }
+        public Guid? ServiceProvidertypeId { get; set; }
 
         public Guid? User_QualificationId { get; set; }
 

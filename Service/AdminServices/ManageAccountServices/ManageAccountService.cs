@@ -31,6 +31,10 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                         PhoneNumber = UserInputReguest.PhoneNumber,
                         Gender = UserInputReguest.Gender,
                         Role = UserInputReguest.Role,
+
+                        ServiceProvidertypeId = UserInputReguest.ServiceProvidertypeId,
+
+                        User_QualificationId = UserInputReguest.User_QualificationId
                     };
 
                     var CreatedUser = await _userManager.CreateAsync(newUser, UserInputReguest.Password);

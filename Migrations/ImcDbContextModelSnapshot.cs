@@ -55,6 +55,8 @@ namespace imc_web_api.Migrations
                             ConcurrencyStamp = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
                             Id = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
                             ConcurrencyStamp = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
+                            Id = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
+                            ConcurrencyStamp = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
@@ -64,6 +66,8 @@ namespace imc_web_api.Migrations
                             ConcurrencyStamp = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
                             Id = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
                             ConcurrencyStamp = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
+                            Id = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
+                            ConcurrencyStamp = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
@@ -73,6 +77,8 @@ namespace imc_web_api.Migrations
                             ConcurrencyStamp = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
                             Id = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
                             ConcurrencyStamp = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
+                            Id = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
+                            ConcurrencyStamp = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -244,6 +250,8 @@ namespace imc_web_api.Migrations
                             RoleId = "bafdc162-79c6-44f9-b1bc-5c4068567ac7"
                             UserId = "52211f3b-7d1b-44b7-ae65-a144d8929993",
                             RoleId = "de85ff03-b9de-49a0-90b1-d07cc668b52a"
+                            UserId = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
+                            RoleId = "bafdc162-79c6-44f9-b1bc-5c4068567ac7"
                         });
                 });
 
@@ -393,18 +401,21 @@ namespace imc_web_api.Migrations
                         {
                             Id = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
                             Id = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
+                            Id = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
                             ProviderName = "Doctor"
                         },
                         new
                         {
                             Id = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
                             Id = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
+                            Id = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
                             Id = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
                             Id = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
+                            Id = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -473,6 +484,24 @@ namespace imc_web_api.Migrations
                             experience = "1 YEAR",
                             qualification = "BDS",
                             userId = "31de9f4a-9930-4ffd-b490-ebac6ed2854d"
+                            Id = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"),
+                            experience = "10 YEAR",
+                            qualification = "MBBS",
+                            userId = "f3f48732-2ea0-484e-8bc7-11237cd296a1"
+                        },
+                        new
+                        {
+                            Id = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"),
+                            experience = "3 YEAR",
+                            qualification = "MD",
+                            userId = "b7b6252c-9c64-4731-9403-dd3efd40f43a"
+                        },
+                        new
+                        {
+                            Id = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"),
+                            experience = "1 YEAR",
+                            qualification = "BDS",
+                            userId = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8"
                         });
                 });
 
@@ -517,6 +546,9 @@ namespace imc_web_api.Migrations
                             Id = "52211f3b-7d1b-44b7-ae65-a144d8929993",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "b8dd0c7e-982f-4947-af25-5cf9fb7d3f68",
+                            Id = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9571ab67-d132-4a06-a302-8162fbb36756",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -530,6 +562,10 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "aa00396e-27b6-46dc-bea6-0eeb88753c56",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "daed9816-0687-4337-a3c3-69babca4c0ae",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
                             FirstName = "Aamir",
@@ -545,6 +581,9 @@ namespace imc_web_api.Migrations
                             Id = "05c560a2-4641-4c35-aed2-47d4c7a74710",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "6bae9a74-dbcf-47b2-96e2-b2379da98e92",
+                            Id = "f3f48732-2ea0-484e-8bc7-11237cd296a1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6fbc312c-784c-4dfc-9441-3b341a989793",
                             Email = "Aqib@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -558,6 +597,10 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "c2ec74cc-db16-4cd5-b9f3-16bdaef5e6c5",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f6235728-deba-4bf3-98c9-be02319edc10",
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
                             FirstName = "Aqib",
@@ -580,6 +623,14 @@ namespace imc_web_api.Migrations
                             Id = "baff2361-0c19-4d07-acf9-c4c867451fae",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "73f165d4-5160-46f3-8c88-d640db057d87",
+                            ServiceProvidertypeId = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
+                            User_QualificationId = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43")
+                        },
+                        new
+                        {
+                            Id = "b7b6252c-9c64-4731-9403-dd3efd40f43a",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f76368f6-3d8f-4e28-b077-8422a539bf59",
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -593,6 +644,10 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4adb128b-aa42-48d9-bc38-bf82de72edb0",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "07abd710-daff-4989-bb55-8779600430ad",
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
                             FirstName = "Waheed",
@@ -615,6 +670,14 @@ namespace imc_web_api.Migrations
                             Id = "31de9f4a-9930-4ffd-b490-ebac6ed2854d",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "5a13c69a-3564-49d3-be92-9cf86ad5026d",
+                            ServiceProvidertypeId = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
+                            User_QualificationId = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57")
+                        },
+                        new
+                        {
+                            Id = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cd161902-a449-4155-909f-331fc4f9683b",
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -628,6 +691,10 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "fe3bd282-ca1f-4138-909e-3b9b4ddbe860",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1803991c-29c0-4f9a-b0df-debff11f1a4f",
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",
                             FirstName = "Hameed",
@@ -638,6 +705,8 @@ namespace imc_web_api.Migrations
                             User_QualificationId = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1")
                             ServiceProvidertypeId = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
                             User_QualificationId = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14")
+                            ServiceProvidertypeId = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
+                            User_QualificationId = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1")
                         });
                 });
 

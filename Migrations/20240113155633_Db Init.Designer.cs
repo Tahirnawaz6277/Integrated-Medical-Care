@@ -12,6 +12,13 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
+<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
+    [Migration("20240113155633_Db Init")]
+    partial class DbInit
+========
+    [Migration("20240113191253_dbinit")]
+    partial class dbinit
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 <<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
     [Migration("20240113191253_dbinit")]
     partial class dbinit
@@ -533,6 +540,26 @@ namespace imc_web_api.Migrations
                             experience = "1 YEAR",
                             qualification = "BDS",
                             userId = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8"
+========
+                            Id = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe"),
+                            experience = "10 YEAR",
+                            qualification = "MBBS",
+                            userId = "05c560a2-4641-4c35-aed2-47d4c7a74710"
+                        },
+                        new
+                        {
+                            Id = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b"),
+                            experience = "3 YEAR",
+                            qualification = "MD",
+                            userId = "baff2361-0c19-4d07-acf9-c4c867451fae"
+                        },
+                        new
+                        {
+                            Id = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14"),
+                            experience = "1 YEAR",
+                            qualification = "BDS",
+                            userId = "31de9f4a-9930-4ffd-b490-ebac6ed2854d"
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                         });
                 });
@@ -603,6 +630,12 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "daed9816-0687-4337-a3c3-69babca4c0ae",
+========
+                            PasswordHash = "AQAAAAIAAYagAAAAELSmgq04USmCMK8+/4B1lEyqMX8fR1vhw2b4Wvs11dFkvSUJQyVYoxl/P10Wdw7Iow==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "aa00396e-27b6-46dc-bea6-0eeb88753c56",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
@@ -644,6 +677,12 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "f6235728-deba-4bf3-98c9-be02319edc10",
+========
+                            PasswordHash = "AQAAAAIAAYagAAAAEOyOkB1I2KyNCyBOm2Z852Kj0pfR34cXJc/WCbGJSbC+xzlO2+i6t62S129wDElfJg==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c2ec74cc-db16-4cd5-b9f3-16bdaef5e6c5",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
@@ -677,6 +716,16 @@ namespace imc_web_api.Migrations
                             Id = "b7b6252c-9c64-4731-9403-dd3efd40f43a",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f76368f6-3d8f-4e28-b077-8422a539bf59",
+========
+                            ServiceProvidertypeId = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
+                            User_QualificationId = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe")
+                        },
+                        new
+                        {
+                            Id = "baff2361-0c19-4d07-acf9-c4c867451fae",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "73f165d4-5160-46f3-8c88-d640db057d87",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
@@ -697,6 +746,12 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "07abd710-daff-4989-bb55-8779600430ad",
+========
+                            PasswordHash = "AQAAAAIAAYagAAAAEHAGnPhLXO3PXPYA/d8yqhtuA3t6ChEdsXopoPjGiVy5XpQ9+gFOcJtGImPrBcRCIg==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4adb128b-aa42-48d9-bc38-bf82de72edb0",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
@@ -730,6 +785,16 @@ namespace imc_web_api.Migrations
                             Id = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "cd161902-a449-4155-909f-331fc4f9683b",
+========
+                            ServiceProvidertypeId = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
+                            User_QualificationId = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b")
+                        },
+                        new
+                        {
+                            Id = "31de9f4a-9930-4ffd-b490-ebac6ed2854d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5a13c69a-3564-49d3-be92-9cf86ad5026d",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
@@ -750,6 +815,12 @@ namespace imc_web_api.Migrations
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1803991c-29c0-4f9a-b0df-debff11f1a4f",
+========
+                            PasswordHash = "AQAAAAIAAYagAAAAEDEnWq2SDVD92kaZreppIjigqP9klLRY8oRWfnSU2CkyrPSMYwpQ14oa/30TCewICQ==",
+                            PhoneNumber = "03457689432",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fe3bd282-ca1f-4138-909e-3b9b4ddbe860",
+>>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
 >>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",

@@ -51,22 +51,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb072976-95f6-4a3d-9d0f-6a10d2d70332",
-                            ConcurrencyStamp = "eb072976-95f6-4a3d-9d0f-6a10d2d70332",
+                            Id = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
+                            ConcurrencyStamp = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8270eefe-d196-4548-bfb7-773f3d7972e0",
-                            ConcurrencyStamp = "8270eefe-d196-4548-bfb7-773f3d7972e0",
+                            Id = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
+                            ConcurrencyStamp = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "f0e69e7e-2bef-41da-8b80-f5faaa6a4b58",
-                            ConcurrencyStamp = "f0e69e7e-2bef-41da-8b80-f5faaa6a4b58",
+                            Id = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
+                            ConcurrencyStamp = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -234,8 +234,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "582613f4-1a06-4a4c-871f-d7d0a2bb3f45",
-                            RoleId = "eb072976-95f6-4a3d-9d0f-6a10d2d70332"
+                            UserId = "52211f3b-7d1b-44b7-ae65-a144d8929993",
+                            RoleId = "de85ff03-b9de-49a0-90b1-d07cc668b52a"
                         });
                 });
 
@@ -383,17 +383,17 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("85d27692-bde0-412e-bd9a-5012bd1c4206"),
+                            Id = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
                             ProviderName = "Doctor"
                         },
                         new
                         {
-                            Id = new Guid("3d1909ff-dc37-4fef-8b7d-58e5a1c4d709"),
+                            Id = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
-                            Id = new Guid("4086f88a-b4d4-4ac0-874a-cd9b7f014aa5"),
+                            Id = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -426,24 +426,24 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1bccd15f-76bc-49cf-9771-7c08c022d581"),
+                            Id = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe"),
                             experience = "10 YEAR",
                             qualification = "MBBS",
-                            userId = "1531eef0-b18e-4e36-9af0-6ef3cdd2402b"
+                            userId = "05c560a2-4641-4c35-aed2-47d4c7a74710"
                         },
                         new
                         {
-                            Id = new Guid("e12b8e19-2a8c-4a5b-a462-3802bd9b429e"),
+                            Id = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b"),
                             experience = "3 YEAR",
                             qualification = "MD",
-                            userId = "4a089fe6-1250-4f57-a2cd-438e991dbf40"
+                            userId = "baff2361-0c19-4d07-acf9-c4c867451fae"
                         },
                         new
                         {
-                            Id = new Guid("5ef76730-691f-4af0-bba8-0b9d385039b8"),
+                            Id = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14"),
                             experience = "1 YEAR",
                             qualification = "BDS",
-                            userId = "b0f0b9dc-841d-46ce-8f9c-4c4db18a843f"
+                            userId = "31de9f4a-9930-4ffd-b490-ebac6ed2854d"
                         });
                 });
 
@@ -482,18 +482,18 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "582613f4-1a06-4a4c-871f-d7d0a2bb3f45",
+                            Id = "52211f3b-7d1b-44b7-ae65-a144d8929993",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae8c101f-4ada-44ab-97b9-c38635be29dd",
+                            ConcurrencyStamp = "b8dd0c7e-982f-4947-af25-5cf9fb7d3f68",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKsu2J+58dFkzoPmotybj6XWKiIjY/oHY1qrTBAGULpiNGF2Twbr0PZ30+/+XiVAUw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELSmgq04USmCMK8+/4B1lEyqMX8fR1vhw2b4Wvs11dFkvSUJQyVYoxl/P10Wdw7Iow==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e04b9428-e16c-4fc8-b3f6-e4cf52308d7b",
+                            SecurityStamp = "aa00396e-27b6-46dc-bea6-0eeb88753c56",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
                             FirstName = "Aamir",
@@ -503,72 +503,72 @@ namespace imc_web_api.Migrations
                         },
                         new
                         {
-                            Id = "1531eef0-b18e-4e36-9af0-6ef3cdd2402b",
+                            Id = "05c560a2-4641-4c35-aed2-47d4c7a74710",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bba6d665-05a1-4a96-ab4c-7e3522fa2bab",
+                            ConcurrencyStamp = "6bae9a74-dbcf-47b2-96e2-b2379da98e92",
                             Email = "Aqib@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aqib@gmail.com",
                             NormalizedUserName = "Aqib@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBjrDl7H/EWKFipr0GFMcOWWvNoyv9bY29hIpuMZ7NHG4Z4sDGawU+Ia00Wa0CjCQA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOyOkB1I2KyNCyBOm2Z852Kj0pfR34cXJc/WCbGJSbC+xzlO2+i6t62S129wDElfJg==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c67bd2c2-8463-4683-96d8-344df17f9c0c",
+                            SecurityStamp = "c2ec74cc-db16-4cd5-b9f3-16bdaef5e6c5",
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
                             FirstName = "Aqib",
                             Gender = "Male",
                             LastName = "nawaz",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("85d27692-bde0-412e-bd9a-5012bd1c4206"),
-                            User_QualificationId = new Guid("1bccd15f-76bc-49cf-9771-7c08c022d581")
+                            ServiceProvidertypeId = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
+                            User_QualificationId = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe")
                         },
                         new
                         {
-                            Id = "4a089fe6-1250-4f57-a2cd-438e991dbf40",
+                            Id = "baff2361-0c19-4d07-acf9-c4c867451fae",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee7f0169-5748-416f-b1d1-d7640eb1823b",
+                            ConcurrencyStamp = "73f165d4-5160-46f3-8c88-d640db057d87",
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Waheed@gmail.com",
                             NormalizedUserName = "Waheed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAOx4PXckOP3oSWaZ6SQE3cqoU0ixDCwPF7hngsU3bIK2oT8AMbcVk0FtzWKLfgZzA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHAGnPhLXO3PXPYA/d8yqhtuA3t6ChEdsXopoPjGiVy5XpQ9+gFOcJtGImPrBcRCIg==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "649e6a13-db6f-41d2-8f57-9886bff91e47",
+                            SecurityStamp = "4adb128b-aa42-48d9-bc38-bf82de72edb0",
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
                             FirstName = "Waheed",
                             Gender = "Male",
                             LastName = "Quraishi",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("3d1909ff-dc37-4fef-8b7d-58e5a1c4d709"),
-                            User_QualificationId = new Guid("e12b8e19-2a8c-4a5b-a462-3802bd9b429e")
+                            ServiceProvidertypeId = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
+                            User_QualificationId = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b")
                         },
                         new
                         {
-                            Id = "b0f0b9dc-841d-46ce-8f9c-4c4db18a843f",
+                            Id = "31de9f4a-9930-4ffd-b490-ebac6ed2854d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "09caba96-ee7c-4e40-992a-c6ad2ea7ed1f",
+                            ConcurrencyStamp = "5a13c69a-3564-49d3-be92-9cf86ad5026d",
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Hameed@gmail.com",
                             NormalizedUserName = "Hameed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPrOJ0EnK7T+NKtjzKCwa2CyG10pfXy/FC87x3KbQFU1B3AxoCxMsGCsMSpf6VnvzQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDEnWq2SDVD92kaZreppIjigqP9klLRY8oRWfnSU2CkyrPSMYwpQ14oa/30TCewICQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5c60ac74-ea9c-4b13-bd5b-63d09dc19975",
+                            SecurityStamp = "fe3bd282-ca1f-4138-909e-3b9b4ddbe860",
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",
                             FirstName = "Hameed",
                             Gender = "Male",
                             LastName = "Khan",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("4086f88a-b4d4-4ac0-874a-cd9b7f014aa5"),
-                            User_QualificationId = new Guid("5ef76730-691f-4af0-bba8-0b9d385039b8")
+                            ServiceProvidertypeId = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
+                            User_QualificationId = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14")
                         });
                 });
 

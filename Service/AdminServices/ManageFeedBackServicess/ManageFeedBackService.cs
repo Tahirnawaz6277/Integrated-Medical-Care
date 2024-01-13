@@ -1,5 +1,6 @@
 ﻿using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.NewFolder;
+using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
 {
@@ -12,22 +13,20 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             _imcDbContext = imcDbContext;
         }
 
-        public Task<feedback> AddFeedback(feedback FeedbackInputReguest)
+        public async Task<feedback> AddFeedback(feedback FeedbackInputRequest)
         {
             try
             {
-                return null;
-            }catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public Task<feedback> DeleteFeedback(Guid id)
-        {
-            try
-            {
-                return null;
+                if (FeedbackInputRequest == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var f = _imcDbContext.Feedbacks.AddAsync(FeedbackInputRequest);
+                    await _imcDbContext.SaveChangesAsync();
+                    return FeedbackInputRequest;
+                }
             }
             catch (Exception ex)
             {
@@ -35,11 +34,19 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
         }
 
-        public Task<feedback> GetFeedbackById(Guid id)
+        public async Task<feedback> DeleteFeedback(Guid id)
         {
             try
             {
-                return null;
+                var checkFeedback = await _imcDbContext.Feedbacks.FirstOrDefaultAsync(x => x.Id == id);
+                if (checkFeedback != null)
+                {
+                    return checkFeedback;
+                }
+                else
+                {
+                    throw new Exception("Feedback not found with this id:");
+                }
             }
             catch (Exception ex)
             {
@@ -47,11 +54,19 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
         }
 
-        public Task<List<feedback>> GetFeedbacks()
+        public async Task<feedback> GetFeedbackById(Guid id)
         {
             try
             {
-                return null;
+                var fi = await _imcDbContext.Feedbacks.FirstOrDefaultAsync(x => x.Id == id);
+                if (fi != null)
+                {
+                    return fi;
+                }
+                else
+                {
+                    throw new Exception("Feedback not found with this id:");
+                }
             }
             catch (Exception ex)
             {
@@ -59,11 +74,39 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
         }
 
-        public Task<feedback> UpdateFeedback(Guid id, feedback FeedbackInputReguest)
+        public async Task<List<feedback>> GetFeedbacks()
         {
             try
             {
-                return null;
+                var af = await _imcDbContext.Feedbacks.ToListAsync();
+                if (af != null)
+                {
+                    return af;
+                }
+                else
+                {
+                    throw new Exception("Not found any feedback:");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<feedback> UpdateFeedback(Guid id, feedback FeedbackInputReguest)
+        {
+            try
+            {
+                var uf = _imcDbContext.Feedbacks.First(x => x.Id == id);
+                if (uf != null)
+                {
+                    return uf;
+                }
+                else
+                {
+                    throw new Exception("Feedback not found with this id:");
+                }
             }
             catch (Exception ex)
             {

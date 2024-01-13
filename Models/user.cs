@@ -11,12 +11,12 @@ namespace imc_web_api.Models
 
         public string Role { get; set; }
 
-        public Guid? ServiceProvidertypeId { get; set; }
+        public Guid? ServiceProvidertypeId { get; set; } = null;
 
         [ForeignKey("ServiceProvidertypeId")]
         public serviceprovidertype ServiceProviderType { get; set; }
 
-        public Guid? User_QualificationId { get; set; }
+        public Guid? User_QualificationId { get; set; } = null;
 
         [ForeignKey("User_QualificationId")]
         public user_qualification User_Qualification { get; set; }

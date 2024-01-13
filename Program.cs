@@ -5,6 +5,7 @@ using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
+using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AuthService;
 
 using imc_web_api.Service.AuthServices;
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IManageAccountService, ManageAccountService>();
 builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddScoped<IManageService, ManageService>();
+builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware

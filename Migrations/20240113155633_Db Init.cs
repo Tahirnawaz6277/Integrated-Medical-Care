@@ -210,7 +210,7 @@ namespace imc_web_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "promotion",
+                name: "Promotions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -222,15 +222,15 @@ namespace imc_web_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_promotion", x => x.Id);
+                    table.PrimaryKey("PK_Promotions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_promotion_AspNetUsers_PromoteById",
+                        name: "FK_Promotions_AspNetUsers_PromoteById",
                         column: x => x.PromoteById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_promotion_AspNetUsers_PromoteToId",
+                        name: "FK_Promotions_AspNetUsers_PromoteToId",
                         column: x => x.PromoteToId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -290,39 +290,39 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "8270eefe-d196-4548-bfb7-773f3d7972e0", "8270eefe-d196-4548-bfb7-773f3d7972e0", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "eb072976-95f6-4a3d-9d0f-6a10d2d70332", "eb072976-95f6-4a3d-9d0f-6a10d2d70332", "Admin", "ADMIN" },
-                    { "f0e69e7e-2bef-41da-8b80-f5faaa6a4b58", "f0e69e7e-2bef-41da-8b80-f5faaa6a4b58", "Customer", "CUSTOMER" }
+                    { "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "ServiceProvider", "SERVICEPROVIDER" },
+                    { "7c53b965-75f5-46d0-9c81-df29129bbfd6", "7c53b965-75f5-46d0-9c81-df29129bbfd6", "Customer", "CUSTOMER" },
+                    { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
-                values: new object[] { "582613f4-1a06-4a4c-871f-d7d0a2bb3f45", 0, "ae8c101f-4ada-44ab-97b9-c38635be29dd", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEKsu2J+58dFkzoPmotybj6XWKiIjY/oHY1qrTBAGULpiNGF2Twbr0PZ30+/+XiVAUw==", "03457689432", false, "Admin", "e04b9428-e16c-4fc8-b3f6-e4cf52308d7b", null, false, "Aamir@gmail.com", null });
+                values: new object[] { "31687fb2-25bc-4690-9a0d-bcfc2163b1a0", 0, "9571ab67-d132-4a06-a302-8162fbb36756", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==", "03457689432", false, "Admin", "daed9816-0687-4337-a3c3-69babca4c0ae", null, false, "Aamir@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "ServiceProviderTypes",
                 columns: new[] { "Id", "ProviderName" },
                 values: new object[,]
                 {
-                    { new Guid("3d1909ff-dc37-4fef-8b7d-58e5a1c4d709"), "Pharmacy" },
-                    { new Guid("4086f88a-b4d4-4ac0-874a-cd9b7f014aa5"), "Ambulance" },
-                    { new Guid("85d27692-bde0-412e-bd9a-5012bd1c4206"), "Doctor" }
+                    { new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), "Doctor" },
+                    { new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), "Ambulance" },
+                    { new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), "Pharmacy" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "eb072976-95f6-4a3d-9d0f-6a10d2d70332", "582613f4-1a06-4a4c-871f-d7d0a2bb3f45" });
+                values: new object[] { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "31687fb2-25bc-4690-9a0d-bcfc2163b1a0" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
                 values: new object[,]
                 {
-                    { "1531eef0-b18e-4e36-9af0-6ef3cdd2402b", 0, "bba6d665-05a1-4a96-ab4c-7e3522fa2bab", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEBjrDl7H/EWKFipr0GFMcOWWvNoyv9bY29hIpuMZ7NHG4Z4sDGawU+Ia00Wa0CjCQA==", "03457689432", false, "Provider", "c67bd2c2-8463-4683-96d8-344df17f9c0c", new Guid("85d27692-bde0-412e-bd9a-5012bd1c4206"), false, "Aqib@gmail.com", new Guid("1bccd15f-76bc-49cf-9771-7c08c022d581") },
-                    { "4a089fe6-1250-4f57-a2cd-438e991dbf40", 0, "ee7f0169-5748-416f-b1d1-d7640eb1823b", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEAOx4PXckOP3oSWaZ6SQE3cqoU0ixDCwPF7hngsU3bIK2oT8AMbcVk0FtzWKLfgZzA==", "03457689432", false, "Provider", "649e6a13-db6f-41d2-8f57-9886bff91e47", new Guid("3d1909ff-dc37-4fef-8b7d-58e5a1c4d709"), false, "Waheed@gmail.com", new Guid("e12b8e19-2a8c-4a5b-a462-3802bd9b429e") },
-                    { "b0f0b9dc-841d-46ce-8f9c-4c4db18a843f", 0, "09caba96-ee7c-4e40-992a-c6ad2ea7ed1f", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEPrOJ0EnK7T+NKtjzKCwa2CyG10pfXy/FC87x3KbQFU1B3AxoCxMsGCsMSpf6VnvzQ==", "03457689432", false, "Provider", "5c60ac74-ea9c-4b13-bd5b-63d09dc19975", new Guid("4086f88a-b4d4-4ac0-874a-cd9b7f014aa5"), false, "Hameed@gmail.com", new Guid("5ef76730-691f-4af0-bba8-0b9d385039b8") }
+                    { "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8", 0, "cd161902-a449-4155-909f-331fc4f9683b", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==", "03457689432", false, "Provider", "1803991c-29c0-4f9a-b0df-debff11f1a4f", new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), false, "Hameed@gmail.com", new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1") },
+                    { "b7b6252c-9c64-4731-9403-dd3efd40f43a", 0, "f76368f6-3d8f-4e28-b077-8422a539bf59", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==", "03457689432", false, "Provider", "07abd710-daff-4989-bb55-8779600430ad", new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), false, "Waheed@gmail.com", new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57") },
+                    { "f3f48732-2ea0-484e-8bc7-11237cd296a1", 0, "6fbc312c-784c-4dfc-9441-3b341a989793", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==", "03457689432", false, "Provider", "f6235728-deba-4bf3-98c9-be02319edc10", new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), false, "Aqib@gmail.com", new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43") }
                 });
 
             migrationBuilder.InsertData(
@@ -330,9 +330,9 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "experience", "qualification", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("1bccd15f-76bc-49cf-9771-7c08c022d581"), "10 YEAR", "MBBS", "1531eef0-b18e-4e36-9af0-6ef3cdd2402b" },
-                    { new Guid("5ef76730-691f-4af0-bba8-0b9d385039b8"), "1 YEAR", "BDS", "b0f0b9dc-841d-46ce-8f9c-4c4db18a843f" },
-                    { new Guid("e12b8e19-2a8c-4a5b-a462-3802bd9b429e"), "3 YEAR", "MD", "4a089fe6-1250-4f57-a2cd-438e991dbf40" }
+                    { new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"), "10 YEAR", "MBBS", "f3f48732-2ea0-484e-8bc7-11237cd296a1" },
+                    { new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"), "1 YEAR", "BDS", "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8" },
+                    { new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"), "3 YEAR", "MD", "b7b6252c-9c64-4731-9403-dd3efd40f43a" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -392,13 +392,13 @@ namespace imc_web_api.Migrations
                 column: "ratedToId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_promotion_PromoteById",
-                table: "promotion",
+                name: "IX_Promotions_PromoteById",
+                table: "Promotions",
                 column: "PromoteById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_promotion_PromoteToId",
-                table: "promotion",
+                name: "IX_Promotions_PromoteToId",
+                table: "Promotions",
                 column: "PromoteToId");
 
             migrationBuilder.CreateIndex(
@@ -435,7 +435,7 @@ namespace imc_web_api.Migrations
                 name: "Feedbacks");
 
             migrationBuilder.DropTable(
-                name: "promotion");
+                name: "Promotions");
 
             migrationBuilder.DropTable(
                 name: "User_Qualifications");

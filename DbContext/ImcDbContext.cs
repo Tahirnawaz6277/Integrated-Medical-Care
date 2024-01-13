@@ -17,7 +17,8 @@ namespace imc_web_api
 
         public DbSet<service> Services { get; set; }
 
-        //public DbSet<promotion> Promotions { get; set; }
+        public DbSet<promotion> Promotions { get; set; }
+
         //public DbSet<order> Orders { get; set; }
         public DbSet<feedback> Feedbacks { get; set; }
 
@@ -41,7 +42,7 @@ namespace imc_web_api
                .HasOne(u => u.User)
                .WithOne(u => u.User_Qualification)
                .HasForeignKey<user_qualification>(u => u.userId)
-                    .IsRequired(true)
+
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<service>()

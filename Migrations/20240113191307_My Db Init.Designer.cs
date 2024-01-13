@@ -12,20 +12,8 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-    [Migration("20240113155633_Db Init")]
-    partial class DbInit
-========
-    [Migration("20240113191253_dbinit")]
-    partial class dbinit
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-    [Migration("20240113191253_dbinit")]
-    partial class dbinit
-========
-    [Migration("20240113155633_Db Init")]
-    partial class DbInit
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+    [Migration("20240113191307_My Db Init")]
+    partial class MyDbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,58 +54,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
-                            ConcurrencyStamp = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
-========
-                            Id = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
-                            ConcurrencyStamp = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
-                            ConcurrencyStamp = "de85ff03-b9de-49a0-90b1-d07cc668b52a",
-========
-                            Id = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
-                            ConcurrencyStamp = "bafdc162-79c6-44f9-b1bc-5c4068567ac7",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = "4b196d21-2570-4f78-a3ca-437278080b20",
+                            ConcurrencyStamp = "4b196d21-2570-4f78-a3ca-437278080b20",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
-                            ConcurrencyStamp = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
-========
-                            Id = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
-                            ConcurrencyStamp = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
-                            ConcurrencyStamp = "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52",
-========
-                            Id = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
-                            ConcurrencyStamp = "57e71f9d-3c20-43e4-9b66-e1a3e00dac73",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = "b7c606ec-1085-4ca0-b9a4-3d963957c392",
+                            ConcurrencyStamp = "b7c606ec-1085-4ca0-b9a4-3d963957c392",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
-                            ConcurrencyStamp = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
-========
-                            Id = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
-                            ConcurrencyStamp = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
-                            ConcurrencyStamp = "ae3d5aa0-0456-4c9c-898d-7380c6df21de",
-========
-                            Id = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
-                            ConcurrencyStamp = "7c53b965-75f5-46d0-9c81-df29129bbfd6",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = "935cf5ee-6757-45f6-a735-2e0ecf92f6e5",
+                            ConcurrencyStamp = "935cf5ee-6757-45f6-a735-2e0ecf92f6e5",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -285,20 +237,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            UserId = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
-                            RoleId = "bafdc162-79c6-44f9-b1bc-5c4068567ac7"
-========
-                            UserId = "52211f3b-7d1b-44b7-ae65-a144d8929993",
-                            RoleId = "de85ff03-b9de-49a0-90b1-d07cc668b52a"
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            UserId = "52211f3b-7d1b-44b7-ae65-a144d8929993",
-                            RoleId = "de85ff03-b9de-49a0-90b1-d07cc668b52a"
-========
-                            UserId = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
-                            RoleId = "bafdc162-79c6-44f9-b1bc-5c4068567ac7"
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            UserId = "57980521-09c9-483a-bfcc-0aaeafe5f63a",
+                            RoleId = "4b196d21-2570-4f78-a3ca-437278080b20"
                         });
                 });
 
@@ -446,44 +386,17 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
-========
-                            Id = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
-========
-                            Id = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = new Guid("544575d6-01a8-47f8-9f2a-2dbbdac755b4"),
                             ProviderName = "Doctor"
                         },
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
-========
-                            Id = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
-========
-                            Id = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = new Guid("5cb9ec27-cb26-4d27-88c5-e4a8493826d8"),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
-========
-                            Id = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
-========
-                            Id = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            Id = new Guid("b02151fd-3d89-40ef-816c-09318b60945c"),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -516,66 +429,24 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"),
+                            Id = new Guid("422a655e-087d-4a51-a34d-49b73d47de97"),
                             experience = "10 YEAR",
                             qualification = "MBBS",
-                            userId = "f3f48732-2ea0-484e-8bc7-11237cd296a1"
+                            userId = "57b16338-5ff0-43f8-af6c-4d46a33933d6"
                         },
                         new
                         {
-                            Id = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"),
+                            Id = new Guid("c0936c63-424e-4c0f-b95a-e26044494508"),
                             experience = "3 YEAR",
                             qualification = "MD",
-                            userId = "b7b6252c-9c64-4731-9403-dd3efd40f43a"
+                            userId = "853d3181-f653-408a-a805-3f6b37746724"
                         },
                         new
                         {
-                            Id = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"),
+                            Id = new Guid("b2222928-b916-42d5-957d-e59cd092a70f"),
                             experience = "1 YEAR",
                             qualification = "BDS",
-                            userId = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8"
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe"),
-                            experience = "10 YEAR",
-                            qualification = "MBBS",
-                            userId = "05c560a2-4641-4c35-aed2-47d4c7a74710"
-                        },
-                        new
-                        {
-                            Id = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b"),
-                            experience = "3 YEAR",
-                            qualification = "MD",
-                            userId = "baff2361-0c19-4d07-acf9-c4c867451fae"
-                        },
-                        new
-                        {
-                            Id = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14"),
-                            experience = "1 YEAR",
-                            qualification = "BDS",
-                            userId = "31de9f4a-9930-4ffd-b490-ebac6ed2854d"
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            Id = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"),
-                            experience = "10 YEAR",
-                            qualification = "MBBS",
-                            userId = "f3f48732-2ea0-484e-8bc7-11237cd296a1"
-                        },
-                        new
-                        {
-                            Id = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"),
-                            experience = "3 YEAR",
-                            qualification = "MD",
-                            userId = "b7b6252c-9c64-4731-9403-dd3efd40f43a"
-                        },
-                        new
-                        {
-                            Id = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"),
-                            experience = "1 YEAR",
-                            qualification = "BDS",
-                            userId = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8"
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            userId = "bdfcf38f-2d8c-4918-a470-b2ef271711ed"
                         });
                 });
 
@@ -614,47 +485,18 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
+                            Id = "57980521-09c9-483a-bfcc-0aaeafe5f63a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9571ab67-d132-4a06-a302-8162fbb36756",
-========
-                            Id = "52211f3b-7d1b-44b7-ae65-a144d8929993",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8dd0c7e-982f-4947-af25-5cf9fb7d3f68",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = "52211f3b-7d1b-44b7-ae65-a144d8929993",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8dd0c7e-982f-4947-af25-5cf9fb7d3f68",
-========
-                            Id = "31687fb2-25bc-4690-9a0d-bcfc2163b1a0",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9571ab67-d132-4a06-a302-8162fbb36756",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            ConcurrencyStamp = "95b84f6d-e59f-42ef-9d99-a8e7cc7439b6",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKUi1/UU2mcBV0OSrka7T1HnZryaM4JX9J/fDUELRLLk4UFGGznFdgtfSjqi8JT9VQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "daed9816-0687-4337-a3c3-69babca4c0ae",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAELSmgq04USmCMK8+/4B1lEyqMX8fR1vhw2b4Wvs11dFkvSUJQyVYoxl/P10Wdw7Iow==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa00396e-27b6-46dc-bea6-0eeb88753c56",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            PasswordHash = "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "daed9816-0687-4337-a3c3-69babca4c0ae",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            SecurityStamp = "e57fe692-7570-4791-852c-ee081a9c204a",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
                             FirstName = "Aamir",
@@ -664,185 +506,72 @@ namespace imc_web_api.Migrations
                         },
                         new
                         {
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            Id = "f3f48732-2ea0-484e-8bc7-11237cd296a1",
+                            Id = "57b16338-5ff0-43f8-af6c-4d46a33933d6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6fbc312c-784c-4dfc-9441-3b341a989793",
-========
-                            Id = "05c560a2-4641-4c35-aed2-47d4c7a74710",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bae9a74-dbcf-47b2-96e2-b2379da98e92",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            Id = "05c560a2-4641-4c35-aed2-47d4c7a74710",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bae9a74-dbcf-47b2-96e2-b2379da98e92",
-========
-                            Id = "f3f48732-2ea0-484e-8bc7-11237cd296a1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6fbc312c-784c-4dfc-9441-3b341a989793",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            ConcurrencyStamp = "a459d307-d78d-4b48-9b4b-9c39be96958b",
                             Email = "Aqib@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aqib@gmail.com",
                             NormalizedUserName = "Aqib@gmail.com",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ6KisMtGlYGN51I1FrAwfFh6MEjxjCv+9mawMBi0akxDHITPfGcab49v8ra4yhbmg==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f6235728-deba-4bf3-98c9-be02319edc10",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEOyOkB1I2KyNCyBOm2Z852Kj0pfR34cXJc/WCbGJSbC+xzlO2+i6t62S129wDElfJg==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c2ec74cc-db16-4cd5-b9f3-16bdaef5e6c5",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            PasswordHash = "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f6235728-deba-4bf3-98c9-be02319edc10",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            SecurityStamp = "06428f35-f976-460d-889f-82720a8da165",
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
                             FirstName = "Aqib",
                             Gender = "Male",
                             LastName = "nawaz",
                             Role = "Provider",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            ServiceProvidertypeId = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
-                            User_QualificationId = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43")
+                            ServiceProvidertypeId = new Guid("544575d6-01a8-47f8-9f2a-2dbbdac755b4"),
+                            User_QualificationId = new Guid("422a655e-087d-4a51-a34d-49b73d47de97")
                         },
                         new
                         {
-                            Id = "b7b6252c-9c64-4731-9403-dd3efd40f43a",
+                            Id = "853d3181-f653-408a-a805-3f6b37746724",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f76368f6-3d8f-4e28-b077-8422a539bf59",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            ServiceProvidertypeId = new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"),
-                            User_QualificationId = new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe")
-                        },
-                        new
-                        {
-                            Id = "baff2361-0c19-4d07-acf9-c4c867451fae",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "73f165d4-5160-46f3-8c88-d640db057d87",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            ServiceProvidertypeId = new Guid("38355c12-32a7-45a0-9328-554bba00ff66"),
-                            User_QualificationId = new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43")
-                        },
-                        new
-                        {
-                            Id = "b7b6252c-9c64-4731-9403-dd3efd40f43a",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f76368f6-3d8f-4e28-b077-8422a539bf59",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            ConcurrencyStamp = "6ca71724-5112-49da-98e5-8f75556e1a24",
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Waheed@gmail.com",
                             NormalizedUserName = "Waheed@gmail.com",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEADklk/FCaVkHR4sp1Ig2Zbu0oW1fS+M/mDX2WlTZOn24Ha08SnBcHFAhY/JlNglHQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07abd710-daff-4989-bb55-8779600430ad",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEHAGnPhLXO3PXPYA/d8yqhtuA3t6ChEdsXopoPjGiVy5XpQ9+gFOcJtGImPrBcRCIg==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4adb128b-aa42-48d9-bc38-bf82de72edb0",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            PasswordHash = "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "07abd710-daff-4989-bb55-8779600430ad",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            SecurityStamp = "794aaa6f-e433-46ac-8c56-e8d2e4347529",
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
                             FirstName = "Waheed",
                             Gender = "Male",
                             LastName = "Quraishi",
                             Role = "Provider",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            ServiceProvidertypeId = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
-                            User_QualificationId = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57")
+                            ServiceProvidertypeId = new Guid("5cb9ec27-cb26-4d27-88c5-e4a8493826d8"),
+                            User_QualificationId = new Guid("c0936c63-424e-4c0f-b95a-e26044494508")
                         },
                         new
                         {
-                            Id = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8",
+                            Id = "bdfcf38f-2d8c-4918-a470-b2ef271711ed",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd161902-a449-4155-909f-331fc4f9683b",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            ServiceProvidertypeId = new Guid("70544167-5c53-47f5-a145-b568d6186348"),
-                            User_QualificationId = new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b")
-                        },
-                        new
-                        {
-                            Id = "31de9f4a-9930-4ffd-b490-ebac6ed2854d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a13c69a-3564-49d3-be92-9cf86ad5026d",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            ServiceProvidertypeId = new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"),
-                            User_QualificationId = new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57")
-                        },
-                        new
-                        {
-                            Id = "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd161902-a449-4155-909f-331fc4f9683b",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            ConcurrencyStamp = "bc2a160a-657e-427a-a83c-fcde105cde3f",
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Hameed@gmail.com",
                             NormalizedUserName = "Hameed@gmail.com",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFeOAVDpSi1RqEI1bAoy+OyaRp4vZ3wfGHJZvcR02dyDfQ/tUDRCFAspH55xeiwhTA==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1803991c-29c0-4f9a-b0df-debff11f1a4f",
-========
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            PasswordHash = "AQAAAAIAAYagAAAAEDEnWq2SDVD92kaZreppIjigqP9klLRY8oRWfnSU2CkyrPSMYwpQ14oa/30TCewICQ==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fe3bd282-ca1f-4138-909e-3b9b4ddbe860",
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-========
-                            PasswordHash = "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==",
-                            PhoneNumber = "03457689432",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1803991c-29c0-4f9a-b0df-debff11f1a4f",
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            SecurityStamp = "9a3fc5d1-7a6a-472a-8015-4e77e759493b",
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",
                             FirstName = "Hameed",
                             Gender = "Male",
                             LastName = "Khan",
                             Role = "Provider",
-<<<<<<<< HEAD:Migrations/20240113155633_Db Init.Designer.cs
-                            ServiceProvidertypeId = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
-                            User_QualificationId = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1")
-========
-                            ServiceProvidertypeId = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
-                            User_QualificationId = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14")
->>>>>>>> main:Migrations/20240113191253_dbinit.Designer.cs
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.Designer.cs
-                            ServiceProvidertypeId = new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"),
-                            User_QualificationId = new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14")
-========
-                            ServiceProvidertypeId = new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"),
-                            User_QualificationId = new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1")
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.Designer.cs
+                            ServiceProvidertypeId = new Guid("b02151fd-3d89-40ef-816c-09318b60945c"),
+                            User_QualificationId = new Guid("b2222928-b916-42d5-957d-e59cd092a70f")
                         });
                 });
 

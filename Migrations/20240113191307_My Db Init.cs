@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace imc_web_api.Migrations
 {
     /// <inheritdoc />
-    public partial class dbinit : Migration
+    public partial class MyDbInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -289,76 +290,39 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "7c53b965-75f5-46d0-9c81-df29129bbfd6", "7c53b965-75f5-46d0-9c81-df29129bbfd6", "Customer", "CUSTOMER" },
-                    { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "Admin", "ADMIN" }
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                    { "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52", "5ceeb257-67d9-4d9f-ac9d-97f52b18fe52", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "ae3d5aa0-0456-4c9c-898d-7380c6df21de", "ae3d5aa0-0456-4c9c-898d-7380c6df21de", "Customer", "CUSTOMER" },
-                    { "de85ff03-b9de-49a0-90b1-d07cc668b52a", "de85ff03-b9de-49a0-90b1-d07cc668b52a", "Admin", "ADMIN" }
-========
-                    { "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "57e71f9d-3c20-43e4-9b66-e1a3e00dac73", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "7c53b965-75f5-46d0-9c81-df29129bbfd6", "7c53b965-75f5-46d0-9c81-df29129bbfd6", "Customer", "CUSTOMER" },
-                    { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "Admin", "ADMIN" }
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                    { "4b196d21-2570-4f78-a3ca-437278080b20", "4b196d21-2570-4f78-a3ca-437278080b20", "Admin", "ADMIN" },
+                    { "935cf5ee-6757-45f6-a735-2e0ecf92f6e5", "935cf5ee-6757-45f6-a735-2e0ecf92f6e5", "Customer", "CUSTOMER" },
+                    { "b7c606ec-1085-4ca0-b9a4-3d963957c392", "b7c606ec-1085-4ca0-b9a4-3d963957c392", "ServiceProvider", "SERVICEPROVIDER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
-                values: new object[] { "31687fb2-25bc-4690-9a0d-bcfc2163b1a0", 0, "9571ab67-d132-4a06-a302-8162fbb36756", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==", "03457689432", false, "Admin", "daed9816-0687-4337-a3c3-69babca4c0ae", null, false, "Aamir@gmail.com", null });
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                values: new object[] { "52211f3b-7d1b-44b7-ae65-a144d8929993", 0, "b8dd0c7e-982f-4947-af25-5cf9fb7d3f68", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAELSmgq04USmCMK8+/4B1lEyqMX8fR1vhw2b4Wvs11dFkvSUJQyVYoxl/P10Wdw7Iow==", "03457689432", false, "Admin", "aa00396e-27b6-46dc-bea6-0eeb88753c56", null, false, "Aamir@gmail.com", null });
-========
-                values: new object[] { "31687fb2-25bc-4690-9a0d-bcfc2163b1a0", 0, "9571ab67-d132-4a06-a302-8162fbb36756", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEOUBXGK2iqJo5/zuaa/ziKUV0xOAqE/NuZ1oTpgbagIpTq0t89El0JV6ovwcEfvnXw==", "03457689432", false, "Admin", "daed9816-0687-4337-a3c3-69babca4c0ae", null, false, "Aamir@gmail.com", null });
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                values: new object[] { "57980521-09c9-483a-bfcc-0aaeafe5f63a", 0, "95b84f6d-e59f-42ef-9d99-a8e7cc7439b6", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEKUi1/UU2mcBV0OSrka7T1HnZryaM4JX9J/fDUELRLLk4UFGGznFdgtfSjqi8JT9VQ==", "03457689432", false, "Admin", "e57fe692-7570-4791-852c-ee081a9c204a", null, false, "Aamir@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "ServiceProviderTypes",
                 columns: new[] { "Id", "ProviderName" },
                 values: new object[,]
                 {
-                    { new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), "Doctor" },
-                    { new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), "Ambulance" },
-                    { new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), "Pharmacy" }
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                    { new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"), "Doctor" },
-                    { new Guid("70544167-5c53-47f5-a145-b568d6186348"), "Pharmacy" },
-                    { new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"), "Ambulance" }
-========
-                    { new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), "Doctor" },
-                    { new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), "Ambulance" },
-                    { new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), "Pharmacy" }
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                    { new Guid("544575d6-01a8-47f8-9f2a-2dbbdac755b4"), "Doctor" },
+                    { new Guid("5cb9ec27-cb26-4d27-88c5-e4a8493826d8"), "Pharmacy" },
+                    { new Guid("b02151fd-3d89-40ef-816c-09318b60945c"), "Ambulance" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "31687fb2-25bc-4690-9a0d-bcfc2163b1a0" });
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                values: new object[] { "de85ff03-b9de-49a0-90b1-d07cc668b52a", "52211f3b-7d1b-44b7-ae65-a144d8929993" });
-========
-                values: new object[] { "bafdc162-79c6-44f9-b1bc-5c4068567ac7", "31687fb2-25bc-4690-9a0d-bcfc2163b1a0" });
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                values: new object[] { "4b196d21-2570-4f78-a3ca-437278080b20", "57980521-09c9-483a-bfcc-0aaeafe5f63a" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
                 values: new object[,]
                 {
-                    { "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8", 0, "cd161902-a449-4155-909f-331fc4f9683b", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==", "03457689432", false, "Provider", "1803991c-29c0-4f9a-b0df-debff11f1a4f", new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), false, "Hameed@gmail.com", new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1") },
-                    { "b7b6252c-9c64-4731-9403-dd3efd40f43a", 0, "f76368f6-3d8f-4e28-b077-8422a539bf59", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==", "03457689432", false, "Provider", "07abd710-daff-4989-bb55-8779600430ad", new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), false, "Waheed@gmail.com", new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57") },
-                    { "f3f48732-2ea0-484e-8bc7-11237cd296a1", 0, "6fbc312c-784c-4dfc-9441-3b341a989793", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==", "03457689432", false, "Provider", "f6235728-deba-4bf3-98c9-be02319edc10", new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), false, "Aqib@gmail.com", new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43") }
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                    { "05c560a2-4641-4c35-aed2-47d4c7a74710", 0, "6bae9a74-dbcf-47b2-96e2-b2379da98e92", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEOyOkB1I2KyNCyBOm2Z852Kj0pfR34cXJc/WCbGJSbC+xzlO2+i6t62S129wDElfJg==", "03457689432", false, "Provider", "c2ec74cc-db16-4cd5-b9f3-16bdaef5e6c5", new Guid("57edea49-e54a-4992-a430-1755b8f0cd7e"), false, "Aqib@gmail.com", new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe") },
-                    { "31de9f4a-9930-4ffd-b490-ebac6ed2854d", 0, "5a13c69a-3564-49d3-be92-9cf86ad5026d", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEDEnWq2SDVD92kaZreppIjigqP9klLRY8oRWfnSU2CkyrPSMYwpQ14oa/30TCewICQ==", "03457689432", false, "Provider", "fe3bd282-ca1f-4138-909e-3b9b4ddbe860", new Guid("8b8f2d35-e974-497d-b41b-0c8df734699a"), false, "Hameed@gmail.com", new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14") },
-                    { "baff2361-0c19-4d07-acf9-c4c867451fae", 0, "73f165d4-5160-46f3-8c88-d640db057d87", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEHAGnPhLXO3PXPYA/d8yqhtuA3t6ChEdsXopoPjGiVy5XpQ9+gFOcJtGImPrBcRCIg==", "03457689432", false, "Provider", "4adb128b-aa42-48d9-bc38-bf82de72edb0", new Guid("70544167-5c53-47f5-a145-b568d6186348"), false, "Waheed@gmail.com", new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b") }
-========
-                    { "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8", 0, "cd161902-a449-4155-909f-331fc4f9683b", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEMHgTrPYW+0dkg23VQIJnD3TLwfdg2JFohRZlgXnvtOeqTQHEdP7N22OEA5XG9aDQQ==", "03457689432", false, "Provider", "1803991c-29c0-4f9a-b0df-debff11f1a4f", new Guid("b04a6541-6c00-42c0-8198-0ae4b520fadb"), false, "Hameed@gmail.com", new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1") },
-                    { "b7b6252c-9c64-4731-9403-dd3efd40f43a", 0, "f76368f6-3d8f-4e28-b077-8422a539bf59", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEHcMjymW+xE9xrxWvschWaz/1YqVHBrCZ3/xKXSJbrFKAzsBonfLqNqnxwDEkIIRmA==", "03457689432", false, "Provider", "07abd710-daff-4989-bb55-8779600430ad", new Guid("e579e41b-dbd2-4b91-80d5-dff92780a3b1"), false, "Waheed@gmail.com", new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57") },
-                    { "f3f48732-2ea0-484e-8bc7-11237cd296a1", 0, "6fbc312c-784c-4dfc-9441-3b341a989793", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEEBUTbi6fyjSwo7s99dGZ+qOAUNQW6SQ8t2hf4t8bdm4Cw5S+xqqjjpDr0J24tTnpQ==", "03457689432", false, "Provider", "f6235728-deba-4bf3-98c9-be02319edc10", new Guid("38355c12-32a7-45a0-9328-554bba00ff66"), false, "Aqib@gmail.com", new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43") }
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                    { "57b16338-5ff0-43f8-af6c-4d46a33933d6", 0, "a459d307-d78d-4b48-9b4b-9c39be96958b", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEJ6KisMtGlYGN51I1FrAwfFh6MEjxjCv+9mawMBi0akxDHITPfGcab49v8ra4yhbmg==", "03457689432", false, "Provider", "06428f35-f976-460d-889f-82720a8da165", new Guid("544575d6-01a8-47f8-9f2a-2dbbdac755b4"), false, "Aqib@gmail.com", new Guid("422a655e-087d-4a51-a34d-49b73d47de97") },
+                    { "853d3181-f653-408a-a805-3f6b37746724", 0, "6ca71724-5112-49da-98e5-8f75556e1a24", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEADklk/FCaVkHR4sp1Ig2Zbu0oW1fS+M/mDX2WlTZOn24Ha08SnBcHFAhY/JlNglHQ==", "03457689432", false, "Provider", "794aaa6f-e433-46ac-8c56-e8d2e4347529", new Guid("5cb9ec27-cb26-4d27-88c5-e4a8493826d8"), false, "Waheed@gmail.com", new Guid("c0936c63-424e-4c0f-b95a-e26044494508") },
+                    { "bdfcf38f-2d8c-4918-a470-b2ef271711ed", 0, "bc2a160a-657e-427a-a83c-fcde105cde3f", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEFeOAVDpSi1RqEI1bAoy+OyaRp4vZ3wfGHJZvcR02dyDfQ/tUDRCFAspH55xeiwhTA==", "03457689432", false, "Provider", "9a3fc5d1-7a6a-472a-8015-4e77e759493b", new Guid("b02151fd-3d89-40ef-816c-09318b60945c"), false, "Hameed@gmail.com", new Guid("b2222928-b916-42d5-957d-e59cd092a70f") }
                 });
 
             migrationBuilder.InsertData(
@@ -366,18 +330,9 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "experience", "qualification", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"), "10 YEAR", "MBBS", "f3f48732-2ea0-484e-8bc7-11237cd296a1" },
-                    { new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"), "1 YEAR", "BDS", "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8" },
-                    { new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"), "3 YEAR", "MD", "b7b6252c-9c64-4731-9403-dd3efd40f43a" }
-<<<<<<<< HEAD:Migrations/20240113191253_dbinit.cs
-                    { new Guid("031b5aca-35e0-4ff4-a06e-4ed814961e14"), "1 YEAR", "BDS", "31de9f4a-9930-4ffd-b490-ebac6ed2854d" },
-                    { new Guid("09b0e1d3-7e93-47a2-beec-88f99f275ebe"), "10 YEAR", "MBBS", "05c560a2-4641-4c35-aed2-47d4c7a74710" },
-                    { new Guid("3f7fc9ea-20ed-43d8-bfe2-4115dc39777b"), "3 YEAR", "MD", "baff2361-0c19-4d07-acf9-c4c867451fae" }
-========
-                    { new Guid("22bd394a-1d5a-40be-a0b3-547f3a350a43"), "10 YEAR", "MBBS", "f3f48732-2ea0-484e-8bc7-11237cd296a1" },
-                    { new Guid("65cca636-ffa9-422a-b4f3-0e37d80b74e1"), "1 YEAR", "BDS", "78d0c0bf-0141-4310-b5d7-f1eeb5969ba8" },
-                    { new Guid("c117fd1f-85f6-4702-9ce9-4d78d2d86f57"), "3 YEAR", "MD", "b7b6252c-9c64-4731-9403-dd3efd40f43a" }
->>>>>>>> 0704a88 (Manage Promotion Done):Migrations/20240113155633_Db Init.cs
+                    { new Guid("422a655e-087d-4a51-a34d-49b73d47de97"), "10 YEAR", "MBBS", "57b16338-5ff0-43f8-af6c-4d46a33933d6" },
+                    { new Guid("b2222928-b916-42d5-957d-e59cd092a70f"), "1 YEAR", "BDS", "bdfcf38f-2d8c-4918-a470-b2ef271711ed" },
+                    { new Guid("c0936c63-424e-4c0f-b95a-e26044494508"), "3 YEAR", "MD", "853d3181-f653-408a-a805-3f6b37746724" }
                 });
 
             migrationBuilder.CreateIndex(

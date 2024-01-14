@@ -19,82 +19,78 @@ namespace imc_web_api.Controllers.AdminController
             _mapper = mapper;
         }
 
-        //-->Add Feedback
+        // --> Add Feedback
         [HttpPost]
-        [Route("AddFeedback")]
-        public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO InputRequest)
+        [Route("AddFeedback/")]
+        public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
-            var fm = _mapper.Map<feedback>(InputRequest);
-            var fmr = _feedbackService.AddFeedback(fm);
-            var fdto = _mapper.Map<feedback>(fmr);
+            // Map input request to feedback entity
+            var feedbackModel = _mapper.Map<feedback>(inputRequest);
+
+            // Call the asynchronous method to add feedback
+            var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel);
+
+            // Map the added feedback entity to DTO
+            var addedFeedbackDTO = _mapper.Map<FeedBackResponseDTO>(addedFeedbackModel);
 
             return Ok(new
             {
-                Data = fdto,
-                Message = "Feedback added successfully:"
+                Data = addedFeedbackDTO,
+                Message = "Feedback added successfully."
             });
         }
 
         //-->Update Feedback
         [HttpPut]
         [Route("UpdateFeedback/{id:Guid}")]
-        public async Task<IActionResult> UpdateFeedback(Guid id, FeedBackRequesrDTO InputRequest)
+        public async Task<IActionResult> UpdateFeedback(Guid id, [FromBody] FeedBackRequesrDTO InputRequest)
         {
-            if (InputRequest != null)
-            {
-                var fmodel = _mapper.Map<feedback>(InputRequest);
-                var fdto = _mapper.Map<feedback>(fmodel);
-                return Ok(new
-                {
-                    Data = fdto,
-                    Message = "Feedback Updated Successfully:"
-                }) ;
+            var Feedback_Model = _mapper.Map<feedback>(InputRequest);
+            var Feedback_Result = await _feedbackService.UpdateFeedback(id, Feedback_Model);
 
-            }
-            else
+            var FeedbackDto_Result = _mapper.Map<FeedBackResponseDTO>(Feedback_Result);
+
+            return Ok(new
             {
-                return BadRequest();
-            }
+                Data = FeedbackDto_Result,
+                Message = "Feedback Updated!"
+            });
         }
 
         //-->GetAll Feedback
         [HttpGet]
-        [Route("GetFeedbacks")]
-        public async Task<IActionResult> GetFeedbacks()
+        [Route("GetFeedbacks/")]
+        public async Task<List<FeedBackResponseDTO>> GetFeedbacks()
         {
-            var af =await _feedbackService.GetFeedbacks();
-            if (af == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(new
-                {
-                    Data = af,
-                    Message = "Retreiving all feedback successfully:"
-                }); ;
-            }
+            var FeedbackResult = await _feedbackService.GetFeedbacks();
+            var FeedbackDtoResult = _mapper.Map<List<FeedBackResponseDTO>>(FeedbackResult);
+            return FeedbackDtoResult;
         }
+
 
         // -->Get Feedback By Id
         [HttpGet]
         [Route("GetFeedbackById/{id:Guid}")]
         public async Task<FeedBackResponseDTO> GetFeedbackById(Guid id)
         {
-            var fi = await _feedbackService.GetFeedbackById(id);
-            var fidto = _mapper.Map<FeedBackResponseDTO>(fi);
-            return fidto;
+            var FeedbackResult = await _feedbackService.GetFeedbackById(id);
+            var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
+            return FeedbackDtoResult;
         }
 
         //-->Delete Feedback
         [HttpDelete]
-        [Route("DeleteHCP")]
-        public async Task<FeedBackResponseDTO> DeleteFeedback(Guid id)
+        [Route("DeleteFeedback/")]
+        public async Task<IActionResult> DeleteFeedback(Guid id)
         {
-            var df = await _feedbackService.DeleteFeedback(id);
-            var dfmodel = _mapper.Map<FeedBackResponseDTO>(df);
-            return dfmodel;
+            var FeedbackResult = await _feedbackService.DeleteFeedback(id);
+            var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
+            return Ok(new
+            {
+                Data = FeedbackDtoResult,
+                Message = "Feedback Deleted!"
+            });
         }
     }
+
 }

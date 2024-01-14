@@ -5,8 +5,8 @@
         public string Description { get; set; }
         public decimal Rating { get; set; }
 
-        public Guid ratedById { get; set; }
+        //public Guid ratedById { get; set; }
 
-        public Guid ratedToId { get; set; }
+        //public Guid ratedToId { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace imc_web_api
 
         public DbSet<promotion> Promotions { get; set; }
 
-        //public DbSet<order> Orders { get; set; }
+        public DbSet<order> Orders { get; set; }
         public DbSet<feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -37,6 +37,13 @@ namespace imc_web_api
                .HasForeignKey<user>(u => u.User_QualificationId)
                     .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<user>()
+           .HasOne(u => u.order)
+           .WithOne(u => u.User)
+           .HasForeignKey<user>(u => u.orderId)
+            .IsRequired(false)
+             .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<user_qualification>()
                .HasOne(u => u.User)
@@ -76,6 +83,24 @@ namespace imc_web_api
                 .WithMany(u => u.PromoteBy)
                 .HasForeignKey(p => p.PromoteById)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the relationship for customer in Order  Table
+
+            builder.Entity<order>()
+            .HasOne(o => o.User)
+             .WithOne(o => o.order)
+           .HasForeignKey<order>(d => d.CustomerId)
+
+            .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the relationship for Service in Order Table
+
+            builder.Entity<order>()
+                .HasOne(o => o.Service)
+                .WithOne(s => s.order)
+                .HasForeignKey<order>(s => s.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();

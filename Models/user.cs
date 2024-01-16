@@ -24,5 +24,10 @@ namespace imc_web_api.Models
         public List<feedback> User_Feedbacks { get; set; }
         public List<promotion> PromoteTo { get; set; }
         public List<promotion> PromoteBy { get; set; }
+
+        public Guid? orderId { get; set; } = null;
+
+        [ForeignKey("orderId")]
+        public order order { get; set; }
     }
 }

@@ -24,13 +24,10 @@ namespace imc_web_api.Controllers.AdminController
         [Route("AddFeedback/")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
-            // Map input request to feedback entity
             var feedbackModel = _mapper.Map<feedback>(inputRequest);
 
-            // Call the asynchronous method to add feedback
             var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel);
 
-            // Map the added feedback entity to DTO
             var addedFeedbackDTO = _mapper.Map<FeedBackResponseDTO>(addedFeedbackModel);
 
             return Ok(new
@@ -67,7 +64,6 @@ namespace imc_web_api.Controllers.AdminController
             return FeedbackDtoResult;
         }
 
-
         // -->Get Feedback By Id
         [HttpGet]
         [Route("GetFeedbackById/{id:Guid}")]
@@ -92,5 +88,4 @@ namespace imc_web_api.Controllers.AdminController
             });
         }
     }
-
 }

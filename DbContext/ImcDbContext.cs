@@ -21,6 +21,7 @@ namespace imc_web_api
 
         public DbSet<order> Orders { get; set; }
         public DbSet<feedback> Feedbacks { get; set; }
+        public DbSet<agreement> Agreements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

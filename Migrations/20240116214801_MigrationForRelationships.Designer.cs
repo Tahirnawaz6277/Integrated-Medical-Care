@@ -12,8 +12,8 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
-    [Migration("20240116150143_Database Models Updated")]
-    partial class DatabaseModelsUpdated
+    [Migration("20240116214801_MigrationForRelationships")]
+    partial class MigrationForRelationships
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,22 +54,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3eaf29f1-c00b-4958-9ee8-6027715e3597",
-                            ConcurrencyStamp = "3eaf29f1-c00b-4958-9ee8-6027715e3597",
+                            Id = "5300c94a-81ce-426f-bd63-637d0d668d6d",
+                            ConcurrencyStamp = "5300c94a-81ce-426f-bd63-637d0d668d6d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9e282618-9849-4e1e-9d10-4a8367b8a12c",
-                            ConcurrencyStamp = "9e282618-9849-4e1e-9d10-4a8367b8a12c",
+                            Id = "18e88276-ec45-4448-8c07-6c005100a98b",
+                            ConcurrencyStamp = "18e88276-ec45-4448-8c07-6c005100a98b",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "f8b5ca8c-f2f8-4201-b5a0-655523b97a26",
-                            ConcurrencyStamp = "f8b5ca8c-f2f8-4201-b5a0-655523b97a26",
+                            Id = "6104b548-ba4d-4a85-967c-311436a3e207",
+                            ConcurrencyStamp = "6104b548-ba4d-4a85-967c-311436a3e207",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -237,8 +237,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "a69432f4-a831-4180-b874-aa3b0709ed28",
-                            RoleId = "3eaf29f1-c00b-4958-9ee8-6027715e3597"
+                            UserId = "c00bd3b8-f2ce-4cc4-8998-c96504ce1d01",
+                            RoleId = "5300c94a-81ce-426f-bd63-637d0d668d6d"
                         });
                 });
 
@@ -259,6 +259,29 @@ namespace imc_web_api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("imc_web_api.Models.agreement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAgreed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Agreements");
                 });
 
             modelBuilder.Entity("imc_web_api.Models.feedback", b =>
@@ -441,17 +464,17 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fbaabf74-2b19-49fa-9086-2fcaa2b786b6"),
+                            Id = new Guid("a7586add-3a80-43ad-845d-61e1dc07c135"),
                             ProviderName = "Doctor"
                         },
                         new
                         {
-                            Id = new Guid("f97d233e-24ff-4f45-8827-97bf802060eb"),
+                            Id = new Guid("c993b1c3-8d27-465b-b3e1-34fa92f97c43"),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
-                            Id = new Guid("ad511af9-7997-45d8-b2d9-335767c54202"),
+                            Id = new Guid("20429322-6725-4811-934f-63975d1ca250"),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -484,24 +507,24 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7e1cfacf-5356-4ca4-9a74-adcdbbea249e"),
+                            Id = new Guid("17305640-bba1-4e4d-8f63-490693457a86"),
                             experience = "10 YEAR",
                             qualification = "MBBS",
-                            userId = "00ec3a5a-de34-477c-b2d6-e5dab5ffe3c9"
+                            userId = "a5a147cb-17a3-4b80-82ee-622f7ce80092"
                         },
                         new
                         {
-                            Id = new Guid("a4bb3630-7e53-4552-a273-f45f792289a8"),
+                            Id = new Guid("4345271e-d42b-413c-8d55-70fabe974832"),
                             experience = "3 YEAR",
                             qualification = "MD",
-                            userId = "18892347-332f-48a6-9c6a-67760e83b738"
+                            userId = "c5c4caba-2d9d-423c-9200-547cd17e4678"
                         },
                         new
                         {
-                            Id = new Guid("ecabded6-52aa-4517-a46d-f5dc08cd7125"),
+                            Id = new Guid("2ffbebf0-2209-4f19-bf00-77a092de3d00"),
                             experience = "1 YEAR",
                             qualification = "BDS",
-                            userId = "2818d314-a853-4e3c-9436-a0af1a939fde"
+                            userId = "78989b53-da47-4a1d-bd22-4e37673100ac"
                         });
                 });
 
@@ -543,18 +566,18 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a69432f4-a831-4180-b874-aa3b0709ed28",
+                            Id = "c00bd3b8-f2ce-4cc4-8998-c96504ce1d01",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "199931fb-0507-4caa-b669-4c448b0a3ae9",
+                            ConcurrencyStamp = "23ed5221-b89e-42a6-9ef0-4994de8e1b62",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAECD5Z9sOChD0Emt7Hjyvom4OnLdmLg+PhMvA+Jy/EL7LgwhDnjN9Xd1lBtrO9YDpAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMBNXW/4taRJofSbjoJ4qDdUKBiF/hXAtre15bEUK5mqRCBCmhQjT+FOK+FtvqX4wQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3dfaeb71-df9c-4ae0-9f28-bab612109a0b",
+                            SecurityStamp = "1273049b-f646-4acc-b3cc-dc3aafa86602",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
                             FirstName = "Aamir",
@@ -564,72 +587,72 @@ namespace imc_web_api.Migrations
                         },
                         new
                         {
-                            Id = "00ec3a5a-de34-477c-b2d6-e5dab5ffe3c9",
+                            Id = "a5a147cb-17a3-4b80-82ee-622f7ce80092",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c3d35d4-4474-4ad0-b8eb-ec16c29aa7c8",
+                            ConcurrencyStamp = "9ae7f1d9-d031-43da-90e6-af6d2d1854e9",
                             Email = "Aqib@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aqib@gmail.com",
                             NormalizedUserName = "Aqib@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFVtZgYBX6gKD7xeN+RcVRxvxEG/O5JBJfT6awobpNLpGWxpGoZfsVgITpF6JYzkmA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPimZtHl0xwWS/ivyqrooLssUmgKXJysy9JehQX4K/59posLRRap9h9pVrpamwIVtw==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e38d19f-bb72-44e3-9797-078c29eddab8",
+                            SecurityStamp = "534f14d4-d42d-44e3-8e13-f42ff390e81b",
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
                             FirstName = "Aqib",
                             Gender = "Male",
                             LastName = "nawaz",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("fbaabf74-2b19-49fa-9086-2fcaa2b786b6"),
-                            User_QualificationId = new Guid("7e1cfacf-5356-4ca4-9a74-adcdbbea249e")
+                            ServiceProvidertypeId = new Guid("a7586add-3a80-43ad-845d-61e1dc07c135"),
+                            User_QualificationId = new Guid("17305640-bba1-4e4d-8f63-490693457a86")
                         },
                         new
                         {
-                            Id = "18892347-332f-48a6-9c6a-67760e83b738",
+                            Id = "c5c4caba-2d9d-423c-9200-547cd17e4678",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c418777c-79fa-4996-b7e0-120df6977ccd",
+                            ConcurrencyStamp = "45c8a833-a297-41d6-bcde-c98c46ea22d9",
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Waheed@gmail.com",
                             NormalizedUserName = "Waheed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAENfOD0Y9QkhGAKXbZRDXO3zGz9MMuxRq9eDBn0oeCkEi9KLoRUsQxDjyx3KERI8gVg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKIus5+FUdAy3tR0moC515QHM3I9QqSvzxGo44uchA02uCCGvdn+S+AOC4pj7QIdDg==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "656a5d9f-f358-4b85-86d3-11a535864d91",
+                            SecurityStamp = "a61aec41-da88-48dc-b024-75221ffa1e51",
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
                             FirstName = "Waheed",
                             Gender = "Male",
                             LastName = "Quraishi",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("f97d233e-24ff-4f45-8827-97bf802060eb"),
-                            User_QualificationId = new Guid("a4bb3630-7e53-4552-a273-f45f792289a8")
+                            ServiceProvidertypeId = new Guid("c993b1c3-8d27-465b-b3e1-34fa92f97c43"),
+                            User_QualificationId = new Guid("4345271e-d42b-413c-8d55-70fabe974832")
                         },
                         new
                         {
-                            Id = "2818d314-a853-4e3c-9436-a0af1a939fde",
+                            Id = "78989b53-da47-4a1d-bd22-4e37673100ac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ed60d5e-c1fc-4e59-8716-c0604c849404",
+                            ConcurrencyStamp = "93008559-0008-474b-8aa0-bdaa08bfb57c",
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Hameed@gmail.com",
                             NormalizedUserName = "Hameed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMWNqZyXO+3V0Ki6gRwtHmG5QQ/ZxpDR8m4JYnv9k3JmZmnky09009idPBDYJQbvmw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMDEubEHU1wWpJp86XiLp7oms7Ry/LlfH2nOX9Ut7l10pHXP9gKKGO5HobMvhHdL1g==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7ae4405-0011-44a8-92b4-5e313495f133",
+                            SecurityStamp = "a10466fb-5706-49b4-8c9f-1a28987843da",
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",
                             FirstName = "Hameed",
                             Gender = "Male",
                             LastName = "Khan",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("ad511af9-7997-45d8-b2d9-335767c54202"),
-                            User_QualificationId = new Guid("ecabded6-52aa-4517-a46d-f5dc08cd7125")
+                            ServiceProvidertypeId = new Guid("20429322-6725-4811-934f-63975d1ca250"),
+                            User_QualificationId = new Guid("2ffbebf0-2209-4f19-bf00-77a092de3d00")
                         });
                 });
 
@@ -682,6 +705,17 @@ namespace imc_web_api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("imc_web_api.Models.agreement", b =>
+                {
+                    b.HasOne("imc_web_api.Models.user", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("imc_web_api.Models.feedback", b =>

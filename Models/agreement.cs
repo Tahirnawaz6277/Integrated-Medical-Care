@@ -10,11 +10,16 @@ namespace imc_web_api.Models
 
         public bool IsAgreed { get; set; }
 
-        public string UserId { get; set; }
+        public string ServiceProviderId { get; set; }
 
-        [ForeignKey("UserId")]
-        public user User { get; set; }
+        [ForeignKey("ServiceProviderId")]
+        public user ServiceProvider { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public string AdminId { get; set; }
+
+        [ForeignKey("AdminId")]
+        public user Admin { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using imc_web_api.Dtos.AdminDtos.FeedBackDtos;
 using imc_web_api.Dtos.AdminDtos.HCPDtos;
+using imc_web_api.Dtos.AdminDtos.OrderDtos;
 using imc_web_api.Dtos.AdminDtos.PromotionDtos;
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
@@ -28,8 +29,18 @@ namespace imc_web_api.AutoMapper
 
             CreateMap<promotion, PromotionRequestDTO>().ReverseMap();
             CreateMap<promotion, PromotionResponseDTO>().ReverseMap();
+
+            //Mapping For Feedback
+
             CreateMap<feedback, FeedBackRequesrDTO>().ReverseMap();
             CreateMap<feedback, FeedBackResponseDTO>().ReverseMap();
+
+            //Mapping For Order
+            CreateMap<order, OrderRequestDTO>().ReverseMap();
+            CreateMap<order, OrderResponseDTO>().ReverseMap();
+         
+
+
         }
     }
 }

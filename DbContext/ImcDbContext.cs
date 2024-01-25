@@ -42,9 +42,10 @@ namespace imc_web_api
             builder.Entity<user>()
            .HasOne(u => u.order)
            .WithOne(u => u.User)
-           .HasForeignKey<user>(u => u.orderId)
-            .IsRequired(false)
+           .HasForeignKey<order>(u => u.CustomerId)
              .OnDelete(DeleteBehavior.Restrict);
+
+
 
             builder.Entity<user_qualification>()
                .HasOne(u => u.User)
@@ -71,37 +72,54 @@ namespace imc_web_api
            .HasForeignKey(f => f.ratedToId)
            .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship for PromoteToUser in promotion
+
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteToUser)
                 .WithMany(u => u.PromoteTo)
                 .HasForeignKey(p => p.PromoteToId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship for PromoteByUser in promotion
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteByUser)
                 .WithMany(u => u.PromoteBy)
                 .HasForeignKey(p => p.PromoteById)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship for customer in Order  Table
+     
 
             builder.Entity<order>()
             .HasOne(o => o.User)
              .WithOne(o => o.order)
            .HasForeignKey<order>(d => d.CustomerId)
-
             .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship for Service in Order Table
+
 
             builder.Entity<order>()
                 .HasOne(o => o.Service)
                 .WithOne(s => s.order)
-                .HasForeignKey<order>(s => s.ServiceId)
+                .HasForeignKey<order>(o => o.ServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<service>()
+               .HasOne(o => o.order)
+               .WithOne(s => s.Service)
+               .HasForeignKey<order>(o => o.ServiceId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
+
+            builder.Entity<agreement>()
+               .HasOne(o => o.ServiceProvider)
+               .WithOne(s => s.ServiceProvidedAgreement)
+               .HasForeignKey<agreement>(o => o.ServiceProviderId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+           builder.Entity<agreement>()
+              .HasOne(o => o.Admin)
+              .WithOne(s => s.AdminAgreement)
+              .HasForeignKey<agreement>(o => o.AdminId)
+              .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();

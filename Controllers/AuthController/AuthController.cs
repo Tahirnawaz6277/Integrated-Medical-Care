@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AuthService;
 using imc_web_api.Service.AuthServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,8 +50,17 @@ namespace imc_web_api.Controllers.AuthController
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                // Log or print the exception details
+                Console.WriteLine($"Exception: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
+
+                // Return a BadRequest response with the error details
+                return BadRequest($"An error occurred. {ex.Message}. Inner Exception: {ex.InnerException?.Message}");
             }
+
         }
 
         [HttpPost]
@@ -124,6 +135,22 @@ namespace imc_web_api.Controllers.AuthController
             {
                 Data = Qualification_Dto_Result
             });
+        }
+
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        [Route("check_my_status")]
+        [Authorize(Roles ="Admin")]
+        public  async Task<String> checkMyAuthentication()
+        {
+            //how to get userId from token
+            var token = HttpContext.Request.Headers["Authorization"];
+
+            // Get the UserId from the token
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+         return $"Current User Id :  {userId}";
         }
     }
 }

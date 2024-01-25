@@ -110,7 +110,12 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         {
             try
             {
-                return await _userManager.Users.ToListAsync();
+                return await _userManager.Users
+
+                     .Include(u => u.ServiceProviderType)
+                     .Include(u=>u.User_Qualification)
+                     .Include(u=>u.order)
+                     .ToListAsync();
             }
             catch (Exception ex)
             {

@@ -7,6 +7,6 @@
 
         //public Guid ratedById { get; set; }
 
-        //public Guid ratedToId { get; set; }
+        public Guid ratedToId { get; set; }
     }
 }

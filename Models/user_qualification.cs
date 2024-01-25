@@ -13,7 +13,10 @@ namespace imc_web_api.Models
         public string experience { get; set; }
 
         public string userId { get; set; }
-        [ForeignKey("userId")]  
+
+        [ForeignKey("userId")]
         public user User { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

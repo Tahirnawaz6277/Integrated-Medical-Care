@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using imc_web_api.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace imc_web_api.Models
+namespace imc_web_api.Dtos.AdminDtos.OrderDtos
 {
-    public class order
+    public class OrderResponseDTO
     {
-       
+        
         public Guid Id { get; set; }
         public string Contact { get; set; }
         public string Address { get; set; }
@@ -24,8 +25,7 @@ namespace imc_web_api.Models
         [ForeignKey("ServiceId")]
         public service Service { get; set; }
 
-       
-    
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public DateTime OrderDate { get; set; }
     }
 }

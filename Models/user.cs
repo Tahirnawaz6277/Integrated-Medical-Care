@@ -7,7 +7,7 @@ namespace imc_web_api.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
 
         public string Role { get; set; }
 
@@ -25,9 +25,9 @@ namespace imc_web_api.Models
         public List<promotion> PromoteTo { get; set; }
         public List<promotion> PromoteBy { get; set; }
 
-        public Guid? orderId { get; set; } = null;
-
-        [ForeignKey("orderId")]
+        public agreement ServiceProvidedAgreement { get; set; }
+        public agreement AdminAgreement { get; set; }
         public order order { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

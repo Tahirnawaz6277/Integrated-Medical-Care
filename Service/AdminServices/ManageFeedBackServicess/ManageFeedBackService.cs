@@ -1,6 +1,8 @@
-﻿using imc_web_api.Models;
+﻿using System.Security.Claims;
+using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.NewFolder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
 {
@@ -13,16 +15,19 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             _imcDbContext = imcDbContext;
         }
 
-        public async Task<feedback> AddFeedback(feedback feedbackInput)
+        public async Task<feedback> AddFeedback(feedback feedbackInput , string userId)
         {
             try
             {
-                if (feedbackInput == null)
+                if (feedbackInput == null || userId == null)
                 {
                     throw new ArgumentNullException(nameof(feedbackInput), "Feedback input is null.");
                 }
                 else
                 {
+
+
+                    feedbackInput.ratedById = userId;
                     await _imcDbContext.Feedbacks.AddAsync(feedbackInput);
                     await _imcDbContext.SaveChangesAsync();
 

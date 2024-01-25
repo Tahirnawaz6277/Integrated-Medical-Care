@@ -17,7 +17,7 @@ namespace imc_web_api.Models
         [ForeignKey("ratedToId")]
         public service Service { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     }
 }

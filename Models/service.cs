@@ -21,13 +21,9 @@ namespace imc_web_api.Models
 
         public List<feedback> User_Feedbacks { get; set; }
 
-        public Guid OrderId { get; set; }
-
-        [ForeignKey("OrderId")]
+   
         public order order { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

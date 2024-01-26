@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
+using imc_web_api.middle;
 using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
@@ -18,12 +19,55 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//add Serilog
+
+var logger = new LoggerConfiguration()
+                 .WriteTo.Console()
+                 //.WriteTo.File("")
+                 //.MinimumLevel.Information()
+                 .MinimumLevel.Error()
+                 .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "IMC API'S", Version = "v1" });
+
+    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = JwtBearerDefaults.AuthenticationScheme
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type =ReferenceType.SecurityScheme,
+                    Id =JwtBearerDefaults.AuthenticationScheme
+                } ,
+                Scheme= "Oauth2",
+                Name = JwtBearerDefaults.AuthenticationScheme,
+                In =ParameterLocation.Header
+            }    ,
+            new List<string>()
+        }
+    });
+});
 
 builder.Services.AddDbContext<ImcDbContext>(options =>
 {
@@ -96,7 +140,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

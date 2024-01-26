@@ -4,11 +4,11 @@ using AutoMapper;
 using imc_web_api.Dtos.AdminDtos.FeedBackDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.NewFolder;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageFeedBackController : ControllerBase
@@ -22,18 +22,17 @@ namespace imc_web_api.Controllers.AdminController
             _mapper = mapper;
         }
 
-        // --> Add Feedback
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        // ADD FEEDBACK
+
         [HttpPost]
         [Route("AddFeedback")]
-        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
             var feedbackModel = _mapper.Map<feedback>(inputRequest);
 
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel , userId);
+            var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel, userId);
 
             var addedFeedbackDTO = _mapper.Map<FeedBackResponseDTO>(addedFeedbackModel);
 
@@ -47,7 +46,6 @@ namespace imc_web_api.Controllers.AdminController
         //-->Update Feedback
         [HttpPut]
         [Route("UpdateFeedback/{id:Guid}")]
-
         public async Task<IActionResult> UpdateFeedback(Guid id, [FromBody] FeedBackRequesrDTO InputRequest)
         {
             var Feedback_Model = _mapper.Map<feedback>(InputRequest);

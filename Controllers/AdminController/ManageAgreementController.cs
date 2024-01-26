@@ -1,8 +1,11 @@
 ﻿using imc_web_api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageAgreementController : ControllerBase
@@ -14,7 +17,7 @@ namespace imc_web_api.Controllers.AdminController
             _ImcDbContext = imcDbContext;
         }
 
-        // GET Agreements
+        // GET AGREEMENTS
         [HttpGet]
         [Route("GetAgreements")]
         public async Task<List<agreement>> GetAgreements()
@@ -22,7 +25,7 @@ namespace imc_web_api.Controllers.AdminController
             return null;
         }
 
-        // GET AgreementById
+        // GET AGREEMENTS BY ID
         [HttpGet]
         [Route("GetAgreement/{id:Guid}")]
         public async Task<agreement> GetAgreement(Guid id)
@@ -30,7 +33,7 @@ namespace imc_web_api.Controllers.AdminController
             return null;
         }
 
-        // POST Agreement
+        // POST AGREEMENTS
         [HttpPost]
         [Route("AddAgreement")]
         public async Task<IActionResult> AddAgreement([FromBody] agreement value)
@@ -38,7 +41,7 @@ namespace imc_web_api.Controllers.AdminController
             return null;
         }
 
-        // DELETE  Agreement
+        // DELETE AGREEMENTS
         [HttpDelete]
         [Route("DeleteAgreement/{id:Guid}")]
         public async Task<IActionResult> DeleteAgreement(Guid id)

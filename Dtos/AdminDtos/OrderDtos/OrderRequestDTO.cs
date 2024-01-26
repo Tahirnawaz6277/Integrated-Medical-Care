@@ -9,7 +9,6 @@
         public int Amount { get; set; }
         public string PaymentMode { get; set; }
         public bool IsDeleted { get; set; }
-        public string CustomerId { get; set; }
 
         public Guid ServiceId { get; set; }
     }

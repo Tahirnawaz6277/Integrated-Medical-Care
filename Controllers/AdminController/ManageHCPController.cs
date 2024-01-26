@@ -4,10 +4,12 @@ using imc_web_api.Dtos.AdminDtos.HCPDtos;
 //using imc_web_api.Dtos.HCPDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageHCPController : ControllerBase

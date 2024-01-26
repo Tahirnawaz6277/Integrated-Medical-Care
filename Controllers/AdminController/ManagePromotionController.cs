@@ -2,10 +2,13 @@
 using imc_web_api.Dtos.AdminDtos.PromotionDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagePromotionController : ControllerBase
@@ -20,6 +23,7 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //--> Add Promotion
+
         [HttpPost]
         [Route("AddPromotion")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionRequestDTO Promotion_Input_Request)
@@ -37,6 +41,7 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //--> Update Promotion
+
         [HttpPut]
         [Route("UpdatePromotion/{id:Guid}")]
         public async Task<IActionResult> UpdatePromotion(Guid id, [FromBody] PromotionRequestDTO PromotionRequestDTO)
@@ -90,7 +95,7 @@ namespace imc_web_api.Controllers.AdminController
             {
                 Message = "Promotion Deleted!",
                 Data = PromotionDto_Result
-            }) ;
+            });
         }
     }
 }

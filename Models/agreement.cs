@@ -6,9 +6,12 @@ namespace imc_web_api.Models
     public class agreement
     {
         [Key]
+        [Required]
         public Guid Id { get; set; }
 
+        [Required(ErrorMessage ="IsAgreed is Required.")]
         public bool IsAgreed { get; set; }
+
 
         public string ServiceProviderId { get; set; }
 

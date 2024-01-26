@@ -58,7 +58,7 @@ namespace imc_web_api.Controllers.AuthController
                 }
 
                 // Return a BadRequest response with the error details
-                return BadRequest($"An error occurred. {ex.Message}. Inner Exception: {ex.InnerException?.Message}");
+                return BadRequest($"An error occurred. {ex.Message}. {ex.InnerException?.Message}");
             }
 
         }

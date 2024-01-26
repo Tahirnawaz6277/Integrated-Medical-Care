@@ -1,8 +1,6 @@
-﻿using System.Security.Claims;
-using imc_web_api.Models;
+﻿using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.NewFolder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
 {
@@ -15,29 +13,26 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             _imcDbContext = imcDbContext;
         }
 
-        public async Task<feedback> AddFeedback(feedback feedbackInput , string userId)
+        public async Task<feedback> AddFeedback(feedback feedbackInput, string userId)
         {
             try
             {
                 if (feedbackInput == null || userId == null)
                 {
-                    throw new ArgumentNullException(nameof(feedbackInput), "Feedback input is null.");
+                    throw new ArgumentNullException(nameof(feedbackInput));
                 }
                 else
                 {
-
-
                     feedbackInput.ratedById = userId;
                     await _imcDbContext.Feedbacks.AddAsync(feedbackInput);
                     await _imcDbContext.SaveChangesAsync();
 
-                    // Return the added feedback instead of the input request
                     return feedbackInput;
                 }
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("An error occurred while adding feedback. See inner exception for details.", ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -47,12 +42,12 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             {
                 if (id == Guid.Empty)
                 {
-                    throw new ArgumentException("Invalid ID. Please provide a valid Feedback ID.");
+                    throw new ArgumentNullException(nameof(id));
                 }
                 var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
                 if (checkFeedback == null)
                 {
-                    throw new Exception($"Feedback with ID {id} not found.");
+                    throw new ArgumentNullException();
                 }
                 _imcDbContext.Feedbacks.Remove(checkFeedback);
                 await _imcDbContext.SaveChangesAsync();
@@ -60,7 +55,7 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while Deleting Feedback Record!." + ex.Message, ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -70,18 +65,18 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             {
                 if (id == Guid.Empty)
                 {
-                    throw new ArgumentException("Invalid ID. Please provide a valid Feedback ID.");
+                    throw new ArgumentNullException(nameof(id));
                 }
                 var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
                 if (checkFeedback == null)
                 {
-                    throw new Exception($"Feedback with ID {id} not found.");
+                    throw new ArgumentNullException(nameof(id));
                 }
                 return checkFeedback;
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while Fetching Feedback Record!." + ex.Message, ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -93,7 +88,7 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while Fetching Feedback Record!." + ex.Message, ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -103,17 +98,16 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             {
                 if (feedbackInputRequest == null || id == Guid.Empty)
                 {
-                    throw new ArgumentNullException(nameof(feedbackInputRequest), "Input is null.");
+                    throw new ArgumentNullException(nameof(feedbackInputRequest));
                 }
 
                 var ExistingFeedback = await _imcDbContext.Feedbacks.FirstOrDefaultAsync(p => p.Id == id);
 
                 if (ExistingFeedback == null)
                 {
-                    throw new Exception("Record Not Found!");
+                    throw new ArgumentNullException(nameof(feedbackInputRequest));
                 }
 
-                // If feedback with the given id is found, update its properties
                 ExistingFeedback.Description = feedbackInputRequest.Description;
                 ExistingFeedback.Rating = feedbackInputRequest.Rating;
 
@@ -123,7 +117,7 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while updating feedback with id {id}. See inner exception for details.", ex);
+                throw new Exception(ex.Message);
             }
         }
     }

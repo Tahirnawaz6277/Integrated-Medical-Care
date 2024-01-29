@@ -1,4 +1,5 @@
 ﻿using imc_web_api.Models;
+using imc_web_api.Service.EmailServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManagePromotionServices
@@ -6,14 +7,16 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
     public class ManagePromotionService : IManagePromotionService
     {
         private readonly ImcDbContext _imcDbContext;
+        private readonly IEmailSender _emailSender;
 
-        public ManagePromotionService(ImcDbContext imcDbContext)
+        public ManagePromotionService(ImcDbContext imcDbContext, IEmailSender emailSender)
         {
             _imcDbContext = imcDbContext;
+            _emailSender = emailSender;
         }
 
         //--> Add Promotion
-        public async Task<promotion> AddPromotion(promotion UserPromotionReguest)
+        public async Task<promotion> AddPromotion(promotion UserPromotionReguest, string CurrentUserId)
         {
             try
             {
@@ -22,9 +25,12 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
                     throw new ArgumentNullException(nameof(UserPromotionReguest), "Input is null.");
                 }
 
+                UserPromotionReguest.PromoteById = CurrentUserId;
+                UserPromotionReguest.IsSent = true;
                 await _imcDbContext.Promotions.AddAsync(UserPromotionReguest);
 
                 await _imcDbContext.SaveChangesAsync();
+                _emailSender.SendEmail("inamwebpro007@gmail.com", "Administrator Promotion Offer");
 
                 return UserPromotionReguest;
             }

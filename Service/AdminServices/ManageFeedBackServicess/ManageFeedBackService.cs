@@ -13,17 +13,17 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
             _imcDbContext = imcDbContext;
         }
 
-        public async Task<feedback> AddFeedback(feedback feedbackInput, string userId)
+        public async Task<feedback> AddFeedback(feedback feedbackInput, string CurrentUserId)
         {
             try
             {
-                if (feedbackInput == null || userId == null)
+                if (feedbackInput == null || CurrentUserId == null)
                 {
                     throw new ArgumentNullException(nameof(feedbackInput));
                 }
                 else
                 {
-                    feedbackInput.ratedById = userId;
+                    feedbackInput.ratedById = CurrentUserId;
                     await _imcDbContext.Feedbacks.AddAsync(feedbackInput);
                     await _imcDbContext.SaveChangesAsync();
 
@@ -44,7 +44,17 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
                 {
                     throw new ArgumentNullException(nameof(id));
                 }
+
                 var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
+
+                //var checkFeedback = from feedback in _imcDbContext.Feedbacks
+                //                    join service in _imcDbContext.Services on feedback.ratedToId equals service.Id
+                //                    select new
+                //                    {
+                //                        FeedBackMessage = feedback.Description,
+                //                        Service = service.ServiceName
+                //                    };
+
                 if (checkFeedback == null)
                 {
                     throw new ArgumentNullException();

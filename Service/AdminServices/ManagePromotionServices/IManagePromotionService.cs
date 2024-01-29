@@ -4,7 +4,7 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
 {
     public interface IManagePromotionService
     {
-        Task<promotion> AddPromotion(promotion UserPromotionReguest);
+        Task<promotion> AddPromotion(promotion UserPromotionReguest, string CurrentUserId);
 
         Task<promotion> UpdatePromotion(Guid id, promotion UserPromotionReguest);
 

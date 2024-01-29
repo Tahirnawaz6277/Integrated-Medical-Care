@@ -5,7 +5,7 @@ namespace imc_web_api.Service.AdminServices.NewFolder
     public interface IManageFeedbackService
 
     {
-        Task<feedback> AddFeedback(feedback FeedbackInputReguest , string userId);
+        Task<feedback> AddFeedback(feedback FeedbackInputReguest, string CurrentUserId);
 
         Task<feedback> UpdateFeedback(Guid id, feedback FeedbackInputReguest);
 

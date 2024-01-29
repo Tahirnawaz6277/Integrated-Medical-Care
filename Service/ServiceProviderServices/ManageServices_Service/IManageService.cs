@@ -1,13 +1,12 @@
-﻿using imc_web_api.Dtos.AdminDtos.HCPDtos;
-using imc_web_api.Models;
+﻿using imc_web_api.Models;
 
 namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service
 {
     public interface IManageService
     {
-        Task<service> AddService(service ServiceInputRequest);
+        Task<service> AddService(service ServiceInputRequest, Guid CurrentUserId);
 
-        Task<service> DeleteService(Guid id);
+        Task<service> DeleteService(Guid id, Guid CurrentUserId);
 
         Task<service> UpdateService(Guid id, service ServiceInputRequest);
 

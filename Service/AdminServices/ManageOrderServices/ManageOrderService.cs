@@ -1,5 +1,5 @@
 ﻿using imc_web_api.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+using imc_web_api.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageOrderServices
@@ -13,18 +13,20 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             _ImcDbContext = imcDbContext;
         }
 
-        // POST ORDER
-        public async Task<order> AddOrder(order UserInputReguest, string UserId)
+        //-->  Place/Create Order
+        public async Task<order> AddOrder(order UserInputReguest, string CurrentUserId)
         {
             try
             {
-                if (UserInputReguest == null)
+                if (UserInputReguest == null || CurrentUserId == null)
                 {
                     throw new ArgumentNullException(nameof(UserInputReguest), "Order input is null.");
                 }
                 else
                 {
-                    UserInputReguest.CustomerId = UserId;
+                    UserInputReguest.CustomerId = CurrentUserId;
+                    UserInputReguest.orderStatus = OrderStatusEnum.OrderStatus.Pending;
+                    UserInputReguest.IsDeleted = false;
                     await _ImcDbContext.Orders.AddAsync(UserInputReguest);
                     _ImcDbContext.SaveChanges();
 
@@ -37,7 +39,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             }
         }
 
-        // DELETE ORDER
+        //-->  Delete Order
         public async Task<order> DeleteOrder(Guid id)
         {
             try
@@ -48,9 +50,9 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
                 }
                 else
                 {
-                   var Existing_Order = await  _ImcDbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+                    var Existing_Order = await _ImcDbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
 
-                    if(Existing_Order == null)
+                    if (Existing_Order == null)
                     {
                         throw new Exception("Order Record Not Found!");
                     }
@@ -66,7 +68,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             }
         }
 
-        // GET ORDER BY ID
+        //-->  Get Order By Id
         public async Task<order> GetOrderById(Guid id)
         {
             if (id == Guid.Empty)
@@ -83,7 +85,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             }
         }
 
-        // GET ORDERS
+        //-->  Get Orders
         public async Task<List<order>> GetOrders()
         {
             try
@@ -96,7 +98,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             }
         }
 
-        // UPDATE ORDER
+        //-->  Update Order
         public async Task<order> UpdateOrder(Guid id, order UserInputReguest)
         {
             try

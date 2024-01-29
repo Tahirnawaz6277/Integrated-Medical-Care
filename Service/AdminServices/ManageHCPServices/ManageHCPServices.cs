@@ -65,7 +65,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
         {
             try
             {
-                return await _imcDbContext.ServiceProviderTypes.ToListAsync();
+                return await _imcDbContext.ServiceProviderTypes.Include(p=>p.givenServices).ToListAsync();
             }
             catch (Exception ex)
             {

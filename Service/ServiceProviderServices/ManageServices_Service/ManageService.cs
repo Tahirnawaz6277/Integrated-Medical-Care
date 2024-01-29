@@ -1,4 +1,5 @@
 ﻿using imc_web_api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices
@@ -6,18 +7,31 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
     public class ManageService : IManageService
     {
         private readonly ImcDbContext _dbContext;
+        private readonly ILogger<ManageService> _logger;
+        private readonly UserManager<user> _userManager;
 
-        public ManageService(ImcDbContext dbContext)
+        public ManageService(ImcDbContext dbContext, ILogger<ManageService> logger, UserManager<user> userManager)
         {
             _dbContext = dbContext;
+            _logger = logger;
+            _userManager = userManager;
         }
 
-        public async Task<service> AddService(service serviceInputRequest)
+        //--> Add Service
+        public async Task<service> AddService(service serviceInputRequest, Guid CurrentUserId)
         {
             try
             {
                 if (serviceInputRequest != null)
                 {
+                    var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
+
+                    if (LoggedInUser == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    serviceInputRequest.CreatedByProviderTypeId = (Guid)LoggedInUser.ServiceProvidertypeId;
                     await _dbContext.AddAsync(serviceInputRequest);
                     await _dbContext.SaveChangesAsync();
                     return serviceInputRequest;
@@ -29,15 +43,20 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to add service", ex);
+                _logger.LogError(ex.Message);
+                throw new Exception("Failed to add service" + ex);
             }
         }
 
-        public async Task<service> DeleteService(Guid id)
+        //--> Delete Service
+        public async Task<service> DeleteService(Guid id, Guid CurrentUserId)
         {
             try
             {
-                var Service = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+                var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
+
+                var Service = await _dbContext.Services
+                    .Where(s => s.Id == id && s.CreatedByProviderTypeId == LoggedInUser.ServiceProvidertypeId).FirstOrDefaultAsync();
                 if (Service == null)
                 {
                     return null;
@@ -55,11 +74,12 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             }
         }
 
+        //--> Get Service By Id
         public async Task<service> GetServiceById(Guid id)
         {
             try
             {
-                var Service = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+                var Service = await _dbContext.Services.Include(s => s.ServiceProviderType).FirstOrDefaultAsync(x => x.Id == id);
                 if (Service == null)
                 {
                     return null;
@@ -75,11 +95,12 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             }
         }
 
+        //--> Get Services
         public async Task<List<service>> GetServices()
         {
             try
             {
-                return await _dbContext.Services.ToListAsync();
+                return await _dbContext.Services.Include(s => s.ServiceProviderType).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -87,6 +108,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             }
         }
 
+        //--> Update Service
         public async Task<service> UpdateService(Guid id, service ServiceInputRequest)
         {
             try
@@ -102,7 +124,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
                     {
                         ExistingService.ServiceName = ServiceInputRequest.ServiceName;
                         ExistingService.image = ServiceInputRequest.image;
-                        ExistingService.Status = ServiceInputRequest.Status;
+
                         ExistingService.ServiceProviderType = ServiceInputRequest.ServiceProviderType;
                         ExistingService.Id = id;
                         ExistingService.charges = ServiceInputRequest.charges;

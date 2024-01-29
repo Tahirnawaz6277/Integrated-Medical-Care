@@ -28,6 +28,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->Add HCP
         [HttpPost]
         [Route("AddHCP")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> AddHCP([FromBody] HCPRequestDTO UserInputReguest)
         {
             var HCP_Model = _mapper.Map<serviceprovidertype>(UserInputReguest);
@@ -45,16 +46,23 @@ namespace imc_web_api.Controllers.AdminController
         //-->Update HCP
         [HttpPut]
         [Route("UpdateHCP/{id:Guid}")]
-        public async Task<HCPResponseDTO> UpdateHCP(Guid id, [FromBody] HCPRequestDTO InputRequest)
+        [Authorize(Roles = "Admin,ServiceProvider")]
+        public async Task<IActionResult> UpdateHCP(Guid id, [FromBody] HCPRequestDTO InputRequest)
         {
             var HCP_Model_Result = await _manageHCPService.UpdateProvider(id, InputRequest);
             var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
-            return HCP_DTO_Result;
+            return Ok(new
+            {
+                Data = HCP_DTO_Result,
+                Message = "Uppdated Record Successfully!"
+            });
         }
 
         //-->GetAll HCP
         [HttpGet]
         [Route("GetHCPs")]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<List<HCPResponseDTO>> GetHCPs()
         {
             var HCP_Model_Result = await _manageHCPService.GetProviders();
@@ -65,6 +73,7 @@ namespace imc_web_api.Controllers.AdminController
         // -->Get HCP By Id
         [HttpGet]
         [Route("GetHCP/{id:Guid}")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<HCPResponseDTO> GetHCPById(Guid id)
         {
             var HCP_Model_Result = await _manageHCPService.GetProviderById(id);
@@ -75,11 +84,15 @@ namespace imc_web_api.Controllers.AdminController
         //-->Delete HCP
         [HttpDelete]
         [Route("DeleteHCP")]
-        public async Task<HCPResponseDTO> DeleteHCP(Guid id)
+        [Authorize(Roles = "Admin,ServiceProvider")]
+        public async Task<IActionResult> DeleteHCP(Guid id)
         {
             var HCP_Model_Result = await _manageHCPService.DeleteProvider(id);
             var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
-            return HCP_DTO_Result;
+            return Ok(new
+            {
+                Message = "Service Provider Record Deleted Successfully!"
+            });
         }
     }
 }

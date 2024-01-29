@@ -21,16 +21,17 @@ namespace imc_web_api.Controllers.AdminController
             _manageAccountService = manageAccountService;
         }
 
-        //CREATE USER
-        [Authorize(Roles = "Admin,Customer")]
+        //--> Create User
+
         [HttpPost]
         [Route("CreateUser")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<user> CreateUser([FromBody] RegisterRequestDTO UserInputReguest)
         {
             return await _manageAccountService.AddUser(UserInputReguest);
         }
 
-        //GET USERS
+        //--> Get Users
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetUsers")]
@@ -39,7 +40,7 @@ namespace imc_web_api.Controllers.AdminController
             return await _manageAccountService.GetUsers();
         }
 
-        //GET USER BY ID
+        //--> Get User By Id
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetUserById/{id:Guid}")]
@@ -48,7 +49,7 @@ namespace imc_web_api.Controllers.AdminController
             return await _manageAccountService.GetUserById(id);
         }
 
-        //UPDATE USER
+        //--> Update User
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("UpdateUser /{id:Guid}")]
@@ -57,7 +58,7 @@ namespace imc_web_api.Controllers.AdminController
             return await _manageAccountService.UpdateUser(id, UserInputRequest);
         }
 
-        //DELETE USER BY ID
+        //--> Delete User
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("DeleteUser /{id:Guid}")]

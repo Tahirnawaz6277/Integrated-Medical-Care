@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace imc_web_api.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationForRelationships : Migration
+    public partial class dbinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,8 @@ namespace imc_web_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProviderName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProviderName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,13 +67,13 @@ namespace imc_web_api.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ServiceProvidertypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     User_QualificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    orderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -104,16 +105,13 @@ namespace imc_web_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     charges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AvailableQuantity = table.Column<int>(type: "int", nullable: false),
                     TotalQuantity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedByProviderTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,18 +130,25 @@ namespace imc_web_api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsAgreed = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ServiceProviderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdminId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Agreements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Agreements_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Agreements_AspNetUsers_AdminId",
+                        column: x => x.AdminId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Agreements_AspNetUsers_ServiceProviderId",
+                        column: x => x.ServiceProviderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,7 +241,7 @@ namespace imc_web_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Promotion_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Promotion_Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsSent = table.Column<bool>(type: "bit", nullable: false),
                     PromoteToId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PromoteById = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -266,7 +271,8 @@ namespace imc_web_api.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     qualification = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     experience = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -284,7 +290,7 @@ namespace imc_web_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ratedById = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ratedToId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -312,16 +318,16 @@ namespace imc_web_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     OrderQuantity = table.Column<int>(type: "int", nullable: false),
-                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    orderStatus = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     PaymentMode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -345,55 +351,62 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "18e88276-ec45-4448-8c07-6c005100a98b", "18e88276-ec45-4448-8c07-6c005100a98b", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "5300c94a-81ce-426f-bd63-637d0d668d6d", "5300c94a-81ce-426f-bd63-637d0d668d6d", "Admin", "ADMIN" },
-                    { "6104b548-ba4d-4a85-967c-311436a3e207", "6104b548-ba4d-4a85-967c-311436a3e207", "Customer", "CUSTOMER" }
+                    { "4e54eb14-fe80-40ae-9c85-806035beabe6", "4e54eb14-fe80-40ae-9c85-806035beabe6", "ServiceProvider", "SERVICEPROVIDER" },
+                    { "ce6d2666-d634-48c8-ab84-a7ab88313213", "ce6d2666-d634-48c8-ab84-a7ab88313213", "Customer", "CUSTOMER" },
+                    { "d4cca61b-a1ab-49e8-bf55-f19be009697f", "d4cca61b-a1ab-49e8-bf55-f19be009697f", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId", "orderId" },
-                values: new object[] { "c00bd3b8-f2ce-4cc4-8998-c96504ce1d01", 0, "23ed5221-b89e-42a6-9ef0-4994de8e1b62", "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEMBNXW/4taRJofSbjoJ4qDdUKBiF/hXAtre15bEUK5mqRCBCmhQjT+FOK+FtvqX4wQ==", "03457689432", false, "Admin", "1273049b-f646-4acc-b3cc-dc3aafa86602", null, false, "Aamir@gmail.com", null, null });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
+                values: new object[] { "21f75896-153d-44db-897e-7942742d0e8e", 0, "3c674ae9-51ed-4659-a843-09281fd80a2f", new DateTime(2024, 1, 27, 14, 11, 1, 836, DateTimeKind.Utc).AddTicks(1471), "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEKgw0qs6iVLTcr5mHfuUD9/Ly2DZfp2i82yyY9y7j3kTHhfX+kjOi25lMDaL4KTNWA==", "03457689432", false, "Admin", "8639b364-369f-4535-8bbc-fb0ba4b7bfa4", null, false, "Aamir@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "ServiceProviderTypes",
-                columns: new[] { "Id", "ProviderName" },
+                columns: new[] { "Id", "CreatedAt", "ProviderName" },
                 values: new object[,]
                 {
-                    { new Guid("20429322-6725-4811-934f-63975d1ca250"), "Ambulance" },
-                    { new Guid("a7586add-3a80-43ad-845d-61e1dc07c135"), "Doctor" },
-                    { new Guid("c993b1c3-8d27-465b-b3e1-34fa92f97c43"), "Pharmacy" }
+                    { new Guid("01683d6f-db82-443c-87d9-171d90aa1d03"), new DateTime(2024, 1, 27, 14, 11, 1, 956, DateTimeKind.Utc).AddTicks(9863), "Doctor" },
+                    { new Guid("4586e3e7-7b16-4a9d-8e59-71639b28c2ca"), new DateTime(2024, 1, 27, 14, 11, 1, 956, DateTimeKind.Utc).AddTicks(9887), "Pharmacy" },
+                    { new Guid("755049c3-a854-4768-98ba-cd5cf704ad51"), new DateTime(2024, 1, 27, 14, 11, 1, 956, DateTimeKind.Utc).AddTicks(9889), "Ambulance" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "5300c94a-81ce-426f-bd63-637d0d668d6d", "c00bd3b8-f2ce-4cc4-8998-c96504ce1d01" });
+                values: new object[] { "d4cca61b-a1ab-49e8-bf55-f19be009697f", "21f75896-153d-44db-897e-7942742d0e8e" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId", "orderId" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
                 values: new object[,]
                 {
-                    { "78989b53-da47-4a1d-bd22-4e37673100ac", 0, "93008559-0008-474b-8aa0-bdaa08bfb57c", "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEMDEubEHU1wWpJp86XiLp7oms7Ry/LlfH2nOX9Ut7l10pHXP9gKKGO5HobMvhHdL1g==", "03457689432", false, "Provider", "a10466fb-5706-49b4-8c9f-1a28987843da", new Guid("20429322-6725-4811-934f-63975d1ca250"), false, "Hameed@gmail.com", new Guid("2ffbebf0-2209-4f19-bf00-77a092de3d00"), null },
-                    { "a5a147cb-17a3-4b80-82ee-622f7ce80092", 0, "9ae7f1d9-d031-43da-90e6-af6d2d1854e9", "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAEPimZtHl0xwWS/ivyqrooLssUmgKXJysy9JehQX4K/59posLRRap9h9pVrpamwIVtw==", "03457689432", false, "Provider", "534f14d4-d42d-44e3-8e13-f42ff390e81b", new Guid("a7586add-3a80-43ad-845d-61e1dc07c135"), false, "Aqib@gmail.com", new Guid("17305640-bba1-4e4d-8f63-490693457a86"), null },
-                    { "c5c4caba-2d9d-423c-9200-547cd17e4678", 0, "45c8a833-a297-41d6-bcde-c98c46ea22d9", "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEKIus5+FUdAy3tR0moC515QHM3I9QqSvzxGo44uchA02uCCGvdn+S+AOC4pj7QIdDg==", "03457689432", false, "Provider", "a61aec41-da88-48dc-b024-75221ffa1e51", new Guid("c993b1c3-8d27-465b-b3e1-34fa92f97c43"), false, "Waheed@gmail.com", new Guid("4345271e-d42b-413c-8d55-70fabe974832"), null }
+                    { "0f33548a-eaeb-4ccb-b69a-2d89a9bb74b0", 0, "62eaf432-ecee-4955-9063-c22305213e36", new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(28), "user", "Aqib@gmail.com", true, "Aqib", "Male", "nawaz", false, null, "Aqib@gmail.com", "Aqib@gmail.com", "AQAAAAIAAYagAAAAELUvHx5QWP0F7huQU1VzXXkD3WukH9VoEclMZXyt3Zxp+g1/duY0at1gmvN1TX45gA==", "03457689432", false, "Provider", "8f66d638-826d-47d6-a855-b7ccb993c960", new Guid("01683d6f-db82-443c-87d9-171d90aa1d03"), false, "Aqib@gmail.com", new Guid("960b17a1-a040-425b-ab5d-f6c4d52a043b") },
+                    { "0f599847-3f94-4cf7-81df-3ce2f2948974", 0, "06bbd020-ddce-4ab0-952e-b96dea46287a", new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(94), "user", "Hameed@gmail.com", true, "Hameed", "Male", "Khan", false, null, "Hameed@gmail.com", "Hameed@gmail.com", "AQAAAAIAAYagAAAAEOIInCqy8zQV/QU0S+0HPjY7XFvafx/LzJS1y0yHzE4K94+lmaW2MJvxxlMkypKzJw==", "03457689432", false, "Provider", "a1ed9489-09e6-4585-86c8-bb6b2ecf84dc", new Guid("755049c3-a854-4768-98ba-cd5cf704ad51"), false, "Hameed@gmail.com", new Guid("b9735fbb-2ce5-47a4-8a44-8e40346c02ad") },
+                    { "8a027457-9c2b-403e-973e-1bad582b0911", 0, "6dccd462-1e92-4ea5-8a35-d3cb178909c8", new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(79), "user", "Waheed@gmail.com", true, "Waheed", "Male", "Quraishi", false, null, "Waheed@gmail.com", "Waheed@gmail.com", "AQAAAAIAAYagAAAAEGyBOijerW6SUn+lYHRA5TMED232oWvzhr+zXZyhyMX7VbWB4l+MNQI6On9HRJjN4w==", "03457689432", false, "Provider", "7f4f96e8-9f45-43ec-9bb0-23826c76c233", new Guid("4586e3e7-7b16-4a9d-8e59-71639b28c2ca"), false, "Waheed@gmail.com", new Guid("46914eca-ef85-4d4a-91b6-3ad70ae5a0ae") }
                 });
 
             migrationBuilder.InsertData(
                 table: "User_Qualifications",
-                columns: new[] { "Id", "experience", "qualification", "userId" },
+                columns: new[] { "Id", "CreatedAt", "experience", "qualification", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("17305640-bba1-4e4d-8f63-490693457a86"), "10 YEAR", "MBBS", "a5a147cb-17a3-4b80-82ee-622f7ce80092" },
-                    { new Guid("2ffbebf0-2209-4f19-bf00-77a092de3d00"), "1 YEAR", "BDS", "78989b53-da47-4a1d-bd22-4e37673100ac" },
-                    { new Guid("4345271e-d42b-413c-8d55-70fabe974832"), "3 YEAR", "MD", "c5c4caba-2d9d-423c-9200-547cd17e4678" }
+                    { new Guid("46914eca-ef85-4d4a-91b6-3ad70ae5a0ae"), new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(19), "3 YEAR", "MD", "8a027457-9c2b-403e-973e-1bad582b0911" },
+                    { new Guid("960b17a1-a040-425b-ab5d-f6c4d52a043b"), new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(13), "10 YEAR", "MBBS", "0f33548a-eaeb-4ccb-b69a-2d89a9bb74b0" },
+                    { new Guid("b9735fbb-2ce5-47a4-8a44-8e40346c02ad"), new DateTime(2024, 1, 27, 14, 11, 1, 957, DateTimeKind.Utc).AddTicks(21), "1 YEAR", "BDS", "0f599847-3f94-4cf7-81df-3ce2f2948974" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agreements_UserId",
+                name: "IX_Agreements_AdminId",
                 table: "Agreements",
-                column: "UserId");
+                column: "AdminId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agreements_ServiceProviderId",
+                table: "Agreements",
+                column: "ServiceProviderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

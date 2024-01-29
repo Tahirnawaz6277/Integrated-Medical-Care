@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using imc_web_api.Models.Enums;
 
 namespace imc_web_api.Models
 {
@@ -20,7 +21,7 @@ namespace imc_web_api.Models
         public int OrderQuantity { get; set; }
 
         [Required(ErrorMessage = "Order status is required.")]
-        public string OrderStatus { get; set; }
+        public OrderStatusEnum.OrderStatus orderStatus { get; set; }
 
         [Required(ErrorMessage = "Amount is required.")]
         public int Amount { get; set; }

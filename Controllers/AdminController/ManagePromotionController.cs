@@ -1,8 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using imc_web_api.Dtos.AdminDtos.PromotionDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
-using Microsoft.AspNetCore.Authorization;
+using imc_web_api.Service.EmailServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
@@ -15,11 +16,13 @@ namespace imc_web_api.Controllers.AdminController
     {
         private readonly IManagePromotionService _managePromotionService;
         private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
 
-        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper)
+        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper, IEmailSender emailSender)
         {
             _managePromotionService = managePromotionService;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
 
         //--> Add Promotion
@@ -28,8 +31,9 @@ namespace imc_web_api.Controllers.AdminController
         [Route("AddPromotion")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionRequestDTO Promotion_Input_Request)
         {
+            var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var Promotion_Model = _mapper.Map<promotion>(Promotion_Input_Request);
-            var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model);
+            var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model, CurrentUserId);
 
             var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
 

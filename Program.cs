@@ -2,8 +2,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
-using imc_web_api.middle;
 using imc_web_api.Models;
+using imc_web_api.Models.Enums;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using imc_web_api.Service.AdminServices.ManageFeedBackServicess;
@@ -13,12 +13,14 @@ using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AdminServices.NewFolder;
 using imc_web_api.Service.AuthService;
 using imc_web_api.Service.AuthServices;
+using imc_web_api.Service.EmailServices;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service;
 using imc_web_api.Service.ServiceProviderService.ManageServices_Service.ManageServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -42,12 +44,18 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "IMC API'S", Version = "v1" });
 
-    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+    // Add JWT Authentication
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = JwtBearerDefaults.AuthenticationScheme
+        Description = "JWT Authorization header using the Bearer scheme",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer"
+    });
+
+    options.MapType<OrderStatusEnum.OrderStatus>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Enum = Enum.GetNames(typeof(OrderStatusEnum.OrderStatus)).Select(name => new OpenApiString(name) as IOpenApiAny).ToList()
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -57,14 +65,11 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type =ReferenceType.SecurityScheme,
-                    Id =JwtBearerDefaults.AuthenticationScheme
-                } ,
-                Scheme= "Oauth2",
-                Name = JwtBearerDefaults.AuthenticationScheme,
-                In =ParameterLocation.Header
-            }    ,
-            new List<string>()
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
         }
     });
 });
@@ -89,6 +94,8 @@ builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 builder.Services.AddScoped<IManageFeedbackService, ManageFeedBackService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 builder.Services.AddScoped<IManageOrderService, ManageOrderService>();
+
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Data protection Middleware
@@ -140,7 +147,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+//app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

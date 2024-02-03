@@ -44,8 +44,8 @@ namespace imc_web_api.Controllers.AuthController
 
                 return Ok(new
                 {
+                    Success = true,
                     Message = "User Registerd Successfully!",
-                    Data = result
                 });
             }
             catch (Exception ex)

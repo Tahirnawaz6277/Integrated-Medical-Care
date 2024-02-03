@@ -15,7 +15,7 @@ namespace imc_web_api.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Gender Field is required.")]
-        public string? Gender { get; set; }
+        public string Gender { get; set; }
 
         [Required(ErrorMessage = "Role is required.")]
         public string Role { get; set; }

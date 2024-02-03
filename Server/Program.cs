@@ -117,6 +117,18 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
 });
 
+
+// Cors Policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", builder =>
+    {
+        builder.WithOrigins("*")  // Replace with your React app's URL
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 //--- cycle error resolve
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -154,5 +166,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("AllowReactApp");
 app.Run();

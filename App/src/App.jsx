@@ -19,8 +19,8 @@ function App() {
         {/* Auth Routes */}
         <Route path="/" element={<AuthLayout />}>
           <Route index element={<LoginScreen />} />
-          <Route path="signup" element={<SignupScreen />} />
-          <Route path="forgot" element={<ForgotScreen />} />
+          <Route path="/signup" element={<SignupScreen />} />
+          <Route path="/forgot" element={<ForgotScreen />} />
         </Route>
       </Routes>
     </>

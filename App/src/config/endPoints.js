@@ -1,6 +1,7 @@
 let BASE_URL = import.meta.env.VITE_API_URL;
 export const endPoints = {
   Account: {
-    Login: `${BASE_URL}/Account/Login`,
+    Login: `${BASE_URL}/Auth/Login`,
+    Signup: `${BASE_URL}/Auth/SignUp`,
   },
 };

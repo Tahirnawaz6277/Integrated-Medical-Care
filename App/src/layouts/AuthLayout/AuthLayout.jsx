@@ -1,6 +1,5 @@
 import React from "react";
-import LoginScreen from "../../screens/LoginScreen";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "../AuthLayout/style.scss";
 
 const AuthLayout = () => {
@@ -8,10 +7,10 @@ const AuthLayout = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-6 p-5">
             <Outlet />
           </div>
-          <div className="col-md-4 AuthSidebar">
+          <div className="col-md-6 AuthSidebar">
             <h1>IMC</h1>
           </div>
         </div>

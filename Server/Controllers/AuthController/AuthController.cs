@@ -40,7 +40,16 @@ namespace imc_web_api.Controllers.AuthController
         {
             try
             {
-                var result = await _registrationService.AddUser(UserRegisterRequest);
+                var isUserExist = await _registrationService.FindUserByEmail(UserRegisterRequest.Email);
+                    if(isUserExist != null)
+                {
+                    return Conflict(new
+                    {
+                        Success = false,
+                        Message = "Email already exist!",
+                    });
+                }
+                    var result = await _registrationService.AddUser(UserRegisterRequest);
 
                 return Ok(new
                 {
@@ -50,17 +59,13 @@ namespace imc_web_api.Controllers.AuthController
             }
             catch (Exception ex)
             {
-                // Log or print the exception details
-                Console.WriteLine($"Exception: {ex.Message}");
-                if (ex.InnerException != null)
+                return BadRequest(new
                 {
-                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
-                }
+                    Success = false,
 
-                // Return a BadRequest response with the error details
-                return BadRequest($"An error occurred. {ex.Message}. {ex.InnerException?.Message}");
+                    ErrorMessage = ex.Message,
+                });
             }
-
         }
 
         [HttpPost]
@@ -73,6 +78,7 @@ namespace imc_web_api.Controllers.AuthController
 
                 return Ok(new
                 {
+                    Success = true,
                     Data = result
                 });
             }
@@ -137,12 +143,11 @@ namespace imc_web_api.Controllers.AuthController
             });
         }
 
-
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         [Route("check_my_status")]
-        [Authorize(Roles ="Admin")]
-        public  async Task<String> checkMyAuthentication()
+        [Authorize(Roles = "Admin")]
+        public async Task<String> checkMyAuthentication()
         {
             //how to get userId from token
             var token = HttpContext.Request.Headers["Authorization"];
@@ -150,7 +155,7 @@ namespace imc_web_api.Controllers.AuthController
             // Get the UserId from the token
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-         return $"Current User Id :  {userId}";
+            return $"Current User Id :  {userId}";
         }
     }
 }

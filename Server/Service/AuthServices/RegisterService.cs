@@ -16,59 +16,96 @@ namespace imc_web_api.Service.AuthService
             _userManager = userManager;
         }
 
+        public async Task<user> FindUserByEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+
+        }
+
         public async Task<user> AddUser(RegisterRequestDTO userData)
         {
-            
 
-                if (userData == null)
-                {
-                    throw new Exception("Invalid Credential!");
-                }
+            if (userData == null)
+            {
+                throw new ArgumentNullException(nameof(userData));
+            }
 
-                //user object
-                var userIdentity = new user
-                {
-                    FirstName = userData.FirstName,
-                    LastName = userData.LastName,
-                    Email = userData.Email,
-                    UserName = userData.Email,
-                    PhoneNumber = userData.PhoneNumber,
-                    Gender = userData.Gender,
-                    Role = userData.Role,
-                    ServiceProvidertypeId = userData.ServiceProvidertypeId,
-                    User_QualificationId = userData.User_QualificationId
-                };
-                // check the User is Already Exist
-                var isExistingUser = await _userManager.FindByEmailAsync(userData.Email) != null;
+            var userIdentity = new user
+            {
+                FirstName = userData.FirstName,
+                LastName = userData.LastName,
+                Email = userData.Email,
+                UserName = userData.Email,
+                PhoneNumber = userData.PhoneNumber,
+                Gender = userData.Gender,
+                Role = userData.Role,
+                ServiceProvidertypeId = userData.ServiceProvidertypeId,
+                User_QualificationId = userData.User_QualificationId
+            };
 
-                if (isExistingUser)
-                {
-                    throw new Exception("User already exists.");
-                }
+            var registerdUser = await _userManager.CreateAsync(userIdentity, userData.Password);
 
-                var registerdUser = await _userManager.CreateAsync(userIdentity, userData.Password);
-
+            if (!registerdUser.Succeeded)
+            {
+                throw new Exception("Failed to register user.");
+            }
+            if (!string.IsNullOrWhiteSpace(userData.Role))
+            {
+                registerdUser = await _userManager.AddToRoleAsync(userIdentity, userData.Role);
 
                 if (!registerdUser.Succeeded)
                 {
-                    throw new Exception("Failed to register user.");
+                    // Rollback user creation if adding role fails
+                    await _userManager.DeleteAsync(userIdentity);
+
+                    throw new Exception("Failed to assign role to user.");
                 }
-                if (!string.IsNullOrWhiteSpace(userData.Role))
-                {
-                    //Add Role For the user
-                    registerdUser = await _userManager.AddToRoleAsync(userIdentity, userData.Role);
-
-                    if (!registerdUser.Succeeded)
-                    {
-                        // Rollback user creation if adding role fails
-                        await _userManager.DeleteAsync(userIdentity);
-
-                        throw new Exception("Failed to assign role to user.");
-                    }
-                }
-                return userIdentity;
-
-
+            }
+            return userIdentity;
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

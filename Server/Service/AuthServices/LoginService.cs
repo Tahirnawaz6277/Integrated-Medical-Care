@@ -41,7 +41,11 @@ namespace imc_web_api.Service.AuthService
                         // Build the response with the JWT token
                         var response = new LoginResponseDTO
                         {
-                            JwtToken = jwtToken
+                            JwtToken = jwtToken,
+                            FirstName =  user.FirstName,
+                            LastName =  user.LastName,
+                            Email = user.Email,
+                            Role = user.Role,
                         };
                         return response; 
                     }

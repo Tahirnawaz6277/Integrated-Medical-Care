@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Form,
@@ -9,11 +9,10 @@ import {
 import { loginUser } from "../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import DashboardScreen from "./dashboard/DashboardScreen";
+import { useNavigate } from "react-router";
 
 const LoginScreen = () => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,21 +27,14 @@ const LoginScreen = () => {
         const res = await loginUser(values);
         if (res.success) {
           formik.resetForm();
-          formik.setFieldValue("general", res.message);
-          setLoggedIn(true);
-        } else {
-          formik.setFieldError("general", res.message);
+          localStorage.setItem("token", res.data.jwtToken);
+          navigate("/dashboard");
         }
       } catch (error) {
-        console.error("Error during login:", error);
+        formik.setFieldError("general", error.response.data.message);
       }
     },
   });
-
-  // render the DashboardScreen
-  if (isLoggedIn) {
-    return <DashboardScreen />;
-  }
 
   return (
     <>

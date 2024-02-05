@@ -6,6 +6,12 @@ import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import SignupScreen from "./screens/site/SignupScreen";
 import ForgotScreen from "./screens/site/ForgotScreen";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import AccountScreen from "./screens/dashboard/AccountScreen";
+import OrderScreen from "./screens/dashboard/OrderScreen";
+import HcpScreen from "./screens/dashboard/HcpScreen";
+import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
+import ServiceScreen from "./screens/dashboard/ServiceScreen";
+import PromotionScreen from "./screens/dashboard/PromotionScreen";
 
 function App() {
   return (
@@ -17,14 +23,19 @@ function App() {
           element={<ProtectedRoute component={DashboardLayout} />}
         >
           <Route index element={<DashboardScreen />} />
-          <Route path="accounts" element={<h2>Manage ACCOUNT</h2>} />
+          <Route path="accounts" element={<AccountScreen />} />
+          <Route path="orders" element={<OrderScreen />} />
+          <Route path="healthcareproviders" element={<HcpScreen />} />
+          <Route path="feedbacks" element={<FeedbackScreen />} />
+          <Route path="services" element={<ServiceScreen />} />
+          <Route path="promotions" element={<PromotionScreen />} />
         </Route>
 
         {/* Auth Routes */}
         <Route path="/" element={<AuthLayout />}>
           <Route index element={<LoginScreen />} />
-          <Route path="/signup" element={<SignupScreen />} />
-          <Route path="/forgot" element={<ForgotScreen />} />
+          <Route path="signup" element={<SignupScreen />} />
+          <Route path="forgot" element={<ForgotScreen />} />
         </Route>
       </Routes>
     </>

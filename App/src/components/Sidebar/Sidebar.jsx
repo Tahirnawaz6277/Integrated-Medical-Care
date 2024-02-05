@@ -50,6 +50,39 @@ const Sidebar = () => {
                 Manage Accounts
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link active" to="/dashboard/orders">
+                Manage Orders
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                to="/dashboard/healthcareproviders"
+              >
+                Manage Health Care Providers
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link active" to="/dashboard/feedbacks">
+                Manage Customer Feedback
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link active" to="/dashboard/services">
+                Manage Services
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link active" to="/dashboard/promotions">
+                Manage Promotion
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

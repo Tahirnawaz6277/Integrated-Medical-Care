@@ -10,7 +10,7 @@ namespace imc_web_api.Dtos.AuthDtos
 
         public string experience { get; set; }
 
-        //public Guid userId { get; set; }
+
 
         public user User { get; set; }
     }

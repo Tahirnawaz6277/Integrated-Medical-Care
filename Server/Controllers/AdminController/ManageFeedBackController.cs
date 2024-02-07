@@ -27,77 +27,185 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddFeedback")]
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin , Customer")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
-            var feedbackModel = _mapper.Map<feedback>(inputRequest);
-
-            var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel, CurrentUserId);
-
-            var addedFeedbackDTO = _mapper.Map<FeedBackResponseDTO>(addedFeedbackModel);
-
-            return Ok(new
+            try
             {
-                Data = addedFeedbackDTO,
-                Message = "Feedback added successfully."
-            });
+                if (inputRequest == null)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(CurrentUserId))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+                var feedbackModel = _mapper.Map<feedback>(inputRequest);
+                var addedFeedbackModel = await _feedbackService.AddFeedback(feedbackModel, CurrentUserId);
+                if (addedFeedbackModel == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add feedback.");
+                }
+
+                var addedFeedbackDTO = _mapper.Map<FeedBackResponseDTO>(addedFeedbackModel);
+
+                return Ok(new
+                {
+                    Success = true,
+                    message = "Feedback added successfully.",
+                    data = addedFeedbackDTO,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         //-->Update Feedback
         [HttpPut]
         [Route("UpdateFeedback/{id:Guid}")]
-        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> UpdateFeedback(Guid id, [FromBody] FeedBackRequesrDTO InputRequest)
         {
-            var Feedback_Model = _mapper.Map<feedback>(InputRequest);
-            var Feedback_Result = await _feedbackService.UpdateFeedback(id, Feedback_Model);
-
-            var FeedbackDto_Result = _mapper.Map<FeedBackResponseDTO>(Feedback_Result);
-
-            return Ok(new
+            try
             {
-                Data = FeedbackDto_Result,
-                Message = "Feedback Updated!"
-            });
+                if (InputRequest == null || id == Guid.Empty)
+                {
+                    return BadRequest("null");
+                }
+                var Feedback_Model = _mapper.Map<feedback>(InputRequest);
+
+                var Feedback_Result = await _feedbackService.UpdateFeedback(id, Feedback_Model);
+
+                if (Feedback_Result == null)
+                {
+                    return NotFound("Feedback Record Not Found!");
+                }
+                var FeedbackDto_Result = _mapper.Map<FeedBackResponseDTO>(Feedback_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    message = "Feedback Updated successfully.",
+                    data = FeedbackDto_Result,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         //-->GetAll Feedback
         [HttpGet]
         [Route("GetFeedbacks/")]
-        [Authorize(Roles = "Admin,Customer")]
-        public async Task<List<FeedBackResponseDTO>> GetFeedbacks()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetFeedbacks()
         {
-            var FeedbackResult = await _feedbackService.GetFeedbacks();
-            var FeedbackDtoResult = _mapper.Map<List<FeedBackResponseDTO>>(FeedbackResult);
-            return FeedbackDtoResult;
+            try
+            {
+                var FeedbackResult = await _feedbackService.GetFeedbacks();
+
+                var FeedbackDtoResult = _mapper.Map<List<FeedBackResponseDTO>>(FeedbackResult);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Data = FeedbackDtoResult
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         // --> Get Feedback By Id
         [HttpGet]
         [Route("GetFeedbackById/{id:Guid}")]
-        [Authorize(Roles = "Admin,Customer")]
-        public async Task<FeedBackResponseDTO> GetFeedbackById(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetFeedbackById(Guid id)
         {
-            var FeedbackResult = await _feedbackService.GetFeedbackById(id);
-            var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
-            return FeedbackDtoResult;
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var FeedbackResult = await _feedbackService.GetFeedbackById(id);
+                if (FeedbackResult == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+                var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Data = FeedbackDtoResult
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         //--> Delete Feedback
         [HttpDelete]
         [Route("DeleteFeedback/")]
-        [Authorize(Roles = "Admin , Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFeedback(Guid id)
         {
-            var FeedbackResult = await _feedbackService.DeleteFeedback(id);
-            var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
-            return Ok(new
+            try
             {
-                Data = FeedbackDtoResult,
-                Message = "Feedback Deleted!"
-            });
+                if (id == Guid.Empty)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var FeedbackResult = await _feedbackService.DeleteFeedback(id);
+
+                if (FeedbackResult == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+
+                var FeedbackDtoResult = _mapper.Map<FeedBackResponseDTO>(FeedbackResult);
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Feedback Deleted!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
     }
 }

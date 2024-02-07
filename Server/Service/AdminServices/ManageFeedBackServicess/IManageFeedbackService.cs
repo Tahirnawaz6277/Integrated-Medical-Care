@@ -7,12 +7,12 @@ namespace imc_web_api.Service.AdminServices.NewFolder
     {
         Task<feedback> AddFeedback(feedback FeedbackInputReguest, string CurrentUserId);
 
-        Task<feedback> UpdateFeedback(Guid id, feedback FeedbackInputReguest);
+        Task<feedback?> UpdateFeedback(Guid id, feedback FeedbackInputReguest);
 
         Task<List<feedback>> GetFeedbacks();
 
-        Task<feedback> GetFeedbackById(Guid id);
+        Task<feedback?> GetFeedbackById(Guid id);
 
-        Task<feedback> DeleteFeedback(Guid id);
+        Task<feedback?> DeleteFeedback(Guid id);
     }
 }

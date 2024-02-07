@@ -15,120 +15,55 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
 
         public async Task<feedback> AddFeedback(feedback feedbackInput, string CurrentUserId)
         {
-            try
-            {
-                if (feedbackInput == null || CurrentUserId == null)
-                {
-                    throw new ArgumentNullException(nameof(feedbackInput));
-                }
-                else
-                {
-                    feedbackInput.ratedById = CurrentUserId;
-                    await _imcDbContext.Feedbacks.AddAsync(feedbackInput);
-                    await _imcDbContext.SaveChangesAsync();
+            feedbackInput.ratedById = CurrentUserId;
+            await _imcDbContext.Feedbacks.AddAsync(feedbackInput);
+            await _imcDbContext.SaveChangesAsync();
 
-                    return feedbackInput;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return feedbackInput;
         }
 
-        public async Task<feedback> DeleteFeedback(Guid id)
+        public async Task<feedback?> DeleteFeedback(Guid id)
         {
-            try
+            var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (checkFeedback == null)
             {
-                if (id == Guid.Empty)
-                {
-                    throw new ArgumentNullException(nameof(id));
-                }
-
-                var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
-
-                //var checkFeedback = from feedback in _imcDbContext.Feedbacks
-                //                    join service in _imcDbContext.Services on feedback.ratedToId equals service.Id
-                //                    select new
-                //                    {
-                //                        FeedBackMessage = feedback.Description,
-                //                        Service = service.ServiceName
-                //                    };
-
-                if (checkFeedback == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                _imcDbContext.Feedbacks.Remove(checkFeedback);
-                await _imcDbContext.SaveChangesAsync();
-                return checkFeedback;
+                return null;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _imcDbContext.Feedbacks.Remove(checkFeedback);
+            await _imcDbContext.SaveChangesAsync();
+            return checkFeedback;
         }
 
-        public async Task<feedback> GetFeedbackById(Guid id)
+        public async Task<feedback?> GetFeedbackById(Guid id)
         {
-            try
-            {
-                if (id == Guid.Empty)
-                {
-                    throw new ArgumentNullException(nameof(id));
-                }
-                var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
-                if (checkFeedback == null)
-                {
-                    throw new ArgumentNullException(nameof(id));
-                }
-                return checkFeedback;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<feedback>> GetFeedbacks()
         {
-            try
-            {
-                return await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return await _imcDbContext.Feedbacks
+                .Include(f => f.Service)
+                .Include(f => f.User)
+
+                .ToListAsync();
         }
 
-        public async Task<feedback> UpdateFeedback(Guid id, feedback feedbackInputRequest)
+        public async Task<feedback?> UpdateFeedback(Guid id, feedback feedbackInputRequest)
         {
-            try
+            var ExistingFeedback = await _imcDbContext.Feedbacks.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (ExistingFeedback == null)
             {
-                if (feedbackInputRequest == null || id == Guid.Empty)
-                {
-                    throw new ArgumentNullException(nameof(feedbackInputRequest));
-                }
-
-                var ExistingFeedback = await _imcDbContext.Feedbacks.FirstOrDefaultAsync(p => p.Id == id);
-
-                if (ExistingFeedback == null)
-                {
-                    throw new ArgumentNullException(nameof(feedbackInputRequest));
-                }
-
-                ExistingFeedback.Description = feedbackInputRequest.Description;
-                ExistingFeedback.Rating = feedbackInputRequest.Rating;
-
-                await _imcDbContext.SaveChangesAsync();
-
-                return ExistingFeedback;
+                return null;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            ExistingFeedback.Description = feedbackInputRequest.Description;
+            ExistingFeedback.Rating = feedbackInputRequest.Rating;
+
+            await _imcDbContext.SaveChangesAsync();
+
+            return ExistingFeedback;
         }
     }
 }

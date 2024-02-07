@@ -31,14 +31,7 @@ const LoginScreen = () => {
           navigate("/dashboard");
         }
       } catch (error) {
-        if (error.response?.data == "Invalid email or password.") {
-          setFieldError(
-            "password",
-            "Incorrect email or password. Please try again."
-          );
-        } else {
-          setFieldError("general", "An error occurred. Please try again.");
-        }
+        setFieldError("password", error.response?.data);
       }
     },
   });

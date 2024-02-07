@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Table } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { getServiceProviders } from "../../services/serviceProvidersService";
+import TableComponent from "../../components/TableComponent";
 
 const HcpScreen = () => {
   const [serviceProviders, setServiceProviders] = useState([]);
@@ -23,42 +24,11 @@ const HcpScreen = () => {
 
   return (
     <>
-      <Card>
-        <Card.Header>
-          Manage Health Care Providers
-          <Button className="float-end">Add New HealthCare Provider</Button>
-        </Card.Header>
-
-        <Card.Body>
-          <Table responsive="sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-
-                <th>Date Created</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {serviceProviders.map((serviceProvider, index) => (
-                <tr key={index}>
-                  <td>{index}</td>
-                  <td>{serviceProvider.providerName}</td>
-                  <td>{serviceProvider.createdAt}</td>
-
-                  <td style={{ display: "flex", gap: "8px" }}>
-                    <Button variant="primary">Edit</Button>
-
-                    <Button className="btn btn-danger">Delete</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
+      <TableComponent
+        header="Manage Health Care Providers"
+        columns={["#", "Name"]}
+        Data={serviceProviders}
+      />
     </>
   );
 };

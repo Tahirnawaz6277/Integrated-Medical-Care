@@ -12,6 +12,7 @@ import HcpScreen from "./screens/dashboard/HcpScreen";
 import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
 import ServiceScreen from "./screens/dashboard/ServiceScreen";
 import PromotionScreen from "./screens/dashboard/PromotionScreen";
+import { RouteNames } from "./Routes";
 
 function App() {
   return (
@@ -19,23 +20,47 @@ function App() {
       <Routes>
         {/* Dashboard Routes */}
         <Route
-          path="/dashboard"
+          path={RouteNames.Admin.Dashboard.route}
           element={<ProtectedRoute component={DashboardLayout} />}
         >
           <Route index element={<DashboardScreen />} />
-          <Route path="accounts" element={<AccountScreen />} />
-          <Route path="orders" element={<OrderScreen />} />
-          <Route path="healthcareproviders" element={<HcpScreen />} />
-          <Route path="feedbacks" element={<FeedbackScreen />} />
-          <Route path="services" element={<ServiceScreen />} />
-          <Route path="promotions" element={<PromotionScreen />} />
+          <Route
+            path={RouteNames.Admin.ManageAccount.route}
+            element={<AccountScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Orders.route}
+            element={<OrderScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.HealthCareProviders.route}
+            element={<HcpScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Feedbacks.route}
+            element={<FeedbackScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Services.route}
+            element={<ServiceScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Promotions.route}
+            element={<PromotionScreen />}
+          />
         </Route>
 
         {/* Auth Routes */}
-        <Route path="/" element={<AuthLayout />}>
+        <Route path={RouteNames.Default.route} element={<AuthLayout />}>
           <Route index element={<LoginScreen />} />
-          <Route path="signup" element={<SignupScreen />} />
-          <Route path="forgot" element={<ForgotScreen />} />
+          <Route
+            path={RouteNames.Auth.Register.route}
+            element={<SignupScreen />}
+          />
+          <Route
+            path={RouteNames.Auth.Forgot.route}
+            element={<ForgotScreen />}
+          />
         </Route>
       </Routes>
     </>

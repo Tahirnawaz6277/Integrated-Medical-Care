@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using imc_web_api;
 
@@ -11,9 +12,11 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
-    partial class ImcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240205100103_DbContext Updated")]
+    partial class DbContextUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

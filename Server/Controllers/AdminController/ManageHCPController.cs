@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageHCPController : ControllerBase
@@ -38,8 +38,9 @@ namespace imc_web_api.Controllers.AdminController
 
             return Ok(new
             {
+                success = true,
+                Message = "Provider Added Successfully!",
                 Data = HCPDto_Result,
-                Message = "Provider Added Successfully!"
             });
         }
 
@@ -53,6 +54,7 @@ namespace imc_web_api.Controllers.AdminController
             var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
             return Ok(new
             {
+                success = true,
                 Data = HCP_DTO_Result,
                 Message = "Uppdated Record Successfully!"
             });
@@ -61,24 +63,30 @@ namespace imc_web_api.Controllers.AdminController
         //-->GetAll HCP
         [HttpGet]
         [Route("GetHCPs")]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Admin,ServiceProvider")]
-        public async Task<List<HCPResponseDTO>> GetHCPs()
+        public async Task<IActionResult> GetHCPs()
         {
             var HCP_Model_Result = await _manageHCPService.GetProviders();
             var HCP_DTO_Result = _mapper.Map<List<HCPResponseDTO>>(HCP_Model_Result);
-            return HCP_DTO_Result;
+
+            return Ok(new
+            {
+                success = true,
+                Data = HCP_DTO_Result,
+            });
         }
 
         // -->Get HCP By Id
         [HttpGet]
         [Route("GetHCP/{id:Guid}")]
-        [Authorize(Roles = "Admin,ServiceProvider")]
-        public async Task<HCPResponseDTO> GetHCPById(Guid id)
+        public async Task<IActionResult> GetHCPById(Guid id)
         {
             var HCP_Model_Result = await _manageHCPService.GetProviderById(id);
             var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
-            return HCP_DTO_Result;
+            return Ok(new
+            {
+                success = true,
+                Data = HCP_DTO_Result,
+            });
         }
 
         //-->Delete HCP
@@ -91,7 +99,9 @@ namespace imc_web_api.Controllers.AdminController
             var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
             return Ok(new
             {
-                Message = "Service Provider Record Deleted Successfully!"
+                success = true,
+                Data = HCP_DTO_Result,
+                Message = " Record Deleted Successfully!"
             });
         }
     }

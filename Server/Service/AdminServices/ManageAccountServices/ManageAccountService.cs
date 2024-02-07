@@ -65,7 +65,12 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         {
             try
             {
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+                var user = await _userManager.Users
+
+                    .Include(u => u.ServiceProviderType)
+            .Include(u => u.User_Qualification)
+            .Include(u => u.order)
+            .FirstOrDefaultAsync(u => u.Id == id.ToString());
 
                 if (user == null)
                 {
@@ -83,7 +88,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(ex.InnerException.Message);
             }
         }
 

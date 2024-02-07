@@ -13,6 +13,11 @@ namespace imc_web_api.AutoMapper
     {
         public AutoMapperProfiles()
         {
+
+            CreateMap<user, RegisterRequestDTO>().ReverseMap();
+            CreateMap<user, RegisterationResponseDto>().ReverseMap();
+
+
             //Mapping for serviceProvider
             CreateMap<serviceprovidertype, HCPRequestDTO>().ReverseMap();
             CreateMap<serviceprovidertype, HCPResponseDTO>().ReverseMap();

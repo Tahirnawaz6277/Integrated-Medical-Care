@@ -1,4 +1,6 @@
-﻿using imc_web_api.Dtos.AuthDtos;
+﻿using AutoMapper;
+
+using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
 using Microsoft.AspNetCore.Authorization;
@@ -7,37 +9,45 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageAcountController : ControllerBase
     {
         private readonly UserManager<user> _userManager;
         private readonly IManageAccountService _manageAccountService;
+        private readonly IMapper _mapper;
 
-        public ManageAcountController(UserManager<user> userManager, IManageAccountService manageAccountService)
+        public ManageAcountController(UserManager<user> userManager, IManageAccountService manageAccountService , IMapper mapper)
         {
             _userManager = userManager;
             _manageAccountService = manageAccountService;
+           _mapper = mapper;
         }
 
         //--> Create User
 
         [HttpPost]
         [Route("CreateUser")]
-        [Authorize(Roles = "Admin,Customer")]
+        //[Authorize(Roles = "Admin,Customer")]
         public async Task<user> CreateUser([FromBody] RegisterRequestDTO UserInputReguest)
         {
             return await _manageAccountService.AddUser(UserInputReguest);
         }
 
         //--> Get Users
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetUsers")]
-        public async Task<List<user>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            return await _manageAccountService.GetUsers();
+            var result = await _manageAccountService.GetUsers();
+            var Dto_Result = _mapper.Map<List<RegisterationResponseDto>>(result);
+            return Ok(new
+            {
+                success = true,
+                data = Dto_Result
+            }) ;
         }
 
         //--> Get User By Id
@@ -59,12 +69,21 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //--> Delete User
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete]
-        [Route("DeleteUser /{id:Guid}")]
-        public async Task<user> DeleteUser(Guid id)
+        [Route("DeleteUser/{id:Guid}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            return await _manageAccountService.DeleteUser(id);
+            
+
+            var result =  await _manageAccountService.DeleteUser(id);
+
+            return Ok(new
+            {
+                success = true,
+                data = result
+            });
+
         }
     }
 }

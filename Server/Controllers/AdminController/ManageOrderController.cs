@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageOrderController : ControllerBase
@@ -28,7 +28,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddOrder")]
-        [Authorize(Roles = "Admin,Customer")]
+        //[Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> AddOrder([FromBody] OrderRequestDTO Order_Input_Request)
         {
             var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -48,29 +48,38 @@ namespace imc_web_api.Controllers.AdminController
         //-->  Get Orders
         [HttpGet]
         [Route("GetOrders")]
-        [Authorize(Roles = "Admin , Customer")]
-        public async Task<List<OrderResponseDTO>> GetOrders()
+        //[Authorize(Roles = "Admin , Customer")]
+        public async Task<IActionResult> GetOrders()
         {
             var Order_Model_Result = await _manageOrderService.GetOrders();
             var Order_DTO_Result = _mapper.Map<List<OrderResponseDTO>>(Order_Model_Result);
-            return Order_DTO_Result;
+
+            return Ok(new
+            {
+                success = true,
+                data = Order_DTO_Result
+            });
         }
 
         //-->  Get Order By Id
         [HttpGet]
         [Route("GetOrder/{id:Guid}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<OrderResponseDTO> GetOrder(Guid id)
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetOrder(Guid id)
         {
             var Order_Model_Result = await _manageOrderService.GetOrderById(id);
             var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
-            return Order_DTO_Result;
+            return Ok(new
+            {
+                success = true,
+                data = Order_DTO_Result
+            });
         }
 
         //-->  Update Order
         [HttpPut]
         [Route("UpdateOrder/{id:Guid}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderRequestDTO Order_Input_Request)
         {
             var Order_Model = _mapper.Map<order>(Order_Input_Request);
@@ -79,14 +88,16 @@ namespace imc_web_api.Controllers.AdminController
             return Ok(new
             {
                 Message = "Order Updated!",
-                Data = Order_DTO_Result
+                Data = Order_DTO_Result,
+
+                success = true,
             });
         }
 
         //-->  Deleted Order
         [HttpDelete]
         [Route("DeleteOrder/{id:Guid}")]
-        [Authorize(Roles = "Admin,Customer")]
+        //[Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> DeleteOrder(Guid id)
         {
             var Order_Model_Result = await _manageOrderService.DeleteOrder(id);
@@ -95,7 +106,9 @@ namespace imc_web_api.Controllers.AdminController
             return Ok(new
             {
                 Message = "Order Deleted Successfully!",
-                Data = Order_DTO_Result
+                Data = Order_DTO_Result,
+
+                success = true,
             });
         }
     }

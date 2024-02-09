@@ -8,9 +8,9 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service
 
         Task<service> DeleteService(Guid id, Guid CurrentUserId);
 
-        Task<service> UpdateService(Guid id, service ServiceInputRequest);
+        Task<service?> UpdateService(Guid id, service ServiceInputRequest);
 
-        Task<service> GetServiceById(Guid id);
+        Task<service?> GetServiceById(Guid id);
 
         Task<List<service>> GetServices();
     }

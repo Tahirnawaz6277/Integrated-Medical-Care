@@ -17,153 +17,108 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         //---> AddUser
         public async Task<user> AddUser(RegisterRequestDTO UserInputReguest)
         {
-            try
+            var checkUser = await _userManager.FindByEmailAsync(UserInputReguest.Email);
+            if (checkUser == null)
             {
-                var checkUser = await _userManager.FindByEmailAsync(UserInputReguest.Email);
-                if (checkUser == null)
+                var newUser = new user
                 {
-                    var newUser = new user
-                    {
-                        FirstName = UserInputReguest.FirstName,
-                        LastName = UserInputReguest.LastName,
-                        Email = UserInputReguest.Email,
-                        UserName = UserInputReguest.Email,
-                        PhoneNumber = UserInputReguest.PhoneNumber,
-                        Gender = UserInputReguest.Gender,
-                        Role = UserInputReguest.Role,
+                    FirstName = UserInputReguest.FirstName,
+                    LastName = UserInputReguest.LastName,
+                    Email = UserInputReguest.Email,
+                    UserName = UserInputReguest.Email,
+                    PhoneNumber = UserInputReguest.PhoneNumber,
+                    Gender = UserInputReguest.Gender,
+                    Role = UserInputReguest.Role,
 
-                        ServiceProvidertypeId = UserInputReguest.ServiceProvidertypeId,
+                    ServiceProvidertypeId = UserInputReguest.ServiceProvidertypeId,
 
-                        User_QualificationId = UserInputReguest.User_QualificationId
-                    };
+                    User_QualificationId = UserInputReguest.User_QualificationId
+                };
 
-                    var CreatedUser = await _userManager.CreateAsync(newUser, UserInputReguest.Password);
-                    if (CreatedUser.Succeeded)
-                    {
-                        await _userManager.AddToRoleAsync(newUser, UserInputReguest.Role);
+                var CreatedUser = await _userManager.CreateAsync(newUser, UserInputReguest.Password);
+                if (CreatedUser.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, UserInputReguest.Role);
 
-                        return newUser;
-                    }
-                    else
-                    {
-                        throw new Exception("User creation failed. Please check the provided data.");
-                    }
+                    return newUser;
                 }
                 else
                 {
-                    throw new Exception("User Already Exist With this Email!");
+                    throw new Exception("User creation failed. Please check the provided data.");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception(ex.Message);
+                throw new Exception("User Already Exist With this Email!");
             }
         }
 
         //---> DeleteUser
-        public async Task<user> DeleteUser(Guid id)
+        public async Task<user?> DeleteUser(Guid id)
         {
-            try
+            var user = await _userManager.Users
+
+         .Include(u => u.ServiceProviderType)
+         .Include(u => u.User_Qualification)
+         .Include(u => u.order)
+         .FirstOrDefaultAsync(u => u.Id == id.ToString());
+
+            if (user == null)
             {
-                var user = await _userManager.Users
-
-                    .Include(u => u.ServiceProviderType)
-            .Include(u => u.User_Qualification)
-            .Include(u => u.order)
-            .FirstOrDefaultAsync(u => u.Id == id.ToString());
-
-                if (user == null)
-                {
-                    throw new Exception("User not found");
-                }
-
-                var result = await _userManager.DeleteAsync(user);
-
-                if (!result.Succeeded)
-                {
-                    throw new Exception("Failed to delete user.");
-                }
-
-                return user;
+                return null;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.InnerException.Message);
-            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            return user;
         }
 
         //---> GetUserById
-        public async Task<user> GetUserById(Guid id)
+        public async Task<user?> GetUserById(Guid id)
         {
-            try
-            {
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
-                if (user == null)
-                {
-                    return null;
-                }
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return await _userManager.Users
+                .Include(U => U.ServiceProviderType)
+                .Include(U => U.User_Qualification)
+                .FirstOrDefaultAsync(u => u.Id == id.ToString());
         }
 
         //---> GetUsers
         public async Task<List<user>> GetUsers()
         {
-            try
-            {
-                return await _userManager.Users
+            return await _userManager.Users
 
-                     .Include(u => u.ServiceProviderType)
-                     .Include(u => u.User_Qualification)
-                     .Include(u => u.order)
-                     .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+                 .Include(u => u.ServiceProviderType)
+                 .Include(u => u.User_Qualification)
+                 .Include(u => u.order)
+                 .ToListAsync();
         }
 
         //---> UpdateUser
-        public async Task<user> UpdateUser(Guid id, RegisterRequestDTO UserInputReguest)
+        public async Task<user?> UpdateUser(Guid id, RegisterRequestDTO UserInputReguest)
         {
-            try
+            var existingUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id.ToString());
+
+            if (existingUser != null)
             {
-                var existingUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id.ToString());
+                existingUser.FirstName = UserInputReguest.FirstName;
+                existingUser.LastName = UserInputReguest.LastName;
+                existingUser.Email = UserInputReguest.Email;
+                existingUser.UserName = UserInputReguest.Email;
+                existingUser.PhoneNumber = UserInputReguest.PhoneNumber;
+                existingUser.Gender = UserInputReguest.Gender;
+                existingUser.Role = UserInputReguest.Role;
 
-                if (existingUser != null)
+                var result = await _userManager.UpdateAsync(existingUser);
+                if (result.Succeeded)
                 {
-                    existingUser.FirstName = UserInputReguest.FirstName;
-                    existingUser.LastName = UserInputReguest.LastName;
-                    existingUser.Email = UserInputReguest.Email;
-                    existingUser.UserName = UserInputReguest.Email;
-                    existingUser.PhoneNumber = UserInputReguest.PhoneNumber;
-                    existingUser.Gender = UserInputReguest.Gender;
-                    existingUser.Role = UserInputReguest.Role;
-
-                    var result = await _userManager.UpdateAsync(existingUser);
-                    if (result.Succeeded)
-                    {
-                        return existingUser;
-                    }
-                    else
-                    {
-                        throw new Exception("Faild to update user!");
-                    }
+                    return existingUser;
                 }
                 else
                 {
-                    throw new Exception("User not exist!");
+                    throw new Exception("Faild to update user!");
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"An error occurred during user update. Details: {ex.Message}");
-            }
+            return null;
         }
     }
 }

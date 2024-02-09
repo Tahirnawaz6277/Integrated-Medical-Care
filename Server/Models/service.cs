@@ -25,13 +25,15 @@ namespace imc_web_api.Models
         [Range(0, int.MaxValue, ErrorMessage = "Total quantity must be a non-negative value.")]
         public int TotalQuantity { get; set; }
 
-        //[Required(ErrorMessage = "Status is required.")]
-        //public string Status { get; set; }
-
-        public Guid CreatedByProviderTypeId { get; set; }
+        public Guid? CreatedByProviderTypeId { get; set; } = null;
 
         [ForeignKey("CreatedByProviderTypeId")]
         public serviceprovidertype ServiceProviderType { get; set; }
+
+        public string? CreatedByAdminId { get; set; }
+
+        [ForeignKey("CreatedByAdminId")]
+        public user User { get; set; }
 
         public List<feedback> User_Feedbacks { get; set; }
 

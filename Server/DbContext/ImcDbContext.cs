@@ -21,7 +21,6 @@ namespace imc_web_api
 
         public DbSet<order> Orders { get; set; }
         public DbSet<feedback> Feedbacks { get; set; }
-        public DbSet<agreement> Agreements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -56,61 +55,51 @@ namespace imc_web_api
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
-              .OnDelete(DeleteBehavior.Cascade);
+              .IsRequired(false)
+              .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<feedback>()
            .HasOne(f => f.User)
            .WithMany(u => u.User_Feedbacks)
            .HasForeignKey(f => f.ratedById)
-          .OnDelete(DeleteBehavior.Cascade);
+          .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<feedback>()
            .HasOne(f => f.Service)
            .WithMany(s => s.User_Feedbacks)
            .HasForeignKey(f => f.ratedToId)
-         .OnDelete(DeleteBehavior.Cascade);
+         .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteToUser)
                 .WithMany(u => u.PromoteTo)
                 .HasForeignKey(p => p.PromoteToId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteByUser)
                 .WithMany(u => u.PromoteBy)
                 .HasForeignKey(p => p.PromoteById)
-              .OnDelete(DeleteBehavior.Cascade);
+              .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<order>()
             .HasOne(o => o.User)
              .WithOne(o => o.order)
            .HasForeignKey<order>(d => d.CustomerId)
-          .OnDelete(DeleteBehavior.Cascade);
+          .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<order>()
                 .HasOne(o => o.Service)
                 .WithOne(s => s.order)
                 .HasForeignKey<order>(o => o.ServiceId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<service>()
                .HasOne(o => o.order)
                .WithOne(s => s.Service)
                .HasForeignKey<order>(o => o.ServiceId)
-               .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<agreement>()
-               .HasOne(o => o.ServiceProvider)
-               .WithOne(s => s.ServiceProvidedAgreement)
-               .HasForeignKey<agreement>(o => o.ServiceProviderId)
-      .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<agreement>()
-               .HasOne(o => o.Admin)
-               .WithOne(s => s.AdminAgreement)
-               .HasForeignKey<agreement>(o => o.AdminId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();

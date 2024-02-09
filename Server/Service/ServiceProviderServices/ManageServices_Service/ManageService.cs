@@ -20,128 +20,81 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         //--> Add Service
         public async Task<service> AddService(service serviceInputRequest, Guid CurrentUserId)
         {
-            try
-            {
-                if (serviceInputRequest != null)
-                {
-                    var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
+            var CurrentLoggedInUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
 
-                    if (LoggedInUser == null)
-                    {
-                        throw new Exception();
-                    }
-
-                    serviceInputRequest.CreatedByProviderTypeId = (Guid)LoggedInUser.ServiceProvidertypeId;
-                    await _dbContext.AddAsync(serviceInputRequest);
-                    await _dbContext.SaveChangesAsync();
-                    return serviceInputRequest;
-                }
-                else
-                {
-                    throw new Exception("Service not found");
-                }
-            }
-            catch (Exception ex)
+            if (CurrentLoggedInUser != null && CurrentLoggedInUser.ServiceProvidertypeId != null)
             {
-                _logger.LogError(ex.Message);
-                throw new Exception("Failed to add service" + ex);
+                serviceInputRequest.CreatedByProviderTypeId = CurrentLoggedInUser.ServiceProvidertypeId;
+                serviceInputRequest.CreatedByAdminId = null;
+                await _dbContext.AddAsync(serviceInputRequest);
+                await _dbContext.SaveChangesAsync();
             }
-        }
-
-        //--> Delete Service
-        public async Task<service> DeleteService(Guid id, Guid CurrentUserId)
-        {
-            try
+            else
             {
-                var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
+                serviceInputRequest.CreatedByAdminId = CurrentLoggedInUser.Id;
+                serviceInputRequest.CreatedByProviderTypeId = null;
 
-                var Service = await _dbContext.Services
-                    .Where(s => s.Id == id && s.CreatedByProviderTypeId == LoggedInUser.ServiceProvidertypeId).FirstOrDefaultAsync();
-                if (Service == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    _dbContext.Services.Remove(Service);
-                    await _dbContext.SaveChangesAsync();
-                    return Service;
-                }
+                await _dbContext.AddAsync(serviceInputRequest);
+                await _dbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"An error occurred while Deleting Service with this id {ex.Message}");
-            }
+
+            return serviceInputRequest;
         }
 
         //--> Get Service By Id
-        public async Task<service> GetServiceById(Guid id)
+        public async Task<service?> GetServiceById(Guid id)
         {
-            try
-            {
-                var Service = await _dbContext.Services.Include(s => s.ServiceProviderType).FirstOrDefaultAsync(x => x.Id == id);
-                if (Service == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return Service;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"An error occurred while retrieving Service {ex.Message}");
-            }
+            return await _dbContext.Services.Include(s => s.ServiceProviderType).Include(s => s.User).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         //--> Get Services
         public async Task<List<service>> GetServices()
         {
-            try
-            {
-                return await _dbContext.Services.Include(s => s.ServiceProviderType).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"An error occurred while retrieving providers {ex.Message}");
-            }
+            return await _dbContext.Services.Include(s => s.ServiceProviderType).Include(s => s.User).ToListAsync();
         }
 
         //--> Update Service
-        public async Task<service> UpdateService(Guid id, service ServiceInputRequest)
+        public async Task<service?> UpdateService(Guid id, service ServiceInputRequest)
         {
-            try
+            if (id == Guid.Empty || ServiceInputRequest == null)
             {
-                if (id == null && ServiceInputRequest == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    var ExistingService = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
-                    if (ExistingService != null)
-                    {
-                        ExistingService.ServiceName = ServiceInputRequest.ServiceName;
-                        ExistingService.image = ServiceInputRequest.image;
-
-                        ExistingService.ServiceProviderType = ServiceInputRequest.ServiceProviderType;
-                        ExistingService.Id = id;
-                        ExistingService.charges = ServiceInputRequest.charges;
-                        ExistingService.AvailableQuantity = ServiceInputRequest.AvailableQuantity;
-                        ExistingService.TotalQuantity = ServiceInputRequest.TotalQuantity;
-                        await _dbContext.SaveChangesAsync();
-                        return ExistingService;
-                    }
-                    else
-                    {
-                        throw new Exception("Service Record Not Exist");
-                    }
-                }
+                return null;
             }
-            catch (Exception ex)
+
+            var ExistingService = await _dbContext.Services.FirstOrDefaultAsync(x => x.Id == id);
+            if (ExistingService != null)
             {
-                throw new Exception($"An error occurred while updating Service with ID {id}: {ex.Message}");
+                ExistingService.ServiceName = ServiceInputRequest.ServiceName;
+                ExistingService.image = ServiceInputRequest.image;
+
+                ExistingService.ServiceProviderType = ServiceInputRequest.ServiceProviderType;
+                ExistingService.Id = id;
+                ExistingService.charges = ServiceInputRequest.charges;
+                ExistingService.AvailableQuantity = ServiceInputRequest.AvailableQuantity;
+                ExistingService.TotalQuantity = ServiceInputRequest.TotalQuantity;
+                await _dbContext.SaveChangesAsync();
+                return ExistingService;
+            }
+
+            return null;
+        }
+
+        //--> Delete Service
+        public async Task<service> DeleteService(Guid id, Guid CurrentUserId)
+        {
+            var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
+
+            var Service = await _dbContext.Services
+                .Where(s => s.Id == id && s.CreatedByProviderTypeId == LoggedInUser.ServiceProvidertypeId).FirstOrDefaultAsync();
+            if (Service == null)
+            {
+                return null;
+            }
+            else
+            {
+                _dbContext.Services.Remove(Service);
+                await _dbContext.SaveChangesAsync();
+                return Service;
             }
         }
     }

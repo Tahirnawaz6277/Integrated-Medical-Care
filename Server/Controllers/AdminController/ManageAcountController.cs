@@ -3,7 +3,6 @@
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,21 +17,36 @@ namespace imc_web_api.Controllers.AdminController
         private readonly IManageAccountService _manageAccountService;
         private readonly IMapper _mapper;
 
-        public ManageAcountController(UserManager<user> userManager, IManageAccountService manageAccountService , IMapper mapper)
+        public ManageAcountController(UserManager<user> userManager, IManageAccountService manageAccountService, IMapper mapper)
         {
             _userManager = userManager;
             _manageAccountService = manageAccountService;
-           _mapper = mapper;
+            _mapper = mapper;
         }
 
         //--> Create User
 
         [HttpPost]
         [Route("CreateUser")]
-        //[Authorize(Roles = "Admin,Customer")]
-        public async Task<user> CreateUser([FromBody] RegisterRequestDTO UserInputReguest)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterRequestDTO UserInputReguest)
         {
-            return await _manageAccountService.AddUser(UserInputReguest);
+            try
+            {
+                var result = await _manageAccountService.AddUser(UserInputReguest);
+                return Ok(new
+                {
+                    success = true,
+                    data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    Message = ex.Message
+                });
+            }
         }
 
         //--> Get Users
@@ -41,31 +55,90 @@ namespace imc_web_api.Controllers.AdminController
         [Route("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
-            var result = await _manageAccountService.GetUsers();
-            var Dto_Result = _mapper.Map<List<RegisterationResponseDto>>(result);
-            return Ok(new
+            try
             {
-                success = true,
-                data = Dto_Result
-            }) ;
+                var result = await _manageAccountService.GetUsers();
+                var Dto_Result = _mapper.Map<List<RegisterationResponseDto>>(result);
+
+                return Ok(new
+                {
+                    success = true,
+                    data = Dto_Result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    Message = ex.Message
+                });
+            }
         }
 
         //--> Get User By Id
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetUserById/{id:Guid}")]
-        public async Task<user> GetUserById(Guid id)
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            return await _manageAccountService.GetUserById(id);
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var result = await _manageAccountService.GetUserById(id);
+                return Ok(new
+                {
+                    success = true,
+                    data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
 
         //--> Update User
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("UpdateUser /{id:Guid}")]
-        public async Task<user> UpdateUser(Guid id, [FromBody] RegisterRequestDTO UserInputRequest)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] RegisterRequestDTO UserInputRequest)
         {
-            return await _manageAccountService.UpdateUser(id, UserInputRequest);
+            try
+            {
+                if (id == Guid.Empty || UserInputRequest == null)
+                {
+                    return BadRequest("Input Field is Required!");
+                }
+
+                var result = await _manageAccountService.UpdateUser(id, UserInputRequest);
+
+                if (result == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
 
         //--> Delete User
@@ -74,16 +147,34 @@ namespace imc_web_api.Controllers.AdminController
         [Route("DeleteUser/{id:Guid}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            
-
-            var result =  await _manageAccountService.DeleteUser(id);
-
-            return Ok(new
+            try
             {
-                success = true,
-                data = result
-            });
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
 
+                var result = await _manageAccountService.DeleteUser(id);
+
+                if (result == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.InnerException.Message
+                });
+            }
         }
     }
 }

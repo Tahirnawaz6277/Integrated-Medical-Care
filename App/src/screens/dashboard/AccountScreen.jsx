@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const updatedUser = () => {
     getUsers()

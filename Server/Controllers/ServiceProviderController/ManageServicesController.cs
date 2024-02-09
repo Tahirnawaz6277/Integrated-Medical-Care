@@ -29,17 +29,43 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> AddService([FromBody] ServiceRequestDTO ServiceInputRequest)
         {
-            Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-            var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
-            var ServiceDtoResult = await _manageServices.AddService(ServiceModel, CurrentUserId);
-
-            var ServiceDtp_Result = _mapper.Map<service>(ServiceDtoResult);
-            return Ok(new
+            try
             {
-                Data = ServiceDtp_Result,
-                Message = "Service Added Successfully!"
-            });
+                if (ServiceInputRequest == null)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+                if (string.IsNullOrEmpty(CurrentUserId.ToString()))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+
+                var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
+                var ServiceDtoResult = await _manageServices.AddService(ServiceModel, CurrentUserId);
+
+                if (ServiceDtoResult == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add Service.");
+                }
+                var ServiceDto_Result = _mapper.Map<service>(ServiceDtoResult);
+                return Ok(new
+                {
+                    Success = true,
+                    Data = ServiceDto_Result,
+                    Message = "Service Added Successfully!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.InnerException.Message,
+                });
+            }
         }
 
         //-->Update Service
@@ -48,37 +74,85 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
         {
-            var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
-
-            var UpdatedService = await _manageServices.UpdateService(id, ServiceModel);
-            return Ok(new
+            try
             {
-                Data = UpdatedService,
-                Message = "Service Updated!"
-            });
+                var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
+
+                var UpdatedService = await _manageServices.UpdateService(id, ServiceModel);
+
+                if (UpdatedService == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+                return Ok(new
+                {
+                    Success = true,
+                    Data = UpdatedService,
+                    Message = "Service Updated!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         //-->GetAll Service
         [HttpGet]
         [Route("GetServices")]
         [Authorize(Roles = "Admin,ServiceProvider")]
-        public async Task<List<ServiceResponseDTO>> GetServices()
+        public async Task<IActionResult> GetServices()
         {
-            var ServiceModel = await _manageServices.GetServices();
-            var ServiceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(ServiceModel);
-            return ServiceDtoResult;
+            try
+            {
+                var ServiceModel = await _manageServices.GetServices();
+                var ServiceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(ServiceModel);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Data = ServiceDtoResult,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         // -->Get Service By Id
         [HttpGet]
         [Route("GetServiceById/{id:Guid}")]
         [Authorize(Roles = "Admin,ServiceProvider")]
-        public async Task<ServiceResponseDTO> GetServiceById(Guid id)
+        public async Task<IActionResult> GetServiceById(Guid id)
         {
-            var ServiceModel = await _manageServices.GetServiceById(id);
-            var ServiceDtoResult = _mapper.Map<ServiceResponseDTO>(ServiceModel);
+            try
+            {
+                var ServiceModel = await _manageServices.GetServiceById(id);
+                var ServiceDtoResult = _mapper.Map<ServiceResponseDTO>(ServiceModel);
 
-            return ServiceDtoResult;
+                return Ok(new
+                {
+                    Success = true,
+                    Data = ServiceDtoResult,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
 
         //-->Delete Service
@@ -87,16 +161,26 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> DeleteService(Guid id)
         {
-            Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var DeleteService = await _manageServices.DeleteService(id, CurrentUserId);
+            try
+            {
+                Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var DeleteService = await _manageServices.DeleteService(id, CurrentUserId);
 
-            return DeleteService != null
-     ? Ok(new
-     {
-         Data = DeleteService,
-         Message = "Service Deleted Successfully!"
-     })
-     : StatusCode(403, "Permission denied to delete the service.");
+                return Ok(new
+                {
+                    Success = true,
+                    Data = DeleteService,
+                    Message = "Service Deleted Successfully!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message,
+                });
+            }
         }
     }
 }

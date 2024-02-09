@@ -34,10 +34,7 @@ namespace imc_web_api.Models
         public List<promotion> PromoteTo { get; set; }
         public List<promotion> PromoteBy { get; set; }
 
-        public agreement ServiceProvidedAgreement { get; set; }
-        public agreement AdminAgreement { get; set; }
         public order order { get; set; }
-
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -35,16 +35,16 @@ namespace imc_web_api.Controllers.AdminController
                 var result = await _manageAccountService.AddUser(UserInputReguest);
                 return Ok(new
                 {
-                    success = true,
-                    data = result
+                    Success = true,
+                    Data = result
                 });
             }
             catch (Exception ex)
             {
                 return BadRequest(new
                 {
-                    success = false,
-                    Message = ex.Message
+                    Success = false,
+                    ExrrorMessage = ex.Message
                 });
             }
         }
@@ -62,16 +62,16 @@ namespace imc_web_api.Controllers.AdminController
 
                 return Ok(new
                 {
-                    success = true,
-                    data = Dto_Result
+                    Success = true,
+                    Data = Dto_Result
                 });
             }
             catch (Exception ex)
             {
                 return BadRequest(new
                 {
-                    success = false,
-                    Message = ex.Message
+                    Success = false,
+                    ErrorMessage = ex.Message
                 });
             }
         }
@@ -91,16 +91,16 @@ namespace imc_web_api.Controllers.AdminController
                 var result = await _manageAccountService.GetUserById(id);
                 return Ok(new
                 {
-                    success = true,
-                    data = result
+                    Success = true,
+                    Data = result
                 });
             }
             catch (Exception ex)
             {
                 return BadRequest(new
                 {
-                    success = false,
-                    message = ex.Message
+                    Success = false,
+                    ErrorMessage = ex.Message
                 });
             }
         }
@@ -127,16 +127,16 @@ namespace imc_web_api.Controllers.AdminController
 
                 return Ok(new
                 {
-                    success = true,
-                    data = result
+                    Success = true,
+                    Data = result
                 });
             }
             catch (Exception ex)
             {
                 return BadRequest(new
                 {
-                    success = false,
-                    message = ex.Message
+                    Success = false,
+                    ErrorMessage = ex.Message
                 });
             }
         }
@@ -163,16 +163,16 @@ namespace imc_web_api.Controllers.AdminController
 
                 return Ok(new
                 {
-                    success = true,
-                    data = result
+                    Success = true,
+                    Data = result
                 });
             }
             catch (Exception ex)
             {
                 return BadRequest(new
                 {
-                    success = false,
-                    message = ex.InnerException.Message
+                    Success = false,
+                    ErrorMessage = ex.Message
                 });
             }
         }

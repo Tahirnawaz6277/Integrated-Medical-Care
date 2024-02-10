@@ -31,85 +31,167 @@ namespace imc_web_api.Controllers.AdminController
         //[Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> AddOrder([FromBody] OrderRequestDTO Order_Input_Request)
         {
-            var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var Order_Model = _mapper.Map<order>(Order_Input_Request);
-
-            var Order_Model_Result = await _manageOrderService.AddOrder(Order_Model, CurrentUserId);
-
-            var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
-
-            return Ok(new
+            try
             {
-                Message = "Order Placed!",
-                Data = Order_DTO_Result,
-            });
+                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(CurrentUserId))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+
+                if (Order_Input_Request == null)
+                {
+                    return BadRequest("Input Field is Required!");
+                }
+                var Order_Model = _mapper.Map<order>(Order_Input_Request);
+
+                var Order_Model_Result = await _manageOrderService.AddOrder(Order_Model, CurrentUserId);
+
+                var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Order Placed Successfully!",
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //-->  Get Orders
         [HttpGet]
         [Route("GetOrders")]
-        //[Authorize(Roles = "Admin , Customer")]
         public async Task<IActionResult> GetOrders()
         {
-            var Order_Model_Result = await _manageOrderService.GetOrders();
-            var Order_DTO_Result = _mapper.Map<List<OrderResponseDTO>>(Order_Model_Result);
-
-            return Ok(new
+            try
             {
-                success = true,
-                data = Order_DTO_Result
-            });
+                var Order_Model_Result = await _manageOrderService.GetOrders();
+                var Order_DTO_Result = _mapper.Map<List<OrderResponseDTO>>(Order_Model_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Data = Order_DTO_Result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //-->  Get Order By Id
         [HttpGet]
         [Route("GetOrder/{id:Guid}")]
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetOrder(Guid id)
         {
-            var Order_Model_Result = await _manageOrderService.GetOrderById(id);
-            var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
-            return Ok(new
+            try
             {
-                success = true,
-                data = Order_DTO_Result
-            });
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var Order_Model_Result = await _manageOrderService.GetOrderById(id);
+                var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
+                return Ok(new
+                {
+                    Success = true,
+                    Data = Order_DTO_Result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //-->  Update Order
         [HttpPut]
         [Route("UpdateOrder/{id:Guid}")]
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderRequestDTO Order_Input_Request)
         {
-            var Order_Model = _mapper.Map<order>(Order_Input_Request);
-            var Order_Model_Result = await _manageOrderService.UpdateOrder(id, Order_Model);
-            var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
-            return Ok(new
+            try
             {
-                Message = "Order Updated!",
-                Data = Order_DTO_Result,
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var Order_Model = _mapper.Map<order>(Order_Input_Request);
+                var Order_Model_Result = await _manageOrderService.UpdateOrder(id, Order_Model);
 
-                success = true,
-            });
+                if (Order_Model_Result == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+
+                var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Order Updated!"
+
+,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //-->  Deleted Order
         [HttpDelete]
         [Route("DeleteOrder/{id:Guid}")]
-        //[Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> DeleteOrder(Guid id)
         {
-            var Order_Model_Result = await _manageOrderService.DeleteOrder(id);
-            var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
-
-            return Ok(new
+            try
             {
-                Message = "Order Deleted Successfully!",
-                Data = Order_DTO_Result,
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var Order_Model_Result = await _manageOrderService.DeleteOrder(id);
 
-                success = true,
-            });
+                if (Order_Model_Result == null)
+                {
+                    return NotFound("Record Not Found!");
+                }
+                var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Order Deleted Successfully!",
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
     }
 }

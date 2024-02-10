@@ -55,8 +55,8 @@ namespace imc_web_api.Controllers.AdminController
                 return Ok(new
                 {
                     Success = true,
-                    message = "Feedback added successfully.",
-                    data = addedFeedbackDTO,
+                    Message = "Feedback added successfully.",
+                  
                 });
             }
             catch (Exception ex)
@@ -93,8 +93,8 @@ namespace imc_web_api.Controllers.AdminController
                 return Ok(new
                 {
                     Success = true,
-                    message = "Feedback Updated successfully.",
-                    data = FeedbackDto_Result,
+                    Message = "Feedback Updated successfully.",
+                   
                 });
             }
             catch (Exception ex)

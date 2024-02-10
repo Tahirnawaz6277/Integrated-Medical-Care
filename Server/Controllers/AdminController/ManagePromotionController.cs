@@ -4,12 +4,12 @@ using imc_web_api.Dtos.AdminDtos.PromotionDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.EmailServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagePromotionController : ControllerBase
@@ -29,19 +29,41 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddPromotion")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionRequestDTO Promotion_Input_Request)
         {
-            var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var Promotion_Model = _mapper.Map<promotion>(Promotion_Input_Request);
-            var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model, CurrentUserId);
-
-            var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
-
-            return Ok(new
+            try
             {
-                Data = PromotionDto_Result,
-                Message = "Promotion Send!"
-            });
+                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(CurrentUserId))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+
+                if (Promotion_Input_Request == null)
+                {
+                    return BadRequest("Input Field is Required!");
+                }
+                var Promotion_Model = _mapper.Map<promotion>(Promotion_Input_Request);
+                var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model, CurrentUserId);
+
+                var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Promotion Send!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //--> Update Promotion
@@ -50,40 +72,99 @@ namespace imc_web_api.Controllers.AdminController
         [Route("UpdatePromotion/{id:Guid}")]
         public async Task<IActionResult> UpdatePromotion(Guid id, [FromBody] PromotionRequestDTO PromotionRequestDTO)
         {
-            var Promotion_Model = _mapper.Map<promotion>(PromotionRequestDTO);
-            var Promotion_Result = await _managePromotionService.UpdatePromotion(id, Promotion_Model);
-
-            var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
-
-            return Ok(new
+            try
             {
-                Data = PromotionDto_Result,
-                Message = "Promotion Updated!"
-            });
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+
+                if (PromotionRequestDTO == null)
+                {
+                    return BadRequest("Input Field is Required!");
+                }
+
+                var Promotion_Model = _mapper.Map<promotion>(PromotionRequestDTO);
+                var Promotion_Result = await _managePromotionService.UpdatePromotion(id, Promotion_Model);
+
+                if (Promotion_Result == null)
+                {
+                    return NotFound("Record Not Found");
+                }
+                var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Promotion Updated!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //--> Get Promotions
         [HttpGet]
         [Route("GetPromotions")]
-        public async Task<List<PromotionResponseDTO>> GetPromotions()
+        public async Task<IActionResult> GetPromotions()
         {
-            var Promotion_Result = await _managePromotionService.GetPromotions();
+            try
+            {
+                var Promotion_Result = await _managePromotionService.GetPromotions();
 
-            var PromotionDto_Result = _mapper.Map<List<PromotionResponseDTO>>(Promotion_Result);
+                var PromotionDto_Result = _mapper.Map<List<PromotionResponseDTO>>(Promotion_Result);
 
-            return PromotionDto_Result;
+                return Ok(new
+                {
+                    Success = true,
+                    Data = PromotionDto_Result,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //--> Get Promotion By Id
         [HttpGet]
         [Route("GetPromotionById/{id:Guid}")]
-        public async Task<PromotionResponseDTO> GetPromotionById(Guid id)
+        public async Task<IActionResult> GetPromotionById(Guid id)
         {
-            var Promotion_Result = await _managePromotionService.GetPromotionById(id);
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var Promotion_Result = await _managePromotionService.GetPromotionById(id);
 
-            var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
+                var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
 
-            return PromotionDto_Result;
+                return Ok(new
+                {
+                    Success = true,
+                    Data = PromotionDto_Result,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         //--> Delete Promotion
@@ -91,15 +172,34 @@ namespace imc_web_api.Controllers.AdminController
         [Route("DeletePromotion/{id:Guid}")]
         public async Task<IActionResult> DeletePromotion(Guid id)
         {
-            var Promotion_Result = await _managePromotionService.DeletePromotion(id);
-
-            var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
-
-            return Ok(new
+            try
             {
-                Message = "Promotion Deleted!",
-                Data = PromotionDto_Result
-            });
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Id Field is Required!");
+                }
+                var Promotion_Result = await _managePromotionService.DeletePromotion(id);
+
+                if (Promotion_Result == null)
+                {
+                    return NotFound("Record Not Found");
+                }
+                var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Promotion Deleted!",
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                });
+            }
         }
     }
 }

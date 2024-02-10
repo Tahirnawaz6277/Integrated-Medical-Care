@@ -63,7 +63,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.InnerException.Message,
+                    ErrorMessage = ex.Message,
                 });
             }
         }

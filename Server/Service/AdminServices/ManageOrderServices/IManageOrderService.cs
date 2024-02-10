@@ -6,12 +6,12 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
     {
         Task<List<order>> GetOrders();
 
-        Task<order> GetOrderById(Guid id);
+        Task<order?> GetOrderById(Guid id);
 
         Task<order> AddOrder(order UserInputReguest, string CurrentUserId);
 
-        Task<order> DeleteOrder(Guid id);
+        Task<order?> DeleteOrder(Guid id);
 
-        Task<order> UpdateOrder(Guid id, order UserInputReguest);
+        Task<order?> UpdateOrder(Guid id, order UserInputReguest);
     }
 }

@@ -8,11 +8,11 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
     {
         Task<serviceprovidertype> AddProvider(serviceprovidertype UserInputReguest);
 
-        Task<serviceprovidertype> DeleteProvider(Guid id);
+        Task<serviceprovidertype?> DeleteProvider(Guid id);
 
-        Task<serviceprovidertype> UpdateProvider(Guid id, HCPRequestDTO InputRequestDTO);
+        Task<serviceprovidertype?> UpdateProvider(Guid id, HCPRequestDTO InputRequestDTO);
 
-        Task<serviceprovidertype> GetProviderById(Guid id);
+        Task<serviceprovidertype?> GetProviderById(Guid id);
 
         Task<List<serviceprovidertype>> GetProviders();
     }

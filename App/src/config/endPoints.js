@@ -6,11 +6,16 @@ export const endPoints = {
     Signup: `${BASE_URL}/Auth/SignUp`,
     GetUsers: `${BASE_URL}/ManageAcount/GetUsers`,
     DeleteUser: `${BASE_URL}/ManageAcount/DeleteUser`,
+    UpdateUser: `${BASE_URL}/ManageAcount/UpdateUser`,
+    AddUser: `${BASE_URL}/ManageAcount/CreateUser`,
   },
   Orders: {
     GetOrders: `${BASE_URL}/ManageOrder/GetOrders`,
   },
   ServiceProviders: {
-    GetServiceProviders: `${BASE_URL}/ManageHCP/GetHCPs`,
+    GetHCPs: `${BASE_URL}/ManageHCP/GetHCPs`,
+    DeleteHCP: `${BASE_URL}/ManageHCP/DeleteHCP`,
+    UpdateHCP: `${BASE_URL}/ManageHCP/UpdateHCP`,
+    AddHCP: `${BASE_URL}/ManageHCP/AddHCP`,
   },
 };

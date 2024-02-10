@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { deleteUser, getUsers } from "../../services/accountService";
-import { useNavigate } from "react-router-dom";
 
 const AccountScreen = () => {
   const [users, setUsers] = useState([]);

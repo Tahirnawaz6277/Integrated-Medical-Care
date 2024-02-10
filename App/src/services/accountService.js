@@ -22,3 +22,13 @@ export const loginUser = async (data) => {
   let result = await axios.post(endPoints.Account.Login, data);
   return result.data;
 };
+
+export const addUser = async (data) => {
+  let result = await axios.post(endPoints.Account.AddUser, data);
+  return result.data;
+};
+
+export const editUser = async (id, data) => {
+  let result = await axios.put(`${endPoints.Account.UpdateUser}/${id}`, data);
+  return result.data;
+};

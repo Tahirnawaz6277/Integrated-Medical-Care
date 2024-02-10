@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageFeedBackController : ControllerBase
@@ -27,7 +27,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddFeedback")]
-        [Authorize(Roles = "Admin , Customer")]
+        //[Authorize(Roles = "Admin , Customer")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
             try
@@ -64,7 +64,7 @@ namespace imc_web_api.Controllers.AdminController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.Message,
+                    ErrorMessage = ex.InnerException.Message,
                 });
             }
         }
@@ -109,8 +109,8 @@ namespace imc_web_api.Controllers.AdminController
 
         //-->GetAll Feedback
         [HttpGet]
-        [Route("GetFeedbacks/")]
-        [Authorize(Roles = "Admin")]
+        [Route("GetFeedbacks")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetFeedbacks()
         {
             try
@@ -138,7 +138,7 @@ namespace imc_web_api.Controllers.AdminController
         // --> Get Feedback By Id
         [HttpGet]
         [Route("GetFeedbackById/{id:Guid}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetFeedbackById(Guid id)
         {
             try
@@ -174,7 +174,7 @@ namespace imc_web_api.Controllers.AdminController
         //--> Delete Feedback
         [HttpDelete]
         [Route("DeleteFeedback/")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFeedback(Guid id)
         {
             try

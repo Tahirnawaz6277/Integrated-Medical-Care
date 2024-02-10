@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageOrderController : ControllerBase
@@ -28,7 +28,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddOrder")]
-        //[Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> AddOrder([FromBody] OrderRequestDTO Order_Input_Request)
         {
             try
@@ -61,7 +61,7 @@ namespace imc_web_api.Controllers.AdminController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.Message
+                    ErrorMessage = ex.InnerException.Message
                 });
             }
         }

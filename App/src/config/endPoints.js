@@ -18,4 +18,7 @@ export const endPoints = {
     UpdateHCP: `${BASE_URL}/ManageHCP/UpdateHCP`,
     AddHCP: `${BASE_URL}/ManageHCP/AddHCP`,
   },
+  Feedbacks: {
+    GetFeedbacks: `${BASE_URL}/ManageFeedBack/GetFeedbacks`,
+  },
 };

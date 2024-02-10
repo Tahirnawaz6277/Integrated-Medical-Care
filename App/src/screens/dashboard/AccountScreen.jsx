@@ -16,7 +16,6 @@ const AccountScreen = () => {
       })
       .catch((err) => {
         setLoading(true);
-        console.log(err);
       });
   };
   const handleDelete = (id) => {
@@ -26,9 +25,7 @@ const AccountScreen = () => {
           updatedUser();
         }
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {

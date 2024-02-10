@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Table } from "react-bootstrap";
+import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { getOrders } from "../../services/orderService";
 
 const OrderScreen = () => {
@@ -11,11 +11,11 @@ const OrderScreen = () => {
       .then((res) => {
         if (res.success) {
           setOrders(res.data);
+
           setLoading(false);
         }
       })
       .catch((error) => {
-        console.log(error);
         setLoading(true);
       });
   }, []);
@@ -26,6 +26,7 @@ const OrderScreen = () => {
         <Card.Header>Manage Orders</Card.Header>
 
         <Card.Body>
+          {loading && <Spinner size="sm" />}
           <Table responsive="sm">
             <thead>
               <tr>
@@ -38,19 +39,20 @@ const OrderScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => {
+              {orders.map((order, index) => (
                 <tr key={index}>
                   <td> {order.id} </td>
 
-                  <td> {order.createdAt} </td>
-                  <td> {order.Amount} </td>
+                  <td> {order.user.firstName} </td>
+                  <td> {order.orderDate} </td>
                   <td> {order.orderStatus} </td>
                   <td> {order.id} </td>
                   <td style={{ display: "flex", gap: "8px" }}>
+                    <Button variant="primary">Edit</Button>
                     <Button className="btn btn-danger">Delete</Button>
                   </td>
-                </tr>;
-              })}
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Card.Body>

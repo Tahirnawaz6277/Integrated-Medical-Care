@@ -21,4 +21,8 @@ export const endPoints = {
   Feedbacks: {
     GetFeedbacks: `${BASE_URL}/ManageFeedBack/GetFeedbacks`,
   },
+
+  Services: {
+    GetServices: `${BASE_URL}/ManageServices/GetServices`,
+  },
 };

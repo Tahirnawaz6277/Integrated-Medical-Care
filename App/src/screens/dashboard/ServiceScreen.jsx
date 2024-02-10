@@ -1,7 +1,24 @@
-import React from "react";
-import { Button, Card, Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Spinner, Table } from "react-bootstrap";
+import { getServices } from "../../services/ManageService";
 
 const ServiceScreen = () => {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getServices()
+      .then((res) => {
+        if (res.success) {
+          setServices(res.data);
+
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(true);
+      });
+  }, []);
+
   return (
     <Card>
       <Card.Header>
@@ -10,6 +27,7 @@ const ServiceScreen = () => {
       </Card.Header>
 
       <Card.Body>
+        {loading && <Spinner size="sm" />}
         <Table responsive="sm">
           <thead>
             <tr>
@@ -23,14 +41,27 @@ const ServiceScreen = () => {
           </thead>
 
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {services.map((service, index) => (
+              <tr key={index}>
+                <td>{index}</td>
+                <td>{service.serviceName}</td>
+                <td>{service.charges}</td>
+                <td>{`${service.user.firstName}  ${service.user.lastName}`}</td>
+                <td>{service.createdAt}</td>
+
+                <td style={{ display: "flex", gap: "8px" }}>
+                  <Button variant="primary">Edit</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      handleDelete(user.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Card.Body>

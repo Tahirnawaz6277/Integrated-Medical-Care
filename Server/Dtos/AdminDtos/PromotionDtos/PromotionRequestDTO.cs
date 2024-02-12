@@ -4,10 +4,9 @@
     {
         public string Promotion_Type { get; set; }
 
-        //public bool IsSent { get; set; }
 
         public string PromoteToId { get; set; }
 
-        //public string PromoteById { get; set; }
+        
     }
 }

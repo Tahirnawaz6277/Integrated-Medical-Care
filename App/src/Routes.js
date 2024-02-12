@@ -35,5 +35,8 @@ export const RouteNames = {
     Promotions: {
       route: "/dashboard/promotions",
     },
+    AddNewUser: {
+      route: "/dashboard/signup",
+    },
   },
 };

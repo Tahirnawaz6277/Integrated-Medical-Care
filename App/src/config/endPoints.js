@@ -25,4 +25,8 @@ export const endPoints = {
   Services: {
     GetServices: `${BASE_URL}/ManageServices/GetServices`,
   },
+
+  Promotions: {
+    GetPromotions: `${BASE_URL}/ManagePromotion/GetPromotions`,
+  },
 };

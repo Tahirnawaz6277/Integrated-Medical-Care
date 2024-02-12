@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagePromotionController : ControllerBase
@@ -18,7 +18,7 @@ namespace imc_web_api.Controllers.AdminController
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
 
-        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper, IEmailSender emailSender)
+        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper, IEmailSender emailSender )
         {
             _managePromotionService = managePromotionService;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddPromotion")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionRequestDTO Promotion_Input_Request)
         {
             try
@@ -48,6 +48,10 @@ namespace imc_web_api.Controllers.AdminController
                 var Promotion_Model = _mapper.Map<promotion>(Promotion_Input_Request);
                 var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model, CurrentUserId);
 
+                if(Promotion_Result != null)
+                {
+                    //_emailSender.SendEmail("inamwebpro007@gmail.com", "Administrator Promotion Offer");
+                }
                 var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
 
                 return Ok(new

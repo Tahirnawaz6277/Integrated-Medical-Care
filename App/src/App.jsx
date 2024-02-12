@@ -48,6 +48,10 @@ function App() {
             path={RouteNames.Admin.Promotions.route}
             element={<PromotionScreen />}
           />
+          <Route
+            path={RouteNames.Admin.AddNewUser.route}
+            element={<SignupScreen />}
+          />
         </Route>
 
         {/* Auth Routes */}

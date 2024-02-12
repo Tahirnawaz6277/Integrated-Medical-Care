@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { deleteUser, getUsers } from "../../services/accountService";
+import { NavLink } from "react-router-dom";
 
 const AccountScreen = () => {
   const [users, setUsers] = useState([]);
@@ -37,7 +38,9 @@ const AccountScreen = () => {
       <Card>
         <Card.Header>
           Manage Accounts
-          <Button className="float-end">Add New User</Button>
+          <NavLink to="/dashboard/signup">
+            <Button className="float-end">Add New User</Button>{" "}
+          </NavLink>
         </Card.Header>
 
         <Card.Body>

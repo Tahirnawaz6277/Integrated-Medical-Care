@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { registerUser } from "../../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import "../site/signup.scss";
 
 const SignupScreen = () => {
   const formik = useFormik({
@@ -10,10 +11,12 @@ const SignupScreen = () => {
       lastName: "",
       gender: "",
       email: "",
+
       qualification: "",
       experience: "",
       password: "",
       role: "",
+      providerType: "",
       phoneNumber: "",
     },
     validationSchema: Yup.object().shape({
@@ -21,6 +24,7 @@ const SignupScreen = () => {
       lastName: Yup.string().required(),
       email: Yup.string().email().required(),
       gender: Yup.string().required(),
+      providerType: Yup.string().required(),
       qualification: Yup.string().required(),
       experience: Yup.string().required(),
       password: Yup.string().required(),
@@ -45,7 +49,7 @@ const SignupScreen = () => {
   return (
     <>
       <Form onSubmit={formik.handleSubmit}>
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3 ">
           <Form.Label>FirstName</Form.Label>
           <Form.Control
             type="text"
@@ -134,39 +138,51 @@ const SignupScreen = () => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Qualification</Form.Label>
-          <Form.Control
-            type="text"
-            name="qualification"
-            placeholder="Enter the Qualification"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.qualification}
-          />
-          {formik.touched.qualification && (
-            <Form.Text className="text-danger">
-              {formik.errors.qualification}
-            </Form.Text>
-          )}
-        </Form.Group>
+        {formik.values.role == "ServiceProvider" && (
+          <Form.Group className="mb-3">
+            <Form.Label>Service Provider Type</Form.Label>
+            <Form.Select
+              name="providerType"
+              aria-label="Select Provider Type"
+              value={formik.values.providerType}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              <option value="" label="Select Provider Type" />
+              <option value="doctor">Doctor</option>
+              <option value="ambulance">Ambulance</option>
+              <option value="pharmacy">Pharmacy</option>
+              <option value="other">other</option>
+            </Form.Select>
+            {formik.touched.providerType && (
+              <Form.Text className="text-danger">
+                {formik.errors.providerType}
+              </Form.Text>
+            )}
+          </Form.Group>
+        )}
 
-        <Form.Group className="mb-3">
-          <Form.Label>Experience</Form.Label>
-          <Form.Control
-            type="number"
-            name="experience"
-            placeholder="Enter the Experience"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.experience}
-          />
-          {formik.touched.experience && (
-            <Form.Text className="text-danger">
-              {formik.errors.experience}
-            </Form.Text>
+        {formik.values.role == "ServiceProvider" &&
+          formik.values.providerType == "doctor" && (
+            <>
+              <Form.Group className="mb-3">
+                <Form.Label>Qualification</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="qualification"
+                  placeholder="Enter the Qualification"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.qualification}
+                />
+                {formik.touched.qualification && (
+                  <Form.Text className="text-danger">
+                    {formik.errors.qualification}
+                  </Form.Text>
+                )}
+              </Form.Group>
+            </>
           )}
-        </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>

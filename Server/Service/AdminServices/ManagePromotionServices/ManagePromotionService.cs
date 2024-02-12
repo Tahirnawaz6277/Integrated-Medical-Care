@@ -8,11 +8,13 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
     {
         private readonly ImcDbContext _imcDbContext;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _configuration;
 
-        public ManagePromotionService(ImcDbContext imcDbContext, IEmailSender emailSender)
+        public ManagePromotionService(ImcDbContext imcDbContext, IEmailSender emailSender , IConfiguration configuration)
         {
             _imcDbContext = imcDbContext;
             _emailSender = emailSender;
+            _configuration = configuration;
         }
 
         //--> Add Promotion
@@ -23,7 +25,7 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
             await _imcDbContext.Promotions.AddAsync(UserPromotionReguest);
 
             await _imcDbContext.SaveChangesAsync();
-            //_emailSender.SendEmail("inamwebpro007@gmail.com", "Administrator Promotion Offer");
+            _emailSender.SendEmail(_configuration["UserSecret:MailBy"], "Administrator Promotion Offer");
 
             return UserPromotionReguest;
         }

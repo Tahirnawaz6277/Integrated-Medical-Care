@@ -80,6 +80,7 @@ const LoginScreen = () => {
         >
           Login
         </Button>
+        <a href="./Signup">Create Account</a>
       </Form>
     </>
   );

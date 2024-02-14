@@ -3,8 +3,6 @@ import { Button, Card, Spinner, Table } from "react-bootstrap";
 import {
   GetServiceProviders,
   DeleteServiceProviders,
-  AddServiceProviders,
-  UpdateServiceProviders,
 } from "../../services/serviceProvidersService";
 
 const HcpScreen = () => {
@@ -21,10 +19,8 @@ const HcpScreen = () => {
       })
       .catch((err) => {
         setLoading(true);
-        console.log(err);
       });
   };
-
   const handleDelete = (id) => {
     DeleteServiceProviders(id)
       .then((res) => {
@@ -32,9 +28,7 @@ const HcpScreen = () => {
           updatedHCP();
         }
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     updatedHCP();
@@ -63,7 +57,7 @@ const HcpScreen = () => {
             <tbody>
               {HCP.map((user, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td>{index}</td>
                   <td>{user.providerName}</td>
                   <td>{user.createdAt}</td>
                   <td style={{ display: "flex", gap: "8px" }}>

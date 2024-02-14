@@ -7,9 +7,10 @@ export const GetServiceProviders = async () => {
 };
 
 export const DeleteServiceProviders = async (id) => {
-  const result = await axios.delete(
-    `${endPoints.ServiceProviders.DeleteHCP}/${id}`
+  let result = await axios.delete(
+    `${endPoints.ServiceProviders.DeleteHCP}?id=${id}`
   );
+
   return result.data;
 };
 

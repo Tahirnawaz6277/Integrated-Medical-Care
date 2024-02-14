@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getServices } from "../../services/ManageService";
+import { getServices, DeleteService } from "../../services/ManageService";
 
 const ServiceScreen = () => {
   const [services, setServices] = useState([]);
@@ -18,6 +18,18 @@ const ServiceScreen = () => {
         setLoading(true);
       });
   }, []);
+
+  const handleDelete = (id) => {
+    console.log(id);
+    DeleteService(id)
+      .then((res) => {
+        if (res.success) {
+          console.log(res);
+          getServices();
+        }
+      })
+      .catch((err) => {});
+  };
 
   return (
     <Card>
@@ -54,7 +66,7 @@ const ServiceScreen = () => {
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete(user.id);
+                      handleDelete(service.id);
                     }}
                   >
                     Delete

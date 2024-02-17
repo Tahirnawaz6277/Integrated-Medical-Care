@@ -1,4 +1,4 @@
-import LoginScreen from "./screens/LoginScreen";
+import LoginScreen from "./screens/site/LoginScreen";
 import { Route, Routes } from "react-router-dom";
 import DashboardLayout from "./layouts/dashboard/DashboardLayout";
 import DashboardScreen from "./screens/dashboard/DashboardScreen";
@@ -12,6 +12,7 @@ import HcpScreen from "./screens/dashboard/HcpScreen";
 import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
 import ServiceScreen from "./screens/dashboard/ServiceScreen";
 import PromotionScreen from "./screens/dashboard/PromotionScreen";
+import AddNewHCPScreen from "./screens/dashboard/AddNewHCPScreen";
 import { RouteNames } from "./Routes";
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
             element={<HcpScreen />}
           />
           <Route
+            path={RouteNames.Admin.AddNewHcp.route}
+            element={<AddNewHCPScreen />}
+          />
+          <Route
             path={RouteNames.Admin.Feedbacks.route}
             element={<FeedbackScreen />}
           />
@@ -53,7 +58,6 @@ function App() {
             element={<SignupScreen />}
           />
         </Route>
-
         {/* Auth Routes */}
         <Route path={RouteNames.Default.route} element={<AuthLayout />}>
           <Route index element={<LoginScreen />} />

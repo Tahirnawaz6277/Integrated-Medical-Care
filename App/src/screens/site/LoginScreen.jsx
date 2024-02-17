@@ -6,7 +6,7 @@ import {
   FormControl,
   FormLabel,
 } from "react-bootstrap";
-import { loginUser } from "../services/accountService";
+import { loginUser } from "../../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";

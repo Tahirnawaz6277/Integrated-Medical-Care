@@ -38,5 +38,8 @@ export const RouteNames = {
     AddNewUser: {
       route: "/dashboard/signup",
     },
+    AddNewHcp: {
+      route: "/dashboard/AddNewHCPScreen",
+    },
   },
 };

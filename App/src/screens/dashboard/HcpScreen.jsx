@@ -4,6 +4,7 @@ import {
   GetServiceProviders,
   DeleteServiceProviders,
 } from "../../services/serviceProvidersService";
+import { NavLink } from "react-router-dom";
 
 const HcpScreen = () => {
   const [HCP, setHCP] = useState([]);
@@ -39,7 +40,9 @@ const HcpScreen = () => {
       <Card>
         <Card.Header>
           Manage Health Care Providers
-          <Button className="float-end">Add NEW HCP</Button>
+          <NavLink to="/dashboard/AddNewHCPScreen">
+            <Button className="float-end">Add NEW HCP</Button>
+          </NavLink>
         </Card.Header>
 
         <Card.Body>

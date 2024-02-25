@@ -6,8 +6,8 @@ import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import SignupScreen from "./screens/site/SignupScreen";
 import ForgotScreen from "./screens/site/ForgotScreen";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import AccountScreen from "./screens/dashboard/AccountScreen";
-import OrderScreen from "./screens/dashboard/OrderScreen";
+import AccountScreen from "./screens/dashboard/ManageAccountScreens/AccountScreen";
+import OrderScreen from "./screens/dashboard/OrderScreens/OrderScreen";
 import HcpScreen from "./screens/dashboard/HcpScreen";
 import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
 import ServiceScreen from "./screens/dashboard/ServiceScreen";
@@ -15,6 +15,7 @@ import PromotionScreen from "./screens/dashboard/PromotionScreen";
 import AddNewHCPScreen from "./screens/dashboard/AddNewHCPScreen";
 import AddNewServiceScreen from "./screens/dashboard/AddNewServiceScreen";
 import { RouteNames } from "./Routes";
+import AddOrderScreen from "./screens/dashboard/OrderScreens/AddOrderScreen";
 
 function App() {
   return (
@@ -61,6 +62,11 @@ function App() {
           <Route
             path={RouteNames.Admin.AddNewUser.route}
             element={<SignupScreen />}
+          />
+
+          <Route
+            path={RouteNames.Admin.Orders.AddNewOrder.route}
+            element={<AddOrderScreen />}
           />
         </Route>
         {/* Auth Routes */}

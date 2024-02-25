@@ -22,6 +22,9 @@ export const RouteNames = {
     },
     Orders: {
       route: "/dashboard/orders",
+      AddNewOrder: {
+        route: "/dashboard/AddOrderScreen",
+      },
     },
     HealthCareProviders: {
       route: "/dashboard/healthcareproviders",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { getServices, DeleteService } from "../../services/ManageService";
+import { NavLink } from "react-router-dom";
 
 const ServiceScreen = () => {
   const [services, setServices] = useState([]);
@@ -10,7 +11,6 @@ const ServiceScreen = () => {
       .then((res) => {
         if (res.success) {
           setServices(res.data);
-
           setLoading(false);
         }
       })
@@ -35,7 +35,9 @@ const ServiceScreen = () => {
     <Card>
       <Card.Header>
         Manage Services
-        <Button className="float-end">Add New Service</Button>
+        <NavLink to="/dashboard/AddNewServiceScreen">
+          <Button className="float-end">Add New Service</Button>
+        </NavLink>
       </Card.Header>
 
       <Card.Body>

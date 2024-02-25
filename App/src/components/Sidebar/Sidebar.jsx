@@ -41,10 +41,10 @@ const Sidebar = () => {
 
       <nav
         id="sidebarMenu"
-        className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+        className="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse"
       >
         <div className="position-sticky pt-3">
-          <ul className="nav flex-column">
+          <ul className="nav flex-column ">
             <li className="nav-item">
               <Link className="nav-link active" to="/dashboard">
                 Dashboard

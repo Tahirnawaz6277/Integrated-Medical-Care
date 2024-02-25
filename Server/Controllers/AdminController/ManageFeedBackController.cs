@@ -36,7 +36,6 @@ namespace imc_web_api.Controllers.AdminController
                 {
                     return BadRequest(ModelState);
                 }
-
                 var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                 if (string.IsNullOrEmpty(CurrentUserId))

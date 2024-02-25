@@ -13,6 +13,7 @@ import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
 import ServiceScreen from "./screens/dashboard/ServiceScreen";
 import PromotionScreen from "./screens/dashboard/PromotionScreen";
 import AddNewHCPScreen from "./screens/dashboard/AddNewHCPScreen";
+import AddNewServiceScreen from "./screens/dashboard/AddNewServiceScreen";
 import { RouteNames } from "./Routes";
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
             element={<HcpScreen />}
           />
           <Route
-            path={RouteNames.Admin.AddNewHcp.route}
+            path={RouteNames.Admin.HealthCareProviders.AddNewHcp.route}
             element={<AddNewHCPScreen />}
           />
           <Route
@@ -48,6 +49,10 @@ function App() {
           <Route
             path={RouteNames.Admin.Services.route}
             element={<ServiceScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Services.AddNewService.route}
+            element={<AddNewServiceScreen />}
           />
           <Route
             path={RouteNames.Admin.Promotions.route}

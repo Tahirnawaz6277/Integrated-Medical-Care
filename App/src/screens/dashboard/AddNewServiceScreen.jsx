@@ -1,30 +1,33 @@
+import React, { Component } from "react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { AddServiceProviders } from "../../services/serviceProvidersService";
+import { AddService } from "../../services/ManageService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "../site/signup.scss";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
-const AddNewHCPScreen = () => {
-  const navigate = useNavigate();
+const AddNewServiceScreen = () => {
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
-      providerName: "",
+      Service: "",
+      Charges: "",
     },
     validationSchema: Yup.object().shape({
-      providerName: Yup.string().required(),
+      Service: Yup.string().required(),
+      Charges: Yup.string().required(),
     }),
 
     onSubmit: async (data) => {
       try {
-        const res = await AddServiceProviders(data);
+        const res = await AddService(data);
 
         if (res.success) {
           formik.resetForm();
           setMessage(res.message);
-          setTimeout(() => navigate("/dashboard/healthcareproviders"), 1000);
+          setTimeout(() => navigate("/dashboard/services"), 1000);
         }
       } catch (err) {
         setMessage(err.response.data.message);
@@ -36,18 +39,35 @@ const AddNewHCPScreen = () => {
     <>
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3 ">
-          <Form.Label>ProviderName</Form.Label>
+          <Form.Label>Service</Form.Label>
           <Form.Control
             type="text"
-            name="providerName"
-            value={formik.values.providerName}
-            placeholder="Enter The Provider Name"
+            name="Service"
+            value={formik.values.Service}
+            placeholder="Enter The Service"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.firstName && (
+          {formik.touched.Service && (
             <Form.Text className="text-danger">
-              {formik.errors.firstName}
+              {formik.errors.Service}
+            </Form.Text>
+          )}
+        </Form.Group>
+
+        <Form.Group className="mb-3 ">
+          <Form.Label>charges</Form.Label>
+          <Form.Control
+            type="text"
+            name="Charges"
+            value={formik.values.Charges}
+            placeholder="Enter The Charges "
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.Charges && (
+            <Form.Text className="text-danger">
+              {formik.errors.Charges}
             </Form.Text>
           )}
         </Form.Group>
@@ -74,4 +94,4 @@ const AddNewHCPScreen = () => {
   );
 };
 
-export default AddNewHCPScreen;
+export default AddNewServiceScreen;

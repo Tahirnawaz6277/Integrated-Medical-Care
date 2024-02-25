@@ -25,9 +25,9 @@ const SignupScreen = () => {
       email: Yup.string().email().required(),
       gender: Yup.string().required(),
 
-      providerType: Yup.string().required(),
-      qualification: Yup.string().required(),
-      experience: Yup.string().required(),
+      providerType: Yup.string().notRequired(),
+      qualification: Yup.string().notRequired(),
+      experience: Yup.string().notRequired(),
       password: Yup.string().required(),
       role: Yup.string().required(),
       phoneNumber: Yup.string().required(),

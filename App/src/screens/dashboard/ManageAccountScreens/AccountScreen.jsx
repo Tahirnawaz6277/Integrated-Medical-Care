@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { deleteUser, getUsers } from "../../services/accountService";
+import { deleteUser, getUsers } from "../../../services/accountService";
 import { NavLink } from "react-router-dom";
 
 const AccountScreen = () => {
@@ -66,8 +66,6 @@ const AccountScreen = () => {
                   <td>{user.role}</td>
                   <td>{user.createdAt}</td>
                   <td style={{ display: "flex", gap: "8px" }}>
-                    <Button variant="primary">Edit</Button>
-
                     <Button
                       className="btn btn-danger"
                       onClick={() => {

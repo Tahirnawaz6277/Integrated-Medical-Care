@@ -24,6 +24,7 @@ const SignupScreen = () => {
       lastName: Yup.string().required(),
       email: Yup.string().email().required(),
       gender: Yup.string().required(),
+
       providerType: Yup.string().required(),
       qualification: Yup.string().required(),
       experience: Yup.string().required(),
@@ -178,6 +179,24 @@ const SignupScreen = () => {
                 {formik.touched.qualification && (
                   <Form.Text className="text-danger">
                     {formik.errors.qualification}
+                  </Form.Text>
+                )}
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Experience</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="experience"
+                  value={formik.values.experience}
+                  placeholder="0"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.touched.experience && (
+                  <Form.Text className="text-danger">
+                    {formik.errors.experience}
                   </Form.Text>
                 )}
               </Form.Group>

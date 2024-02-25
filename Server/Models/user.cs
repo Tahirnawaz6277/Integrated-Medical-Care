@@ -31,7 +31,9 @@ namespace imc_web_api.Models
         public user_qualification User_Qualification { get; set; }
 
         public List<feedback> User_Feedbacks { get; set; }
+
         public List<promotion> PromoteTo { get; set; }
+        
         public List<promotion> PromoteBy { get; set; }
 
         public order order { get; set; }

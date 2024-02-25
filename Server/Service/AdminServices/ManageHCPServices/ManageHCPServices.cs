@@ -29,16 +29,32 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
 
         public async Task<serviceprovidertype?> DeleteProvider(Guid id)
         {
-            var serviceProvider = await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(x => x.Id == id);
+            var serviceProvider = await _imcDbContext.ServiceProviderTypes
+                .Include(p => p.givenServices)
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (serviceProvider != null)
+            if (serviceProvider == null)
             {
-                _imcDbContext.ServiceProviderTypes.Remove(serviceProvider);
-                await _imcDbContext.SaveChangesAsync();
-                return serviceProvider;
+                return null;
             }
 
-            return null;
+            if (serviceProvider.User != null)
+            {
+                _imcDbContext.Users.Remove(serviceProvider.User);
+            }
+            // Remove each given service
+            if (serviceProvider.givenServices != null)
+            {
+                foreach (var service in serviceProvider.givenServices.ToList())
+                {
+                    _imcDbContext.Services.Remove(service);
+                }
+            }
+
+            _imcDbContext.ServiceProviderTypes.Remove(serviceProvider);
+            await _imcDbContext.SaveChangesAsync();
+            return serviceProvider;
         }
 
         public async Task<List<serviceprovidertype>> GetProviders()

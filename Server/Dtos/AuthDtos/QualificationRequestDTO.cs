@@ -6,6 +6,6 @@
 
         public string experience { get; set; }
 
-        public Guid userId { get; set; }
+        //public Guid userId { get; set; }
     }
 }

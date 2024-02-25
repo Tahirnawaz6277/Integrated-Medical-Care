@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.ServiceProviderController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageServicesController : ControllerBase
@@ -26,7 +26,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
 
         [HttpPost]
         [Route("AddService")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> AddService([FromBody] ServiceRequestDTO ServiceInputRequest)
         {
             try
@@ -36,7 +36,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
                     return BadRequest(ModelState);
                 }
 
-                Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
                 if (string.IsNullOrEmpty(CurrentUserId.ToString()))
                 {

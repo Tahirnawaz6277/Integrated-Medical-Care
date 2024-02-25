@@ -13,6 +13,7 @@ namespace imc_web_api.Models
 
         [Required(ErrorMessage = "Charges are required.")]
         [Range(0, double.MaxValue, ErrorMessage = "Charges must be a non-negative value.")]
+        [Column(TypeName = "decimal(19, 4)")]
         public decimal charges { get; set; }
 
         public string image { get; set; }

@@ -24,7 +24,9 @@ namespace imc_web_api.Service.AdminServices.ManageFeedBackServicess
 
         public async Task<feedback?> DeleteFeedback(Guid id)
         {
-            var checkFeedback = await _imcDbContext.Feedbacks.Include(f => f.Service).Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
+            var checkFeedback = await _imcDbContext.Feedbacks
+                .Include(f => f.Service)
+                .Include(f => f.User).FirstOrDefaultAsync(x => x.Id == id);
 
             if (checkFeedback == null)
             {

@@ -28,7 +28,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddOrder")]
-        //[Authorize(Roles = "Admin,Customer")]
+        //[Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> AddOrder([FromBody] OrderRequestDTO Order_Input_Request)
         {
             try

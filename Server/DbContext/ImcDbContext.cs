@@ -28,78 +28,78 @@ namespace imc_web_api
                 .HasOne(u => u.ServiceProviderType)
                 .WithOne(u => u.User)
                 .HasForeignKey<user>(u => u.ServiceProvidertypeId)
-                 .IsRequired(false)
-                 .OnDelete(DeleteBehavior.Cascade);
+                .IsRequired(false);
+
+
 
             builder.Entity<user>()
                .HasOne(u => u.User_Qualification)
                .WithOne(u => u.User)
                .HasForeignKey<user>(u => u.User_QualificationId)
-                    .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
+               .IsRequired(false);
+
 
             builder.Entity<user>()
-           .HasOne(u => u.order)
-           .WithOne(u => u.User)
-           .HasForeignKey<order>(u => u.CustomerId)
-             .OnDelete(DeleteBehavior.Cascade);
+              .HasOne(u => u.order)
+              .WithOne(u => u.User)
+              .HasForeignKey<order>(u => u.CustomerId);
+  
 
             builder.Entity<user_qualification>()
                .HasOne(u => u.User)
                .WithOne(u => u.User_Qualification)
-               .HasForeignKey<user_qualification>(u => u.userId)
+                .IsRequired(false);
 
-.OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<service>()
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
-              .IsRequired(false)
-              .OnDelete(DeleteBehavior.Restrict);
+              .IsRequired(false);
+      
 
             builder.Entity<feedback>()
-           .HasOne(f => f.User)
-           .WithMany(u => u.User_Feedbacks)
-           .HasForeignKey(f => f.ratedById)
-          .OnDelete(DeleteBehavior.Restrict);
+              .HasOne(f => f.User)
+              .WithMany(u => u.User_Feedbacks)
+              .HasForeignKey(f => f.ratedById);
+
 
             builder.Entity<feedback>()
            .HasOne(f => f.Service)
            .WithMany(s => s.User_Feedbacks)
-           .HasForeignKey(f => f.ratedToId)
-         .OnDelete(DeleteBehavior.Restrict);
+           .HasForeignKey(f => f.ratedToId);
+
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteToUser)
                 .WithMany(u => u.PromoteTo)
                 .HasForeignKey(p => p.PromoteToId)
-            .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteByUser)
                 .WithMany(u => u.PromoteBy)
                 .HasForeignKey(p => p.PromoteById)
-              .OnDelete(DeleteBehavior.Restrict);
+              .OnDelete(DeleteBehavior.ClientSetNull);
+
 
             builder.Entity<order>()
             .HasOne(o => o.User)
              .WithOne(o => o.order)
-           .HasForeignKey<order>(d => d.CustomerId)
-          .OnDelete(DeleteBehavior.Restrict);
+           .HasForeignKey<order>(d => d.CustomerId);
+
 
             builder.Entity<order>()
                 .HasOne(o => o.Service)
                 .WithOne(s => s.order)
-                .HasForeignKey<order>(o => o.ServiceId)
-               .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey<order>(o => o.ServiceId);
+
 
             builder.Entity<service>()
                .HasOne(o => o.order)
                .WithOne(s => s.Service)
-               .HasForeignKey<order>(o => o.ServiceId)
-
-               .OnDelete(DeleteBehavior.Restrict);
+               .HasForeignKey<order>(o => o.ServiceId);
+          
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();
@@ -252,9 +252,6 @@ namespace imc_web_api
                 User_QualificationId = qualification[2].Id,
                 }
             };
-            qualification[0].userId = provider_Doctor[0].Id.ToString();
-            qualification[1].userId = provider_Doctor[1].Id.ToString();
-            qualification[2].userId = provider_Doctor[2].Id.ToString();
 
             builder.Entity<user_qualification>().HasData(qualification);
             string provider_DoctorPass = "Aamir@123"; // Replace with a secure password

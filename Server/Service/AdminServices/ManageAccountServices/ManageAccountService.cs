@@ -8,10 +8,12 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
     public class ManageAccountService : IManageAccountService
     {
         private readonly UserManager<user> _userManager;
+        private readonly ImcDbContext _imcDbContext;
 
-        public ManageAccountService(UserManager<user> userManager)
+        public ManageAccountService(UserManager<user> userManager, ImcDbContext imcDbContext)
         {
             _userManager = userManager;
+            _imcDbContext = imcDbContext;
         }
 
         //---> AddUser
@@ -66,6 +68,15 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             if (user == null)
             {
                 return null;
+            }
+            if (user.ServiceProviderType != null)
+            {
+                _imcDbContext.ServiceProviderTypes.Remove(user.ServiceProviderType);
+            }
+
+            if (user.User_Qualification != null)
+            {
+                _imcDbContext.User_Qualifications.Remove(user.User_Qualification);
             }
 
             var result = await _userManager.DeleteAsync(user);

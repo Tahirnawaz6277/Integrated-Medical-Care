@@ -13,6 +13,7 @@ namespace imc_web_api.Models
 
         [Required(ErrorMessage = "Rating is required.")]
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
+        [Column(TypeName ="decimal(19, 4)")]
         public decimal Rating { get; set; }
 
         public string ratedById { get; set; }

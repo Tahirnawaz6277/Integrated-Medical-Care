@@ -10,7 +10,7 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration _configuration;
 
-        public ManagePromotionService(ImcDbContext imcDbContext, IEmailSender emailSender , IConfiguration configuration)
+        public ManagePromotionService(ImcDbContext imcDbContext, IEmailSender emailSender, IConfiguration configuration)
         {
             _imcDbContext = imcDbContext;
             _emailSender = emailSender;

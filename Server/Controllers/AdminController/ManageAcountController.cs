@@ -172,7 +172,7 @@ namespace imc_web_api.Controllers.AdminController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.Message
+                    ErrorMessage = ex.InnerException.Message
                 });
             }
         }

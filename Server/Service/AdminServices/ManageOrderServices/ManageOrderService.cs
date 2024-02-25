@@ -28,7 +28,9 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         //-->  Delete Order
         public async Task<order?> DeleteOrder(Guid id)
         {
-            var Existing_Order = await _ImcDbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            var Existing_Order = await _ImcDbContext.Orders
+
+                .FirstOrDefaultAsync(o => o.Id == id);
 
             if (Existing_Order == null)
             {
@@ -43,13 +45,17 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         //-->  Get Order By Id
         public async Task<order?> GetOrderById(Guid id)
         {
-            return await _ImcDbContext.Orders.Include(o => o.User).Include(o => o.Service).FirstOrDefaultAsync(o => o.Id == id);
+            return await _ImcDbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Service).FirstOrDefaultAsync(o => o.Id == id);
         }
 
         //-->  Get Orders
         public async Task<List<order>> GetOrders()
         {
-            return await _ImcDbContext.Orders.Include(o => o.User).Include(o => o.Service).ToListAsync();
+            return await _ImcDbContext.Orders
+                .Include(o => o.User)
+                .Include(o => o.Service).ToListAsync();
         }
 
         //-->  Update Order

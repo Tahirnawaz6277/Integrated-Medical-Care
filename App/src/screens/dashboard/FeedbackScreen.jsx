@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getFeedbacks } from "../../services/feedbackService";
+import { getFeedbacks, DeleteFeedback } from "../../services/feedbackService";
 
 const FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+
+  const UpdateFeedback = () => {
     getFeedbacks()
       .then((res) => {
         if (res.success) {
@@ -16,6 +17,19 @@ const FeedbackScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
+  };
+  const handleDelete = (id) => {
+    DeleteFeedback(id)
+      .then((res) => {
+        if (res.success) {
+          UpdateFeedback();
+        }
+      })
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    UpdateFeedback();
   }, []);
 
   return (
@@ -52,7 +66,7 @@ const FeedbackScreen = () => {
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete(user.id);
+                      handleDelete(feedback.id);
                     }}
                   >
                     Delete

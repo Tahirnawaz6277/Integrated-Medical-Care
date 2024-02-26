@@ -50,8 +50,8 @@ const OrderScreen = () => {
 
                   <td> {order.user.firstName} </td>
                   <td> {order.orderDate} </td>
+                  <td> {order.amount} </td>
                   <td> {order.orderStatus} </td>
-                  <td> {order.id} </td>
                   <td style={{ display: "flex", gap: "8px" }}>
                     <Button className="btn btn-danger">Delete</Button>
                   </td>

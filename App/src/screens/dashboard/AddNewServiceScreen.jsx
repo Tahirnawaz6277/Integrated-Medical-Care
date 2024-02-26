@@ -72,7 +72,7 @@ const AddNewServiceScreen = () => {
           )}
         </Form.Group>
 
-        {message && (
+        {/* {message && (
           <Form.Text
             className={`text-${
               message.toLowerCase().includes("success") ? "success" : "danger"
@@ -80,7 +80,7 @@ const AddNewServiceScreen = () => {
           >
             {message}
           </Form.Text>
-        )}
+        )} */}
 
         <Button
           disabled={!formik.isValid}

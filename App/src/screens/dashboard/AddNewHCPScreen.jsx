@@ -24,6 +24,7 @@ const AddNewHCPScreen = () => {
         if (res.success) {
           formik.resetForm();
           setMessage(res.message);
+          formik.resetForm();
           setTimeout(() => navigate("/dashboard/healthcareproviders"), 1000);
         }
       } catch (err) {
@@ -45,9 +46,9 @@ const AddNewHCPScreen = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.firstName && (
+          {formik.touched.providerName && (
             <Form.Text className="text-danger">
-              {formik.errors.firstName}
+              {formik.errors.providerName}
             </Form.Text>
           )}
         </Form.Group>

@@ -11,6 +11,7 @@ export const endPoints = {
   },
   Orders: {
     GetOrders: `${BASE_URL}/ManageOrder/GetOrders`,
+    DeleteOrder: `${BASE_URL}/ManageOrder/DeleteOrder`,
   },
   ServiceProviders: {
     GetHCPs: `${BASE_URL}/ManageHCP/GetHCPs`,

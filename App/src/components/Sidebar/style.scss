@@ -1,6 +1,22 @@
-nav{
-
-  li{
-    color: white;
+nav {
+  li {
+    .active {
+      color: black !important;
+      background-color: white;
+      padding-bottom: 10%;
+    }
   }
+}
+
+nav {
+  li {
+    padding-bottom: 10%;
+    padding: 20px;
+  }
+  height: 100vh;
+}
+
+nav a {
+  color: white;
+  text-decoration: none; /* Remove underline from links */
 }

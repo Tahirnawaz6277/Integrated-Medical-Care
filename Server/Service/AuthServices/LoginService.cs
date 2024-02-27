@@ -1,24 +1,22 @@
 ﻿using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
-using imc_web_api.Repository;
 using imc_web_api.Repository.AuthRepository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Service.AuthService
 {
     public class LoginService : ILoginService
     {
-
         private readonly UserManager<user> _userManager;
         private readonly IJWTTokenRepository _jwtTokenRepository;
-        public LoginService(UserManager<user> userManager ,IJWTTokenRepository jWTTokenRepository )
+
+        public LoginService(UserManager<user> userManager, IJWTTokenRepository jWTTokenRepository)
         {
             _userManager = userManager;
             _jwtTokenRepository = jWTTokenRepository;
         }
 
-        // Login 
+        // Login
         public async Task<LoginResponseDTO> Login(LoginRequestDTO userData)
         {
             var user = await _userManager.FindByEmailAsync(userData.Email);
@@ -42,20 +40,21 @@ namespace imc_web_api.Service.AuthService
                         var response = new LoginResponseDTO
                         {
                             JwtToken = jwtToken,
-                            FirstName =  user.FirstName,
-                            LastName =  user.LastName,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
                             Email = user.Email,
                             Role = user.Role,
+                            Current_LoggedIn_Id = user.Id,
                         };
-                        return response; 
+                        return response;
                     }
                     else
                     {
-                         throw new  Exception("Something went Wrong!");
+                        throw new Exception("Something went Wrong!");
                     }
                 }
             }
-                throw new Exception("Invalid email or password.");
+            throw new Exception("Invalid email or password.");
         }
     }
 }

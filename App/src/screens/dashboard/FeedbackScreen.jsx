@@ -27,7 +27,6 @@ const FeedbackScreen = () => {
       })
       .catch((err) => {});
   };
-
   useEffect(() => {
     UpdateFeedback();
   }, []);

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getFeedbacks } from "../../services/feedbackService";
+import { getFeedbacks } from "../../../services/feedbackService";
+import { useSelector } from "react-redux";
 
 const FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
   useEffect(() => {
-    getFeedbacks()
+    getFeedbacks(loggedIn_User)
       .then((res) => {
         if (res.success) {
           setFeedbacks(res.data);
@@ -16,7 +21,7 @@ const FeedbackScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
-  }, []);
+  }, [loggedIn_User]);
 
   return (
     <Card>

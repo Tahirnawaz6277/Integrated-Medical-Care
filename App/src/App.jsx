@@ -9,11 +9,11 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import AccountScreen from "./screens/dashboard/ManageAccountScreens/AccountScreen";
 import OrderScreen from "./screens/dashboard/OrderScreens/OrderScreen";
 import HcpScreen from "./screens/dashboard/HcpScreen";
-import FeedbackScreen from "./screens/dashboard/FeedbackScreen";
-import ServiceScreen from "./screens/dashboard/ServiceScreen";
+import FeedbackScreen from "./screens/dashboard/FeedbackScreens/FeedbackScreen";
+import ServiceScreen from "./screens/dashboard/ServiceScreens/ServiceScreen";
 import PromotionScreen from "./screens/dashboard/PromotionScreen";
 import AddNewHCPScreen from "./screens/dashboard/AddNewHCPScreen";
-import AddNewServiceScreen from "./screens/dashboard/AddNewServiceScreen";
+import AddNewServiceScreen from "./screens/dashboard/ServiceScreens/AddNewServiceScreen";
 import { RouteNames } from "./Routes";
 import AddOrderScreen from "./screens/dashboard/OrderScreens/AddOrderScreen";
 

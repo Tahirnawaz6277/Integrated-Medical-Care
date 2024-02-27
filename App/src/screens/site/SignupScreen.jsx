@@ -46,7 +46,6 @@ const SignupScreen = () => {
         });
     },
   });
-
   return (
     <>
       <Form onSubmit={formik.handleSubmit}>
@@ -66,7 +65,6 @@ const SignupScreen = () => {
             </Form.Text>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>LastName</Form.Label>
           <Form.Control
@@ -83,7 +81,6 @@ const SignupScreen = () => {
             </Form.Text>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -99,7 +96,6 @@ const SignupScreen = () => {
             <Form.Text className="text-danger">{formik.errors.email}</Form.Text>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Gender</Form.Label>
           <Form.Select
@@ -119,7 +115,6 @@ const SignupScreen = () => {
             </Form.Text>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Role</Form.Label>
           <Form.Select
@@ -138,7 +133,6 @@ const SignupScreen = () => {
             <Form.Text className="text-danger">{formik.errors.role}</Form.Text>
           )}
         </Form.Group>
-
         {formik.values.role == "ServiceProvider" && (
           <Form.Group className="mb-3">
             <Form.Label>Service Provider Type</Form.Label>
@@ -162,7 +156,6 @@ const SignupScreen = () => {
             )}
           </Form.Group>
         )}
-
         {formik.values.role == "ServiceProvider" &&
           formik.values.providerType == "doctor" && (
             <>
@@ -202,7 +195,6 @@ const SignupScreen = () => {
               </Form.Group>
             </>
           )}
-
         <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -219,7 +211,6 @@ const SignupScreen = () => {
             </Form.Text>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Phone Number</Form.Label>
           <Form.Control
@@ -237,7 +228,6 @@ const SignupScreen = () => {
           )}
         </Form.Group>
         <Form.Text className="text-success">{formik.values.general}</Form.Text>
-
         <Button
           disabled={!formik.isValid}
           type="submit"
@@ -245,6 +235,7 @@ const SignupScreen = () => {
         >
           Signup
         </Button>
+        <a href="/">Click here to Login</a>
       </Form>
     </>
   );

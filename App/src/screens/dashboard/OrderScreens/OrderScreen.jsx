@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, NavLink, Spinner, Table } from "react-bootstrap";
-import { getOrders } from "../../../services/orderService";
+import { Button, Card, Spinner, Table } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+
+import { getOrders, DeleteOrder } from "../../../services/orderService";
 
 const OrderScreen = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const updatedOrders = () => {
     getOrders()
       .then((res) => {
         if (res.success) {
-          setOrders(res.data);
-
+          setOrder(res.data);
           setLoading(false);
         }
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(true);
       });
+  };
+  const handleDelete = (id) => {
+    DeleteOrder(id)
+      .then((res) => {
+        if (res.success) {
+          updatedOrders();
+        }
+      })
+      .catch((err) => {});
+  };
+  useEffect(() => {
+    updatedOrders();
   }, []);
 
   return (
@@ -50,10 +63,17 @@ const OrderScreen = () => {
 
                   <td> {order.user.firstName} </td>
                   <td> {order.orderDate} </td>
+                  <td> {order.amount} </td>
                   <td> {order.orderStatus} </td>
-                  <td> {order.id} </td>
                   <td style={{ display: "flex", gap: "8px" }}>
-                    <Button className="btn btn-danger">Delete</Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        handleDelete(order.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}

@@ -80,12 +80,10 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         }
 
         //--> Delete Service
-        public async Task<service> DeleteService(Guid id, Guid CurrentUserId)
+        public async Task<service> DeleteService(Guid id)
         {
-            var LoggedInUser = await _userManager.Users.Include(u => u.ServiceProviderType).FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
-
-            var Service = await _dbContext.Services
-                .Where(s => s.Id == id && s.CreatedByProviderTypeId == LoggedInUser.ServiceProvidertypeId).FirstOrDefaultAsync();
+           
+            var Service = await _dbContext.Services.FirstOrDefaultAsync(s => s.Id == id);
             if (Service == null)
             {
                 return null;

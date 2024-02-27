@@ -60,7 +60,7 @@ const AccountScreen = () => {
             <tbody>
               {users.map((user, index) => (
                 <tr key={index}>
-                  <td>{index}</td>
+                  <td>{index + 1}</td>
                   <td>{user.firstName}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>

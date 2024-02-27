@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.ServiceProviderController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageServicesController : ControllerBase
@@ -26,7 +26,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
 
         [HttpPost]
         [Route("AddService")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> AddService([FromBody] ServiceRequestDTO ServiceInputRequest)
         {
             try
@@ -71,7 +71,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         //-->Update Service
         [HttpPut]
         [Route("UpdateService/{id:Guid}")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
         {
             try
@@ -104,7 +104,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         //-->GetAll Service
         [HttpGet]
         [Route("GetServices")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> GetServices()
         {
             try
@@ -131,7 +131,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         // -->Get Service By Id
         [HttpGet]
         [Route("GetServiceById/{id:Guid}")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> GetServiceById(Guid id)
         {
             try
@@ -158,13 +158,22 @@ namespace imc_web_api.Controllers.ServiceProviderController
         //-->Delete Service
         [HttpDelete]
         [Route("DeleteService")]
-        //[Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider")]
         public async Task<IActionResult> DeleteService(Guid id)
         {
             try
             {
-                Guid CurrentUserId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                var DeleteService = await _manageServices.DeleteService(id, CurrentUserId);
+                if (Guid.Empty == id)
+                {
+                    return BadRequest();
+                }
+
+                var DeleteService = await _manageServices.DeleteService(id);
+
+                if (DeleteService == null)
+                {
+                    return NotFound();
+                }
 
                 return Ok(new
                 {

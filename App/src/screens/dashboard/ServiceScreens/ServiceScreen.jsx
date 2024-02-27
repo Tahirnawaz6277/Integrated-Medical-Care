@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getServices, DeleteService } from "../../services/ManageService";
+import { getServices, DeleteService } from "../../../services/ManageService";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ServiceScreen = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
+
+  const handleDelete = (id) => {
+    DeleteService(id, loggedIn_User)
+      .then((res) => {
+        if (res.success) {
+          getServices();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   useEffect(() => {
-    getServices()
+    getServices(loggedIn_User)
       .then((res) => {
         if (res.success) {
           setServices(res.data);
@@ -17,20 +35,7 @@ const ServiceScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
-  }, []);
-
-  const handleDelete = (id) => {
-    console.log(id);
-    DeleteService(id)
-      .then((res) => {
-        if (res.success) {
-          console.log(res);
-          getServices();
-        }
-      })
-      .catch((err) => {});
-  };
-
+  }, [loggedIn_User, DeleteService]);
   return (
     <Card>
       <Card.Header>

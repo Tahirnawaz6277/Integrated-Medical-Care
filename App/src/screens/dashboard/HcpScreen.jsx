@@ -64,7 +64,6 @@ const HcpScreen = () => {
                   <td>{user.providerName}</td>
                   <td>{user.createdAt}</td>
                   <td style={{ display: "flex", gap: "8px" }}>
-                    <Button variant="primary">Edit</Button>
                     <Button
                       variant="danger"
                       onClick={() => {

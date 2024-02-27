@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageFeedBackController : ControllerBase
@@ -27,7 +27,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddFeedback")]
-        //[Authorize(Roles = "Admin , Customer")]
+        [Authorize(Roles = "Admin , Customer")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
             try

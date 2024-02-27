@@ -6,7 +6,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service
     {
         Task<service> AddService(service ServiceInputRequest, Guid CurrentUserId);
 
-        Task<service> DeleteService(Guid id, Guid CurrentUserId);
+        Task<service> DeleteService(Guid id);
 
         Task<service?> UpdateService(Guid id, service ServiceInputRequest);
 

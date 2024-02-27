@@ -10,9 +10,12 @@ import { loginUser } from "../../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
-
+import { useDispatch, useSelector } from "react-redux";
+import { loggedIn_User } from "../../Redux/Action";
 const LoginScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,9 +28,20 @@ const LoginScreen = () => {
     onSubmit: async (values, { setFieldError }) => {
       try {
         const res = await loginUser(values);
+
         if (res.success) {
           formik.resetForm();
-          localStorage.setItem("token", res.data.jwtToken);
+
+          // Create an object to store in local storage
+          const userData = {
+            token: res.data.jwtToken,
+            LoggedIn_User_Id: res.data.current_LoggedIn_Id,
+            Email: res.data.email,
+            role: res.data.role,
+          };
+
+          dispatch(loggedIn_User(userData));
+
           navigate("/dashboard");
         }
       } catch (error) {

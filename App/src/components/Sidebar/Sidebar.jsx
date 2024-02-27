@@ -1,10 +1,14 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import "./style.scss";
+import { useDispatch } from "react-redux";
+import { loggedOut_User } from "../../Redux/Action";
 const Sidebar = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    dispatch(loggedOut_User());
     navigate("/");
   };
   return (
@@ -46,47 +50,86 @@ const Sidebar = () => {
         <div className="position-sticky pt-3">
           <ul className="nav flex-column ">
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard"
+              >
                 Dashboard
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard/accounts">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/accounts"
+              >
                 Manage Accounts
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard/orders">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/orders"
+              >
                 Manage Orders
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link
-                className="nav-link active"
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
                 to="/dashboard/healthcareproviders"
               >
                 Manage Health Care Providers
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard/feedbacks">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/feedbacks"
+              >
                 Manage Customer Feedback
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard/services">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/services"
+              >
                 Manage Services
-              </Link>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard/promotions">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/promotions"
+              >
                 Manage Promotion
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

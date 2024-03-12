@@ -23,9 +23,3 @@ export const DeleteFeedback = async (id, loggedIn_User) => {
 
   return result.data;
 };
-export const DeleteFeedback = async (id) => {
-  let result = await axios.delete(
-    `${endPoints.Feedbacks.DeleteFeedback}?id=${id}`
-  );
-  return result.data;
-};

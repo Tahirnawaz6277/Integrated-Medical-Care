@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 
+import { useSelector } from "react-redux";
 import {
   DeleteFeedback,
   getFeedbacks,
 } from "../../../services/feedbackService";
-import { useSelector } from "react-redux";
-
-import { getFeedbacks, DeleteFeedback } from "../../services/feedbackService";
-
 
 const FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
@@ -21,10 +17,6 @@ const FeedbackScreen = () => {
 
   const fetchFeedbacks = () => {
     getFeedbacks(loggedIn_User)
-
-  const UpdateFeedback = () => {
-    getFeedbacks()
-
       .then((res) => {
         if (res.success) {
           setFeedbacks(res.data);
@@ -35,7 +27,6 @@ const FeedbackScreen = () => {
         setLoading(true);
       });
   };
-
 
   const handleDelete = (id) => {
     DeleteFeedback(id, loggedIn_User)
@@ -52,20 +43,6 @@ const FeedbackScreen = () => {
   useEffect(() => {
     fetchFeedbacks();
   }, [loggedIn_User]);
-
-  const handleDelete = (id) => {
-    DeleteFeedback(id)
-      .then((res) => {
-        if (res.success) {
-          UpdateFeedback();
-        }
-      })
-      .catch((err) => {});
-  };
-  useEffect(() => {
-    UpdateFeedback();
-  }, []);
-
 
   return (
     <Card>

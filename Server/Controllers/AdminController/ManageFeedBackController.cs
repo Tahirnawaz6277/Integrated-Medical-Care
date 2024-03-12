@@ -1,11 +1,10 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-
+﻿using AutoMapper;
 using imc_web_api.Dtos.AdminDtos.FeedBackDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.NewFolder;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace imc_web_api.Controllers.AdminController
 {
@@ -27,7 +26,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddFeedback")]
-        [Authorize(Roles = "Admin , Customer")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> CreateFeedback([FromBody] FeedBackRequesrDTO inputRequest)
         {
             try

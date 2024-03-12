@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagePromotionController : ControllerBase
@@ -18,18 +18,18 @@ namespace imc_web_api.Controllers.AdminController
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
 
-        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper, IEmailSender emailSender )
+        public ManagePromotionController(IManagePromotionService managePromotionService, IMapper mapper )
         {
             _managePromotionService = managePromotionService;
             _mapper = mapper;
-            _emailSender = emailSender;
+
         }
 
         //--> Add Promotion
 
         [HttpPost]
         [Route("AddPromotion")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionRequestDTO Promotion_Input_Request)
         {
             try
@@ -48,10 +48,7 @@ namespace imc_web_api.Controllers.AdminController
                 var Promotion_Model = _mapper.Map<promotion>(Promotion_Input_Request);
                 var Promotion_Result = await _managePromotionService.AddPromotion(Promotion_Model, CurrentUserId);
 
-                if(Promotion_Result != null)
-                {
-                    //_emailSender.SendEmail("inamwebpro007@gmail.com", "Administrator Promotion Offer");
-                }
+                
                 var PromotionDto_Result = _mapper.Map<PromotionResponseDTO>(Promotion_Result);
 
                 return Ok(new
@@ -65,7 +62,7 @@ namespace imc_web_api.Controllers.AdminController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.Message
+                    ErrorMessage = ex.InnerException.Message
                 });
             }
         }
@@ -74,6 +71,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPut]
         [Route("UpdatePromotion/{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePromotion(Guid id, [FromBody] PromotionRequestDTO PromotionRequestDTO)
         {
             try
@@ -116,6 +114,7 @@ namespace imc_web_api.Controllers.AdminController
         //--> Get Promotions
         [HttpGet]
         [Route("GetPromotions")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPromotions()
         {
             try
@@ -143,6 +142,7 @@ namespace imc_web_api.Controllers.AdminController
         //--> Get Promotion By Id
         [HttpGet]
         [Route("GetPromotionById/{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPromotionById(Guid id)
         {
             try
@@ -174,6 +174,7 @@ namespace imc_web_api.Controllers.AdminController
         //--> Delete Promotion
         [HttpDelete]
         [Route("DeletePromotion/{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePromotion(Guid id)
         {
             try

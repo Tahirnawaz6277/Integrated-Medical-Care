@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getPromotions } from "../../services/promotionService";
+import { NavLink } from "react-router-dom";
+import {
+  DeletePromotion,
+  getPromotions,
+} from "../../../services/promotionService";
+import { useSelector } from "react-redux";
 
 const PromotionScreen = () => {
   const [promotions, setPromotions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getPromotions()
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
+
+  const fetchPromotions = () => {
+    getPromotions(loggedIn_User)
       .then((res) => {
         setPromotions(res.data);
 
@@ -16,13 +25,32 @@ const PromotionScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    DeletePromotion(id, loggedIn_User)
+      .then((res) => {
+        console.log(res);
+        if (res.success) {
+          fetchPromotions();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchPromotions();
+  }, [loggedIn_User]);
 
   return (
     <Card>
       <Card.Header>
         Manage Promotion
-        <Button className="float-end">Send New Promotion</Button>
+        <NavLink to="/dashboard/AddNewPromotionScreen">
+          <Button className="float-end">Send New Promotion</Button>
+        </NavLink>
       </Card.Header>
 
       <Card.Body>
@@ -49,11 +77,10 @@ const PromotionScreen = () => {
 
                 <td>{promotion.createdAt}</td>
                 <td style={{ display: "flex", gap: "8px" }}>
-                  <Button variant="primary">Edit</Button>
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete(user.id);
+                      handleDelete(promotion.id);
                     }}
                   >
                     Delete

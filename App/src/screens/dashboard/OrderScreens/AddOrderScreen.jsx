@@ -5,11 +5,16 @@ import * as Yup from "yup";
 import { getUsers } from "../../../services/accountService";
 import "./style.scss";
 import { getServices } from "../../../services/ManageService";
+import { AddOrder } from "../../../services/orderService";
+import { useSelector } from "react-redux";
 
 const AddOrderScreen = () => {
-  const [customers, setCustomers] = useState([]);
   const [service, setServices] = useState([]);
   const [message, setMessage] = useState("");
+
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -17,23 +22,28 @@ const AddOrderScreen = () => {
       address: "",
       orderQuantity: "",
       amount: "",
-      payementMode: "",
-      customers: "",
-      service: "",
+      paymentMode: "",
+
+      serviceId: "",
     },
     validationSchema: Yup.object().shape({
       contact: Yup.string().required(),
       address: Yup.string().required(),
       orderQuantity: Yup.number().required(),
       amount: Yup.string().required(),
-      payementMode: Yup.string().required(),
-      customers: Yup.string().required(),
-      service: Yup.string().required(),
+      paymentMode: Yup.string().required(),
+
+      serviceId: Yup.string().required(),
     }),
 
     onSubmit: async (data) => {
       try {
-        console.log(data);
+        const res = await AddOrder(data, loggedIn_User);
+        if (res.success) {
+          formik.resetForm();
+          setMessage(res.message);
+          // setTimeout(() => navigate("/dashboard/orders"), 1000);
+        }
       } catch (err) {
         setMessage(err.response.data.message);
       }
@@ -41,16 +51,7 @@ const AddOrderScreen = () => {
   });
 
   useEffect(() => {
-    getUsers()
-      .then((res) => {
-        if (res.success) {
-          setCustomers(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    getServices()
+    getServices(loggedIn_User)
       .then((res) => {
         if (res.success) {
           setServices(res.data);
@@ -60,38 +61,15 @@ const AddOrderScreen = () => {
         console.log(error);
       });
   }, []);
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group className="mb-3">
-        <Form.Label>Select Customer</Form.Label>
-        <Form.Select
-          name="customers"
-          aria-label="Customer"
-          value={formik.values.customers}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        >
-          <option value="" label="Select Customer" />
-
-          {customers.map((customer) => (
-            <option key={customer.id} value={customer.id}>
-              {customer.firstName}
-            </option>
-          ))}
-        </Form.Select>
-        {formik.touched.customers && (
-          <Form.Text className="text-danger">
-            {formik.errors.customers}
-          </Form.Text>
-        )}
-      </Form.Group>
-
-      <Form.Group className="mb-3">
         <Form.Label>Select Service</Form.Label>
         <Form.Select
-          name="service"
+          name="serviceId"
           aria-label="Service"
-          value={formik.values.service}
+          value={formik.values.serviceId}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         >
@@ -103,8 +81,10 @@ const AddOrderScreen = () => {
             </option>
           ))}
         </Form.Select>
-        {formik.touched.service && (
-          <Form.Text className="text-danger">{formik.errors.service}</Form.Text>
+        {formik.touched.serviceId && (
+          <Form.Text className="text-danger">
+            {formik.errors.serviceId}
+          </Form.Text>
         )}
       </Form.Group>
 
@@ -173,18 +153,18 @@ const AddOrderScreen = () => {
       <Form.Group className="mb-3">
         <Form.Label>Select PayementMode</Form.Label>
         <Form.Select
-          name="payementMode"
+          name="paymentMode"
           aria-label="PayementMethod"
-          value={formik.values.payementMode}
+          value={formik.values.paymentMode}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         >
           <option value="" label="Select PayementMethod" />
           <option value="Cash">Cash-On-Delivery</option>
         </Form.Select>
-        {formik.touched.payementMode && (
+        {formik.touched.paymentMode && (
           <Form.Text className="text-danger">
-            {formik.errors.payementMode}
+            {formik.errors.paymentMode}
           </Form.Text>
         )}
       </Form.Group>

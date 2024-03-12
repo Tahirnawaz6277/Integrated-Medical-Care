@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getFeedbacks } from "../../../services/feedbackService";
+import {
+  DeleteFeedback,
+  getFeedbacks,
+} from "../../../services/feedbackService";
 import { useSelector } from "react-redux";
 
 const FeedbackScreen = () => {
@@ -10,7 +13,8 @@ const FeedbackScreen = () => {
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
-  useEffect(() => {
+
+  const fetchFeedbacks = () => {
     getFeedbacks(loggedIn_User)
       .then((res) => {
         if (res.success) {
@@ -21,6 +25,22 @@ const FeedbackScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
+  };
+
+  const handleDelete = (id) => {
+    DeleteFeedback(id, loggedIn_User)
+      .then((res) => {
+        if (res.success) {
+          fetchFeedbacks();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchFeedbacks();
   }, [loggedIn_User]);
 
   return (
@@ -53,11 +73,10 @@ const FeedbackScreen = () => {
                 <td>{feedback.rating}</td>
                 <td>{feedback.createdAt}</td>
                 <td style={{ display: "flex", gap: "8px" }}>
-                  <Button variant="primary">Edit</Button>
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete(user.id);
+                      handleDelete(feedback.id);
                     }}
                   >
                     Delete

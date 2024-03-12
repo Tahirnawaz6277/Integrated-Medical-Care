@@ -7,7 +7,7 @@ const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const updatedUser = () => {
+  const fetchUsers = () => {
     getUsers()
       .then((res) => {
         if (res.success) {
@@ -23,14 +23,14 @@ const AccountScreen = () => {
     deleteUser(id)
       .then((res) => {
         if (res.success) {
-          updatedUser();
+          fetchUsers();
         }
       })
       .catch((err) => {});
   };
 
   useEffect(() => {
-    updatedUser();
+    fetchUsers();
   }, []);
 
   return (

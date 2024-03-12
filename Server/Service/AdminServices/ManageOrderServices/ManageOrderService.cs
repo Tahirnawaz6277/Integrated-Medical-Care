@@ -16,7 +16,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         //-->  Place/Create Order
         public async Task<order> AddOrder(order UserInputReguest, string CurrentUserId)
         {
-            UserInputReguest.CustomerId = CurrentUserId;
+            UserInputReguest.OrderByUserId = CurrentUserId;
             UserInputReguest.orderStatus = OrderStatusEnum.OrderStatus.Pending;
             UserInputReguest.IsDeleted = false;
             await _ImcDbContext.Orders.AddAsync(UserInputReguest);
@@ -46,7 +46,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         public async Task<order?> GetOrderById(Guid id)
         {
             return await _ImcDbContext.Orders
-                .Include(o => o.User)
+                .Include(o => o.OrderBy)
                 .Include(o => o.Service).FirstOrDefaultAsync(o => o.Id == id);
         }
 
@@ -54,7 +54,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         public async Task<List<order>> GetOrders()
         {
             return await _ImcDbContext.Orders
-                .Include(o => o.User)
+                .Include(o => o.OrderBy)
                 .Include(o => o.Service).ToListAsync();
         }
 

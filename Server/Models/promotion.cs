@@ -9,8 +9,11 @@ namespace imc_web_api.Models
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Promotion type is required.")]
-        [StringLength(50, ErrorMessage = "Promotion type cannot be longer than 30 characters.")]
+        [StringLength(50, ErrorMessage = "Promotion type cannot be longer than 50 characters.")]
         public string Promotion_Type { get; set; }
+
+        [Required(ErrorMessage = "Promotion Description is required.")]
+        public string Description { get; set; }
 
         [Required(ErrorMessage = "IsSent is required.")]
         public bool IsSent { get; set; }

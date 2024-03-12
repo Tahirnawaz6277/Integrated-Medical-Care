@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManageOrderController : ControllerBase
@@ -28,7 +28,7 @@ namespace imc_web_api.Controllers.AdminController
 
         [HttpPost]
         [Route("AddOrder")]
-        //[Authorize(Roles = "Admin,Customer,ServiceProvider")]
+        [Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> AddOrder([FromBody] OrderRequestDTO Order_Input_Request)
         {
             try
@@ -69,6 +69,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->  Get Orders
         [HttpGet]
         [Route("GetOrders")]
+        [Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> GetOrders()
         {
             try
@@ -95,6 +96,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->  Get Order By Id
         [HttpGet]
         [Route("GetOrder/{id:Guid}")]
+        [Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> GetOrder(Guid id)
         {
             try
@@ -124,6 +126,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->  Update Order
         [HttpPut]
         [Route("UpdateOrder/{id:Guid}")]
+        [Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderRequestDTO Order_Input_Request)
         {
             try
@@ -162,6 +165,7 @@ namespace imc_web_api.Controllers.AdminController
         //-->  Deleted Order
         [HttpDelete]
         [Route("DeleteOrder/{id:Guid}")]
+        [Authorize(Roles = "Admin,Customer,ServiceProvider")]
         public async Task<IActionResult> DeleteOrder(Guid id)
         {
             try

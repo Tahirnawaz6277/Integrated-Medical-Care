@@ -3,13 +3,17 @@ import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import { getOrders, DeleteOrder } from "../../../services/orderService";
+import { useSelector } from "react-redux";
 
 const OrderScreen = () => {
   const [orders, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const updatedOrders = () => {
-    getOrders()
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
+  const fetchOrders = () => {
+    getOrders(loggedIn_User)
       .then((res) => {
         if (res.success) {
           setOrder(res.data);
@@ -21,16 +25,16 @@ const OrderScreen = () => {
       });
   };
   const handleDelete = (id) => {
-    DeleteOrder(id)
+    DeleteOrder(id, loggedIn_User)
       .then((res) => {
         if (res.success) {
-          updatedOrders();
+          fetchOrders();
         }
       })
       .catch((err) => {});
   };
   useEffect(() => {
-    updatedOrders();
+    fetchOrders();
   }, []);
 
   return (
@@ -61,7 +65,7 @@ const OrderScreen = () => {
                 <tr key={index}>
                   <td> {order.id} </td>
 
-                  <td> {order.user.firstName} </td>
+                  <td> {order.orderBy.firstName} </td>
                   <td> {order.orderDate} </td>
                   <td> {order.amount} </td>
                   <td> {order.orderStatus} </td>

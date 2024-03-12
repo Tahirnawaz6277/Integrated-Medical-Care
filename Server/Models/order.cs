@@ -32,10 +32,18 @@ namespace imc_web_api.Models
         [Required(ErrorMessage = "IsDeleted is required.")]
         public bool IsDeleted { get; set; }
 
-        public string CustomerId { get; set; }
+        //--> fk for Order By
+        public string OrderByUserId { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public user User { get; set; }
+        [ForeignKey("OrderByUserId")]
+        public user OrderBy { get; set; }
+
+
+        //--> fk for OrderTo
+        //public string? OrderToUserId { get; set; } 
+
+        //[ForeignKey("OrderToUserId")]
+        //public user OrderTo { get; set; }
 
         public Guid ServiceId { get; set; }
 

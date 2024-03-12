@@ -12,6 +12,7 @@ export const endPoints = {
   Orders: {
     GetOrders: `${BASE_URL}/ManageOrder/GetOrders`,
     DeleteOrder: `${BASE_URL}/ManageOrder/DeleteOrder`,
+    AddOrder: `${BASE_URL}/ManageOrder/AddOrder`,
   },
   ServiceProviders: {
     GetHCPs: `${BASE_URL}/ManageHCP/GetHCPs`,
@@ -21,6 +22,7 @@ export const endPoints = {
   },
   Feedbacks: {
     GetFeedbacks: `${BASE_URL}/ManageFeedBack/GetFeedbacks`,
+    DeleteFeedback: `${BASE_URL}/ManageFeedBack/DeleteFeedback`,
   },
 
   Services: {
@@ -31,5 +33,7 @@ export const endPoints = {
 
   Promotions: {
     GetPromotions: `${BASE_URL}/ManagePromotion/GetPromotions`,
+    SendPromotion: `${BASE_URL}/ManagePromotion/AddPromotion`,
+    DeletePromotion: `${BASE_URL}/ManagePromotion/DeletePromotion`,
   },
 };

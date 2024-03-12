@@ -36,7 +36,8 @@ namespace imc_web_api.Models
         
         public List<promotion> PromoteBy { get; set; }
 
-        public order order { get; set; }
+        public  order order { get; set; }
+        //public List<order> OrderToUser { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

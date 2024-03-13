@@ -28,12 +28,7 @@ const Sidebar = () => {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <input
-          className="form-control form-control-dark w-25"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-        />
+
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
             <a className="nav-link px-3" href="#" onClick={handleLogout}>

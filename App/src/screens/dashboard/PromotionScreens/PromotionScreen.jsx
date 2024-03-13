@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import {
-  DeleteFeedback,
-  getFeedbacks,
-} from "../../../services/feedbackService";
+  DeletePromotion,
+  getPromotions,
+} from "../../../services/promotionService";
 import { useSelector } from "react-redux";
 
-const FeedbackScreen = () => {
-  const [feedbacks, setFeedbacks] = useState([]);
+const PromotionScreen = () => {
+  const [promotions, setPromotions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
 
-  const fetchFeedbacks = () => {
-    getFeedbacks(loggedIn_User)
+  const fetchPromotions = () => {
+    getPromotions(loggedIn_User)
       .then((res) => {
-        if (res.success) {
-          setFeedbacks(res.data);
-          setLoading(false);
-        }
+        setPromotions(res.data);
+
+        setLoading(false);
       })
       .catch((err) => {
         setLoading(true);
@@ -28,10 +28,11 @@ const FeedbackScreen = () => {
   };
 
   const handleDelete = (id) => {
-    DeleteFeedback(id, loggedIn_User)
+    DeletePromotion(id, loggedIn_User)
       .then((res) => {
+        console.log(res);
         if (res.success) {
-          fetchFeedbacks();
+          fetchPromotions();
         }
       })
       .catch((error) => {
@@ -40,12 +41,17 @@ const FeedbackScreen = () => {
   };
 
   useEffect(() => {
-    fetchFeedbacks();
+    fetchPromotions();
   }, [loggedIn_User]);
 
   return (
     <Card>
-      <Card.Header>Manage Feedbacks</Card.Header>
+      <Card.Header>
+        Manage Promotion
+        <NavLink to="/dashboard/AddNewPromotionScreen">
+          <Button className="float-end">Send New Promotion</Button>
+        </NavLink>
+      </Card.Header>
 
       <Card.Body>
         {loading && <Spinner size="sm" />}
@@ -53,30 +59,28 @@ const FeedbackScreen = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Message</th>
-              <th>Added By</th>
-              <th>Service</th>
-
-              <th>Rating</th>
+              <th>Promotion Type</th>
+              <th>Promot To </th>
+              {/* <th></th> */}
               <th>Date Created</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {feedbacks.map((feedback, index) => (
+            {promotions.map((promotion, index) => (
               <tr key={index}>
                 <td>{index}</td>
-                <td>{feedback.description}</td>
-                <td>{`${feedback.user.firstName}   ${feedback.user.lastName}`}</td>
-                <td>{feedback.service.serviceName}</td>
-                <td>{feedback.rating}</td>
-                <td>{feedback.createdAt}</td>
+
+                <td>{promotion.promotion_Type}</td>
+                <td>{`${promotion.promoteToUser.firstName}  ${promotion.promoteToUser.lastName}  `}</td>
+
+                <td>{promotion.createdAt}</td>
                 <td style={{ display: "flex", gap: "8px" }}>
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete(feedback.id);
+                      handleDelete(promotion.id);
                     }}
                   >
                     Delete
@@ -91,4 +95,4 @@ const FeedbackScreen = () => {
   );
 };
 
-export default FeedbackScreen;
+export default PromotionScreen;

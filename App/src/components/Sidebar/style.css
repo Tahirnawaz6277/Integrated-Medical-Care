@@ -1,0 +1,18 @@
+nav li .active {
+  color: black !important;
+  background-color: white;
+  padding-bottom: 10%;
+}
+
+nav {
+  height: 100vh;
+}
+nav li {
+  padding-bottom: 10%;
+  padding: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none; /* Remove underline from links */
+}/*# sourceMappingURL=style.css.map */

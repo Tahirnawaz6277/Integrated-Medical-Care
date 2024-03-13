@@ -1,0 +1,24 @@
+.form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adjust the shadow properties as needed */
+  height: 300px;
+}
+.form .form-group {
+  margin-bottom: 15px;
+}
+.form .form-control {
+  margin-bottom: 10px;
+}
+.form .text-danger {
+  font-size: 14px;
+  color: #dc3545;
+}
+.form .btn-primary {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+}/*# sourceMappingURL=login.css.map */

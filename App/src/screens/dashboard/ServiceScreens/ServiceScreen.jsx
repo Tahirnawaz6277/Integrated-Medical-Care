@@ -12,6 +12,18 @@ const ServiceScreen = () => {
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
 
+  const handleDelete = (id) => {
+    DeleteService(id, loggedIn_User)
+      .then((res) => {
+        if (res.success) {
+          fetchServices();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   const fetchServices = () => {
     getServices(loggedIn_User)
       .then((res) => {
@@ -25,21 +37,10 @@ const ServiceScreen = () => {
       });
   };
 
-  const handleDelete = (id) => {
-    DeleteService(id, loggedIn_User)
-      .then((res) => {
-        if (res.success) {
-          fetchServices();
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
   useEffect(() => {
     fetchServices();
   }, [loggedIn_User]);
+
   return (
     <Card>
       <Card.Header>

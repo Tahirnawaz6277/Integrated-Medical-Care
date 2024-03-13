@@ -24,7 +24,7 @@ const ServiceScreen = () => {
       });
   };
 
-  useEffect(() => {
+  const fetchServices = () => {
     getServices(loggedIn_User)
       .then((res) => {
         if (res.success) {
@@ -35,7 +35,12 @@ const ServiceScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
-  }, [loggedIn_User, DeleteService]);
+  };
+
+  useEffect(() => {
+    fetchServices();
+  }, [loggedIn_User]);
+
   return (
     <Card>
       <Card.Header>

@@ -4,9 +4,7 @@
     {
         public string Promotion_Type { get; set; }
 
-
+        public string Description { get; set; }
         public string PromoteToId { get; set; }
-
-        
     }
 }

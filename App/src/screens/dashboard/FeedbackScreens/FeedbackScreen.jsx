@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import {
   DeleteFeedback,
   getFeedbacks,
 } from "../../../services/feedbackService";
-import { useSelector } from "react-redux";
 
 const FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);

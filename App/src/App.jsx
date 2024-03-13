@@ -11,11 +11,12 @@ import OrderScreen from "./screens/dashboard/OrderScreens/OrderScreen";
 import HcpScreen from "./screens/dashboard/HcpScreen";
 import FeedbackScreen from "./screens/dashboard/FeedbackScreens/FeedbackScreen";
 import ServiceScreen from "./screens/dashboard/ServiceScreens/ServiceScreen";
-import PromotionScreen from "./screens/dashboard/PromotionScreen";
+import PromotionScreen from "./screens/dashboard/PromotionScreens/PromotionScreen";
 import AddNewHCPScreen from "./screens/dashboard/AddNewHCPScreen";
 import AddNewServiceScreen from "./screens/dashboard/ServiceScreens/AddNewServiceScreen";
 import { RouteNames } from "./Routes";
 import AddOrderScreen from "./screens/dashboard/OrderScreens/AddOrderScreen";
+import AddNewPromotionScreen from "./screens/dashboard/PromotionScreens/AddNewPromotionScreen";
 
 function App() {
   return (
@@ -58,6 +59,10 @@ function App() {
           <Route
             path={RouteNames.Admin.Promotions.route}
             element={<PromotionScreen />}
+          />
+          <Route
+            path={RouteNames.Admin.Promotions.SendNewPromotion.route}
+            element={<AddNewPromotionScreen />}
           />
           <Route
             path={RouteNames.Admin.AddNewUser.route}

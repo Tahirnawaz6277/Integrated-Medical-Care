@@ -43,6 +43,10 @@ export const RouteNames = {
     },
     Promotions: {
       route: "/dashboard/promotions",
+
+      SendNewPromotion: {
+        route: "/dashboard/AddNewPromotionScreen",
+      },
     },
     AddNewUser: {
       route: "/dashboard/signup",

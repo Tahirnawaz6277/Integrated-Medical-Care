@@ -30,45 +30,37 @@ namespace imc_web_api
                 .HasForeignKey<user>(u => u.ServiceProvidertypeId)
                 .IsRequired(false);
 
-
-
             builder.Entity<user>()
                .HasOne(u => u.User_Qualification)
                .WithOne(u => u.User)
                .HasForeignKey<user>(u => u.User_QualificationId)
                .IsRequired(false);
 
-
             builder.Entity<user>()
               .HasOne(u => u.order)
-              .WithOne(u => u.User)
-              .HasForeignKey<order>(u => u.CustomerId);
-  
+              .WithOne(u => u.OrderBy)
+              .HasForeignKey<order>(u => u.OrderByUserId);
 
             builder.Entity<user_qualification>()
                .HasOne(u => u.User)
                .WithOne(u => u.User_Qualification)
                 .IsRequired(false);
 
-
             builder.Entity<service>()
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
               .IsRequired(false);
-      
 
             builder.Entity<feedback>()
               .HasOne(f => f.User)
               .WithMany(u => u.User_Feedbacks)
               .HasForeignKey(f => f.ratedById);
 
-
             builder.Entity<feedback>()
            .HasOne(f => f.Service)
            .WithMany(s => s.User_Feedbacks)
            .HasForeignKey(f => f.ratedToId);
-
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteToUser)
@@ -82,24 +74,25 @@ namespace imc_web_api
                 .HasForeignKey(p => p.PromoteById)
               .OnDelete(DeleteBehavior.ClientSetNull);
 
+            //  builder.Entity<order>()
+            //.HasOne(o => o.OrderTo)
+            //.WithMany(u => u.OrderToUser)
+            //.HasForeignKey(o => o.OrderToUserId);
 
             builder.Entity<order>()
-            .HasOne(o => o.User)
-             .WithOne(o => o.order)
-           .HasForeignKey<order>(d => d.CustomerId);
-
+              .HasOne(o => o.OrderBy)
+              .WithOne(u => u.order)
+              .HasForeignKey<order>(o => o.OrderByUserId);
 
             builder.Entity<order>()
                 .HasOne(o => o.Service)
                 .WithOne(s => s.order)
                 .HasForeignKey<order>(o => o.ServiceId);
 
-
             builder.Entity<service>()
                .HasOne(o => o.order)
                .WithOne(s => s.Service)
                .HasForeignKey<order>(o => o.ServiceId);
-          
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();
@@ -266,6 +259,8 @@ namespace imc_web_api
             provider_Doctor[2].PasswordHash = passwordHasher.HashPassword(provider_Doctor[2], provider_DoctorPass2);
 
             builder.Entity<user>().HasData(provider_Doctor);
+
+           
         }
     }
 }

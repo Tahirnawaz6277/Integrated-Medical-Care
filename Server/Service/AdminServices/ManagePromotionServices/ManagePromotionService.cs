@@ -24,8 +24,15 @@ namespace imc_web_api.Service.AdminServices.ManagePromotionServices
             UserPromotionReguest.IsSent = true;
             await _imcDbContext.Promotions.AddAsync(UserPromotionReguest);
 
+            var EmailToUser = _imcDbContext.Users.FirstOrDefault(x => x.Id == UserPromotionReguest.PromoteToId);
+
+            if (EmailToUser == null)
+            {
+                return null;
+            }
             await _imcDbContext.SaveChangesAsync();
-            _emailSender.SendEmail(_configuration["UserSecret:MailBy"], "Administrator Promotion Offer");
+
+            _emailSender.SendEmail(EmailToUser.Email, UserPromotionReguest.Promotion_Type, UserPromotionReguest.Description);
 
             return UserPromotionReguest;
         }

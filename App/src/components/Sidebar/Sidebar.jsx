@@ -75,7 +75,7 @@ const Sidebar = () => {
                 }
                 to="/dashboard/orders"
               >
-                Manage Orders Of Inam
+                Manage Orders
               </NavLink>
             </li>
 

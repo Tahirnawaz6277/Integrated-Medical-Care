@@ -16,7 +16,7 @@ const ServiceScreen = () => {
     DeleteService(id, loggedIn_User)
       .then((res) => {
         if (res.success) {
-          getServices();
+          fetchServices();
         }
       })
       .catch((error) => {

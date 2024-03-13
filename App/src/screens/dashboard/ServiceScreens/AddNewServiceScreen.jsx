@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 const AddNewServiceScreen = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
@@ -50,6 +52,16 @@ const AddNewServiceScreen = () => {
 
   return (
     <>
+      {message && (
+        <Form.Text
+          className={`text-${
+            message.toLowerCase().includes("success") ? "success" : "danger"
+          }`}
+          style={{ fontSize: "20px", fontWeight: "bold" }}
+        >
+          {message}
+        </Form.Text>
+      )}
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3 ">
           <Form.Label>Service</Form.Label>
@@ -133,16 +145,6 @@ const AddNewServiceScreen = () => {
             </Form.Text>
           )}
         </Form.Group>
-
-        {/* {message && (
-          <Form.Text
-            className={`text-${
-              message.toLowerCase().includes("success") ? "success" : "danger"
-            }`}
-          >
-            {message}
-          </Form.Text>
-        )} */}
 
         <Button
           disabled={!formik.isValid}

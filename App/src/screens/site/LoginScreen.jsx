@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
@@ -6,6 +6,7 @@ import {
   FormControl,
   FormLabel,
 } from "react-bootstrap";
+import "./login.scss";
 import { loginUser } from "../../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,6 +16,8 @@ import { loggedIn_User } from "../../Redux/Action";
 const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -27,12 +30,13 @@ const LoginScreen = () => {
     }),
     onSubmit: async (values, { setFieldError }) => {
       try {
+        setLoading(true);
         const res = await loginUser(values);
 
         if (res.success) {
           formik.resetForm();
 
-          // Create an object to store in local storage
+          // Create an object to store in Redux storage
           const userData = {
             token: res.data.jwtToken,
             LoggedIn_User_Id: res.data.current_LoggedIn_Id,
@@ -46,16 +50,19 @@ const LoginScreen = () => {
         }
       } catch (error) {
         setFieldError("password", error.response?.data);
+      } finally {
+        setLoading(false);
       }
     },
   });
 
   return (
     <>
-      <Form onSubmit={formik.handleSubmit}>
-        <FormGroup>
-          <FormLabel>Email address</FormLabel>
+      <Form className="form" onSubmit={formik.handleSubmit}>
+        <FormGroup className="form-group">
+          <FormLabel className="form-label">Email address</FormLabel>
           <FormControl
+            className="form-control"
             required
             type="email"
             name="email"
@@ -69,9 +76,10 @@ const LoginScreen = () => {
           )}
         </FormGroup>
 
-        <FormGroup>
-          <FormLabel>Password</FormLabel>
+        <FormGroup className="form-group">
+          <FormLabel className="form-label">Password</FormLabel>
           <FormControl
+            className="form-control"
             required
             type="password"
             name="password"
@@ -92,8 +100,20 @@ const LoginScreen = () => {
           type="submit"
           variant="primary w-100"
         >
-          Login
+          {loading ? (
+            <>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span>signing...</span>
+            </>
+          ) : (
+            <>Login</>
+          )}
         </Button>
+
         <a href="./Signup">Create Account</a>
       </Form>
     </>

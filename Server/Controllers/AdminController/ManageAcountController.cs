@@ -53,11 +53,11 @@ namespace imc_web_api.Controllers.AdminController
         //[Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetUsers")]
-        public async Task<IActionResult> GetUsers([FromQuery] string filterOn , [FromQuery] string filterQuery )
+        public async Task<IActionResult> GetUsers([FromQuery] string filterOn , [FromQuery] string filterQuery, int pageNumber = 1 , int pageSize=100 )
         {
             try
             {
-                var result = await _manageAccountService.GetUsers(filterOn , filterQuery);
+                var result = await _manageAccountService.GetUsers(filterOn , filterQuery , pageNumber,pageSize);
                 var Dto_Result = _mapper.Map<List<RegisterationResponseDto>>(result);
 
                 return Ok(new

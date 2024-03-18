@@ -94,7 +94,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         }
 
         //---> GetUsers
-        public async Task<List<user>> GetUsers(string filterOn, string filterQuery)
+        public async Task<List<user>> GetUsers(string filterOn, string filterQuery, int pageNumber =1 , int pageSize = 100)
         {
             var data = _userManager.Users
 
@@ -107,7 +107,10 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 data=data.Where(u => u.FirstName.Contains(filterQuery));
             }
 
+            var pagination = (pageNumber - 1) * pageSize;
+            data = data.Skip(pagination).Take(pageSize);
             return await data.ToListAsync();
+
         }
 
         //---> UpdateUser

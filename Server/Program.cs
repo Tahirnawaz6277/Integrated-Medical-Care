@@ -1,5 +1,3 @@
-using System.Text;
-using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
 using imc_web_api.Models;
@@ -23,6 +21,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +77,13 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<ImcDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("IMCConnectionString"));
+        //sqlServerOptionsAction: sqlOptions =>
+        //{
+        //    sqlOptions.EnableRetryOnFailure(
+        //        maxRetryCount: 5, // Adjust this as needed
+        //        maxRetryDelay: TimeSpan.FromSeconds(30),
+        //        errorNumbersToAdd: null);
+        //});
 });
 
 //--> Add Repositories

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Spinner, Table } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  FormControl,
+  Spinner,
+  Table,
+  Form,
+} from "react-bootstrap";
 import { deleteUser, getUsers } from "../../../services/accountService";
 import { NavLink } from "react-router-dom";
 
@@ -41,6 +48,21 @@ const AccountScreen = () => {
           <NavLink to="/dashboard/signup">
             <Button className="float-end">Add New User</Button>{" "}
           </NavLink>
+          <Form>
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="mr-sm-2"
+              aria-label="Search"
+            />
+            <Button
+              variant="outline-success"
+              className="my-2 my-sm-0"
+              type="submit"
+            >
+              Search
+            </Button>
+          </Form>
         </Card.Header>
 
         <Card.Body>

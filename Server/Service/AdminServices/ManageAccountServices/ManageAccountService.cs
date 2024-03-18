@@ -94,14 +94,20 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         }
 
         //---> GetUsers
-        public async Task<List<user>> GetUsers()
+        public async Task<List<user>> GetUsers(string filterOn, string filterQuery)
         {
-            return await _userManager.Users
+            var data = _userManager.Users
 
                  .Include(u => u.ServiceProviderType)
                  .Include(u => u.User_Qualification)
-                 .Include(u => u.order)
-                 .ToListAsync();
+                 .Include(u => u.order).AsQueryable();
+
+            if (filterOn.Equals("firstname", StringComparison.OrdinalIgnoreCase))
+            {
+                data=data.Where(u => u.FirstName.Contains(filterQuery));
+            }
+
+            return await data.ToListAsync();
         }
 
         //---> UpdateUser

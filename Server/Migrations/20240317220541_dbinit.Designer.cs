@@ -12,8 +12,8 @@ using imc_web_api;
 namespace imc_web_api.Migrations
 {
     [DbContext(typeof(ImcDbContext))]
-    [Migration("20240229154818_Db init")]
-    partial class Dbinit
+    [Migration("20240317220541_dbinit")]
+    partial class dbinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,22 +54,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "835995a4-6c27-4873-ac9f-7b4797d98b83",
-                            ConcurrencyStamp = "835995a4-6c27-4873-ac9f-7b4797d98b83",
+                            Id = "f7ea4844-a043-4bee-921b-69d216610139",
+                            ConcurrencyStamp = "f7ea4844-a043-4bee-921b-69d216610139",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "293d7f68-7acb-4352-b074-a84f7b51c3f9",
-                            ConcurrencyStamp = "293d7f68-7acb-4352-b074-a84f7b51c3f9",
+                            Id = "f5b38660-425d-46aa-84b9-cd1b2e05fa7a",
+                            ConcurrencyStamp = "f5b38660-425d-46aa-84b9-cd1b2e05fa7a",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "2fe4e3c8-994e-45d7-9468-bc39600f7ecf",
-                            ConcurrencyStamp = "2fe4e3c8-994e-45d7-9468-bc39600f7ecf",
+                            Id = "13369ec0-3407-40fc-97c7-d9058e747828",
+                            ConcurrencyStamp = "13369ec0-3407-40fc-97c7-d9058e747828",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -237,8 +237,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5ba0a552-64cd-42fb-a400-518a83f0b4cc",
-                            RoleId = "835995a4-6c27-4873-ac9f-7b4797d98b83"
+                            UserId = "e9f8bef5-fb63-4344-806f-58920803740b",
+                            RoleId = "f7ea4844-a043-4bee-921b-69d216610139"
                         });
                 });
 
@@ -448,20 +448,20 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ab406967-e418-497e-a96a-a1be73eb3bb6"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1401),
+                            Id = new Guid("54ee8374-8bde-43ad-a012-94c6df7c1b3e"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6682),
                             ProviderName = "Doctor"
                         },
                         new
                         {
-                            Id = new Guid("d40d2da1-1e97-4e91-876d-48414a261b91"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1424),
+                            Id = new Guid("922efa73-53ca-4d55-9661-d00b5349ace7"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6723),
                             ProviderName = "Pharmacy"
                         },
                         new
                         {
-                            Id = new Guid("b1063572-699c-4199-b8d8-188aa58cb4b1"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1427),
+                            Id = new Guid("fd42edd1-8c98-4918-ab35-06d1dbb84a9e"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6728),
                             ProviderName = "Ambulance"
                         });
                 });
@@ -490,22 +490,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9478e57f-1be4-45e8-a59c-e9a74dbe3535"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1512),
+                            Id = new Guid("00373fa0-0282-4cf7-8eba-787b1804b54d"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6905),
                             experience = "10 YEAR",
                             qualification = "MBBS"
                         },
                         new
                         {
-                            Id = new Guid("d7a2220a-a856-45a3-8eaa-a779081e55ce"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1532),
+                            Id = new Guid("f026a367-7adb-4ae5-bf78-da6f90866ab1"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6942),
                             experience = "3 YEAR",
                             qualification = "MD"
                         },
                         new
                         {
-                            Id = new Guid("7a3f6d35-db2f-487f-8fb6-34780533fdcf"),
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1534),
+                            Id = new Guid("cdae3095-9c6e-4c68-beb8-c21a9cd798ef"),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6945),
                             experience = "1 YEAR",
                             qualification = "BDS"
                         });
@@ -555,21 +555,21 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5ba0a552-64cd-42fb-a400-518a83f0b4cc",
+                            Id = "e9f8bef5-fb63-4344-806f-58920803740b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1add2bff-4fcb-4ff7-81cf-5ceb62aba9f2",
+                            ConcurrencyStamp = "d2e34290-26ea-4f84-80c6-57e09524cd44",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEGetrmVux23L0QSMSY+3HltVCYRyigeC/94xvIGUtkxOyWdIPcwKPQQYTyOa5i9Og==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHOsrdCfOdsfelB5KfrFQuaZgu+XW38a6pNhJkRfbPrHIWsWlCUxTjgutYgCcM1qSw==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2dfd8504-4de8-4b47-855c-5d9065fc06fa",
+                            SecurityStamp = "8f2c8515-f620-4cc3-9e82-863f0a060b55",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 350, DateTimeKind.Utc).AddTicks(531),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 159, DateTimeKind.Utc).AddTicks(4243),
                             FirstName = "Aamir",
                             Gender = "Male",
                             LastName = "nawaz",
@@ -577,75 +577,75 @@ namespace imc_web_api.Migrations
                         },
                         new
                         {
-                            Id = "6316d5d4-6903-4e06-b33c-e21bed93aa99",
+                            Id = "ab2da9a0-7e81-4747-a9d0-68e83ffa351a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "78bd7c2a-bd1f-46d2-8c80-4e9529fc0e9c",
+                            ConcurrencyStamp = "70ed84a2-cd7a-4b11-9fd1-aca25f0b20df",
                             Email = "Aqib@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aqib@gmail.com",
                             NormalizedUserName = "Aqib@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAECQIV6lgNMGRsppHhixGARIkWV5KgzgYVJY5+7fKhStIivqFqUa5vzbKRU1zHBHApg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECksPMN1o8IMWlf4kLkXI/Oka6of4Qjvz9QwexLKnYPVN7mDonixXi5rCnjKP7/oZw==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7476d776-3991-4c64-b39d-ab444ecc63e2",
+                            SecurityStamp = "2dfdb99f-160b-407f-bf6c-1d83f548a69d",
                             TwoFactorEnabled = false,
                             UserName = "Aqib@gmail.com",
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1540),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(6968),
                             FirstName = "Aqib",
                             Gender = "Male",
                             LastName = "nawaz",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("ab406967-e418-497e-a96a-a1be73eb3bb6"),
-                            User_QualificationId = new Guid("9478e57f-1be4-45e8-a59c-e9a74dbe3535")
+                            ServiceProvidertypeId = new Guid("54ee8374-8bde-43ad-a012-94c6df7c1b3e"),
+                            User_QualificationId = new Guid("00373fa0-0282-4cf7-8eba-787b1804b54d")
                         },
                         new
                         {
-                            Id = "17b1b583-6736-4aaf-93bf-5a3eb9e5309b",
+                            Id = "79586044-0b82-451c-afe2-abfc410cb46d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f670981-c337-4233-9e7e-10025a091f0a",
+                            ConcurrencyStamp = "6311149d-7404-4dce-b938-8d415a630a27",
                             Email = "Waheed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Waheed@gmail.com",
                             NormalizedUserName = "Waheed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOX6QQrOnVB2xVIgFnJjMgPAB+KB2jkEtqVf4ijBhs1QbCatbwLpAck0siW4Wah5xw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGUq3TZjx74O7c4xjolElk82V0DEiIUrIrkMgCPAlTDMePhOxX1uQiFz8TIVjw8bfA==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1da8db25-0cae-4c1e-a3bf-de784c0257a7",
+                            SecurityStamp = "da5f9a08-8bc2-4239-a6e1-e188d844a494",
                             TwoFactorEnabled = false,
                             UserName = "Waheed@gmail.com",
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1579),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(7038),
                             FirstName = "Waheed",
                             Gender = "Male",
                             LastName = "Quraishi",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("d40d2da1-1e97-4e91-876d-48414a261b91"),
-                            User_QualificationId = new Guid("d7a2220a-a856-45a3-8eaa-a779081e55ce")
+                            ServiceProvidertypeId = new Guid("922efa73-53ca-4d55-9661-d00b5349ace7"),
+                            User_QualificationId = new Guid("f026a367-7adb-4ae5-bf78-da6f90866ab1")
                         },
                         new
                         {
-                            Id = "6332caaa-fec4-4d32-884b-cb99443f6bf4",
+                            Id = "a7f89f83-4f33-4656-b9b6-35559251a043",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a81dbcd-1fc8-411a-bff7-992c053208d9",
+                            ConcurrencyStamp = "a251af0c-91bc-494f-b94f-890fd40be056",
                             Email = "Hameed@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Hameed@gmail.com",
                             NormalizedUserName = "Hameed@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEAcNEjODcfGlmITyxYp6yMpTuDKQV0Awcxk2wbWv1GuYzheLg6ZqOiJqdouQP4u0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPj3Ofnp39/dHJvjG6phogBFNKuwQ/XU7aPIl8FynIpZy4eR4iETK4uXunIiskgpqw==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "59a2f009-65a7-4bd7-b015-19a668f030bc",
+                            SecurityStamp = "d03240dc-fb53-4bdf-87b2-a88ce6a02992",
                             TwoFactorEnabled = false,
                             UserName = "Hameed@gmail.com",
-                            CreatedAt = new DateTime(2024, 2, 29, 15, 48, 18, 449, DateTimeKind.Utc).AddTicks(1598),
+                            CreatedAt = new DateTime(2024, 3, 17, 22, 5, 40, 382, DateTimeKind.Utc).AddTicks(7092),
                             FirstName = "Hameed",
                             Gender = "Male",
                             LastName = "Khan",
                             Role = "Provider",
-                            ServiceProvidertypeId = new Guid("b1063572-699c-4199-b8d8-188aa58cb4b1"),
-                            User_QualificationId = new Guid("7a3f6d35-db2f-487f-8fb6-34780533fdcf")
+                            ServiceProvidertypeId = new Guid("fd42edd1-8c98-4918-ab35-06d1dbb84a9e"),
+                            User_QualificationId = new Guid("cdae3095-9c6e-4c68-beb8-c21a9cd798ef")
                         });
                 });
 

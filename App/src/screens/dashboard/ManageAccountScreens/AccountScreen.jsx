@@ -75,6 +75,7 @@ const AccountScreen = () => {
                 <th>Email</th>
                 <th>Role</th>
                 <th>Date Created</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -87,6 +88,7 @@ const AccountScreen = () => {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>{user.createdAt}</td>
+                  <td>Active</td>
                   <td style={{ display: "flex", gap: "8px" }}>
                     <Button
                       className="btn btn-danger"
@@ -96,6 +98,7 @@ const AccountScreen = () => {
                     >
                       Delete
                     </Button>
+                    <Button className="btn btn-primary">Details</Button>
                   </td>
                 </tr>
               ))}

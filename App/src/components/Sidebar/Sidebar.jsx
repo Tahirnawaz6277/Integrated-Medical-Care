@@ -14,7 +14,10 @@ const Sidebar = () => {
   return (
     <>
       <header className="navbar p-3 navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+        <a
+          className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
+          href="/dashboard"
+        >
           IMC
         </a>
         <button
@@ -109,9 +112,45 @@ const Sidebar = () => {
                 className={({ isActive, isPending }) =>
                   isPending ? "pending" : isActive ? "active nav-link" : ""
                 }
+                to="/dashboard/customerrecord"
+              >
+                Manage Customer Record
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
                 to="/dashboard/services"
               >
                 Manage Services
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/agreement"
+              >
+                Manage Agreement
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
+                to="/dashboard/RevenueExpense"
+              >
+                Manage Revenue & Expense
               </NavLink>
             </li>
 

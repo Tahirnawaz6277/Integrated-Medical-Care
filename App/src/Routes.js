@@ -35,6 +35,10 @@ export const RouteNames = {
     Feedbacks: {
       route: "/dashboard/feedbacks",
     },
+
+    CustomerRecord: {
+      route: "/dashboard/customerrecord",
+    },
     Services: {
       route: "/dashboard/services",
       AddNewService: {
@@ -50,6 +54,13 @@ export const RouteNames = {
     },
     AddNewUser: {
       route: "/dashboard/signup",
+    },
+
+    RevenueExpense: {
+      route: "/dashboard/RevenueExpense",
+    },
+    Agreement: {
+      route: "/dashboard/agreement",
     },
   },
 };

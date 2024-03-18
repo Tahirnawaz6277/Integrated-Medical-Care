@@ -17,6 +17,9 @@ import AddNewServiceScreen from "./screens/dashboard/ServiceScreens/AddNewServic
 import { RouteNames } from "./Routes";
 import AddOrderScreen from "./screens/dashboard/OrderScreens/AddOrderScreen";
 import AddNewPromotionScreen from "./screens/dashboard/PromotionScreens/AddNewPromotionScreen";
+import RevenueExpenseScreen from "./screens/dashboard/RevenueExpenseScreens/RevenueExpenseScreen";
+import AgreementScreen from "./screens/dashboard/AgreementScreens/AgreementScreen";
+import CustomerRecordScreen from "./screens/dashboard/ManageCustomerRecordScreens/CustomerRecordScreen";
 
 function App() {
   return (
@@ -49,6 +52,11 @@ function App() {
             element={<FeedbackScreen />}
           />
           <Route
+            path={RouteNames.Admin.CustomerRecord.route}
+            element={<CustomerRecordScreen />}
+          />
+
+          <Route
             path={RouteNames.Admin.Services.route}
             element={<ServiceScreen />}
           />
@@ -73,7 +81,18 @@ function App() {
             path={RouteNames.Admin.Orders.AddNewOrder.route}
             element={<AddOrderScreen />}
           />
+
+          <Route
+            path={RouteNames.Admin.RevenueExpense.route}
+            element={<RevenueExpenseScreen />}
+          />
+
+          <Route
+            path={RouteNames.Admin.Agreement.route}
+            element={<AgreementScreen />}
+          />
         </Route>
+
         {/* Auth Routes */}
         <Route path={RouteNames.Default.route} element={<AuthLayout />}>
           <Route index element={<LoginScreen />} />

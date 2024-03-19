@@ -62,7 +62,8 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 
          .Include(u => u.ServiceProviderType)
          .Include(u => u.User_Qualification)
-         .Include(u => u.order)
+         .Include(u => u.OrdersByUser)
+           //.Include(u => u.OrderToUser)
          .FirstOrDefaultAsync(u => u.Id == id.ToString());
 
             if (user == null)
@@ -100,7 +101,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 
                  .Include(u => u.ServiceProviderType)
                  .Include(u => u.User_Qualification)
-                 .Include(u => u.order).AsQueryable();
+                 .Include(u => u.OrdersByUser).AsQueryable();
 
             if (filterOn.Equals("firstname", StringComparison.OrdinalIgnoreCase))
             {

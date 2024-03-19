@@ -23,7 +23,7 @@ namespace imc_web_api.Dtos.AdminDtos.OrderDtos
         public Guid ServiceId { get; set; }
 
         [ForeignKey("ServiceId")]
-        public pharmacyambulanceservice Service { get; set; }
+        public service Service { get; set; }
 
 
         public DateTime OrderDate { get; set; }

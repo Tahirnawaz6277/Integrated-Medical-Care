@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace imc_web_api.Models
 {
-    public class pharmacyambulanceservice
+    public class service
     {
         public Guid Id { get; set; }
 
@@ -38,7 +38,8 @@ namespace imc_web_api.Models
 
         public List<feedback> User_Feedbacks { get; set; }
 
-        public order order { get; set; }
+        public List<orderItem> OrderItems { get; set; }
+     
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -30,13 +30,14 @@ namespace imc_web_api.Models
         [ForeignKey("User_QualificationId")]
         public user_qualification User_Qualification { get; set; }
 
+        public List<service> services { get; set; }
         public List<feedback> User_Feedbacks { get; set; }
 
         public List<promotion> PromoteTo { get; set; }
         
         public List<promotion> PromoteBy { get; set; }
 
-        public  order order { get; set; }
+        public  List<order> OrdersByUser { get; set; }
         //public List<order> OrderToUser { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

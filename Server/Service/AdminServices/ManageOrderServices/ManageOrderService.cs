@@ -47,7 +47,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         {
             return await _ImcDbContext.Orders
                 .Include(o => o.OrderBy)
-                .Include(o => o.Service).FirstOrDefaultAsync(o => o.Id == id);
+                .Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
         }
 
         //-->  Get Orders
@@ -55,7 +55,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         {
             return await _ImcDbContext.Orders
                 .Include(o => o.OrderBy)
-                .Include(o => o.Service).ToListAsync();
+                .Include(o => o.OrderItems).ToListAsync();
         }
 
         //-->  Update Order

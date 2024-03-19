@@ -12,7 +12,7 @@ namespace imc_web_api.Models
         public string ProviderName { get; set; }
 
         public user User { get; set; }
-        public List<pharmacyambulanceservice> givenServices { get; set; }
+        public List<service> givenServices { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

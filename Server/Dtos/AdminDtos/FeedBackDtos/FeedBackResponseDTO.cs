@@ -10,7 +10,7 @@ namespace imc_web_api.Dtos.AdminDtos.FeedBackDtos
 
         public user User { get; set; }
 
-        public pharmacyambulanceservice Service { get; set; }
+        public service Service { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }

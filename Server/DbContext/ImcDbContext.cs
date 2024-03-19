@@ -15,12 +15,13 @@ namespace imc_web_api
         public DbSet<serviceprovidertype> ServiceProviderTypes { get; set; }
         public DbSet<user_qualification> User_Qualifications { get; set; }
 
-        public DbSet<pharmacyambulanceservice> Services { get; set; }
+        public DbSet<service> Services { get; set; }
 
         public DbSet<promotion> Promotions { get; set; }
 
         public DbSet<order> Orders { get; set; }
         public DbSet<feedback> Feedbacks { get; set; }
+        public DbSet<orderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,63 +37,75 @@ namespace imc_web_api
                .HasForeignKey<user>(u => u.User_QualificationId)
                .IsRequired(false);
 
-            builder.Entity<user>()
-              .HasOne(u => u.order)
-              .WithOne(u => u.OrderBy)
-              .HasForeignKey<order>(u => u.OrderByUserId);
+    
 
-            builder.Entity<user_qualification>()
-               .HasOne(u => u.User)
-               .WithOne(u => u.User_Qualification)
-                .IsRequired(false);
+            //----------------- Order Relationshipe
 
-            builder.Entity<pharmacyambulanceservice>()
+            builder.Entity<order>()
+            .HasOne(o => o.OrderBy)             // Order has one User
+            .WithMany(u => u.OrdersByUser)         // User has many Orders
+            .HasForeignKey(o => o.OrderByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure the relationship between orderItem and service
+            builder.Entity<orderItem>()
+                .HasOne(oi => oi.Service)
+                .WithMany(s => s.OrderItems)
+                .HasForeignKey(oi => oi.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            // Configure the relationship between orderItem and order
+            builder.Entity<orderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //----------------- Service Relationshipe
+
+            builder.Entity<service>()
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
+                 .OnDelete(DeleteBehavior.Restrict)
               .IsRequired(false);
+
+            builder.Entity<service>()
+           .HasOne(s => s.User)
+           .WithMany(s => s.services)
+           .HasForeignKey(s => s.CreatedByAdminId)
+       .OnDelete(DeleteBehavior.Restrict)
+           .IsRequired(false);
+
+            //------------------    relationship for feedback
 
             builder.Entity<feedback>()
               .HasOne(f => f.User)
               .WithMany(u => u.User_Feedbacks)
-              .HasForeignKey(f => f.ratedById);
+              .HasForeignKey(f => f.ratedById)
+              .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<feedback>()
-           .HasOne(f => f.Service)
-           .WithMany(s => s.User_Feedbacks)
-           .HasForeignKey(f => f.ratedToId);
+             .HasOne(f => f.Service)
+             .WithMany(u => u.User_Feedbacks)
+             .HasForeignKey(f => f.ratedToId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //------------------    relationship for Promotion
 
             builder.Entity<promotion>()
-                .HasOne(p => p.PromoteToUser)
-                .WithMany(u => u.PromoteTo)
+                .HasOne(p => p.PromoteToUser)          //has one user
+                .WithMany(u => u.PromoteTo)                   //have many Promotion
                 .HasForeignKey(p => p.PromoteToId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<promotion>()
-                .HasOne(p => p.PromoteByUser)
-                .WithMany(u => u.PromoteBy)
+                .HasOne(p => p.PromoteByUser)      //has one user
+                .WithMany(u => u.PromoteBy)                    //admin sent many Promotions to user
                 .HasForeignKey(p => p.PromoteById)
-              .OnDelete(DeleteBehavior.ClientSetNull);
+                 .OnDelete(DeleteBehavior.Restrict);
 
-            //  builder.Entity<order>()
-            //.HasOne(o => o.OrderTo)
-            //.WithMany(u => u.OrderToUser)
-            //.HasForeignKey(o => o.OrderToUserId);
-
-            builder.Entity<order>()
-              .HasOne(o => o.OrderBy)
-              .WithOne(u => u.order)
-              .HasForeignKey<order>(o => o.OrderByUserId);
-
-            builder.Entity<order>()
-                .HasOne(o => o.Service)
-                .WithOne(s => s.order)
-                .HasForeignKey<order>(o => o.ServiceId);
-
-            builder.Entity<pharmacyambulanceservice>()
-               .HasOne(o => o.order)
-               .WithOne(s => s.Service)
-               .HasForeignKey<order>(o => o.ServiceId);
+       
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();
@@ -259,8 +272,6 @@ namespace imc_web_api
             provider_Doctor[2].PasswordHash = passwordHasher.HashPassword(provider_Doctor[2], provider_DoctorPass2);
 
             builder.Entity<user>().HasData(provider_Doctor);
-
-           
         }
     }
 }

@@ -43,14 +43,14 @@ namespace imc_web_api.Controllers.ServiceProviderController
                     return Unauthorized("User is not authenticated.");
                 }
 
-                var ServiceModel = _mapper.Map<pharmacyambulanceservice>(ServiceInputRequest);
+                var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
                 var ServiceDtoResult = await _manageServices.AddService(ServiceModel, CurrentUserId);
 
                 if (ServiceDtoResult == null)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add Service.");
                 }
-                var ServiceDto_Result = _mapper.Map<pharmacyambulanceservice>(ServiceDtoResult);
+                var ServiceDto_Result = _mapper.Map<service>(ServiceDtoResult);
                 return Ok(new
                 {
                     Success = true,
@@ -76,7 +76,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         {
             try
             {
-                var ServiceModel = _mapper.Map<pharmacyambulanceservice>(ServiceInputRequest);
+                var ServiceModel = _mapper.Map<service>(ServiceInputRequest);
 
                 var UpdatedService = await _manageServices.UpdateService(id, ServiceModel);
 

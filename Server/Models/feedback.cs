@@ -24,7 +24,7 @@ namespace imc_web_api.Models
         public Guid ratedToId { get; set; }
 
         [ForeignKey("ratedToId")]
-        public pharmacyambulanceservice Service { get; set; }
+        public service Service { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

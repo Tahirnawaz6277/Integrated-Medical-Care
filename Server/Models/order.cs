@@ -1,6 +1,6 @@
-﻿using imc_web_api.Models.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using imc_web_api.Models.Enums;
 
 namespace imc_web_api.Models
 {
@@ -38,17 +38,14 @@ namespace imc_web_api.Models
         [ForeignKey("OrderByUserId")]
         public user OrderBy { get; set; }
 
-
         //--> fk for OrderTo
-        //public string? OrderToUserId { get; set; } 
+        //public string? OrderToUserId { get; set; }
 
         //[ForeignKey("OrderToUserId")]
         //public user OrderTo { get; set; }
 
-        public Guid ServiceId { get; set; }
-
-        [ForeignKey("ServiceId")]
-        public pharmacyambulanceservice Service { get; set; }
+       
+        public List<orderItem> OrderItems { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

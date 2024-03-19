@@ -18,7 +18,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         }
 
         //--> Add Service
-        public async Task<pharmacyambulanceservice> AddService(pharmacyambulanceservice serviceInputRequest, Guid CurrentUserId)
+        public async Task<service> AddService(service serviceInputRequest, Guid CurrentUserId)
         {
             var CurrentLoggedInUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
 
@@ -42,19 +42,19 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         }
 
         //--> Get Service By Id
-        public async Task<pharmacyambulanceservice?> GetServiceById(Guid id)
+        public async Task<service?> GetServiceById(Guid id)
         {
             return await _dbContext.Services.Include(s => s.ServiceProviderType).Include(s => s.User).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         //--> Get Services
-        public async Task<List<pharmacyambulanceservice>> GetServices()
+        public async Task<List<service>> GetServices()
         {
             return await _dbContext.Services.Include(s => s.ServiceProviderType).Include(s => s.User).ToListAsync();
         }
 
         //--> Update Service
-        public async Task<pharmacyambulanceservice?> UpdateService(Guid id, pharmacyambulanceservice ServiceInputRequest)
+        public async Task<service?> UpdateService(Guid id, service ServiceInputRequest)
         {
             if (id == Guid.Empty || ServiceInputRequest == null)
             {
@@ -80,7 +80,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         }
 
         //--> Delete Service
-        public async Task<pharmacyambulanceservice> DeleteService(Guid id)
+        public async Task<service> DeleteService(Guid id)
         {
            
             var Service = await _dbContext.Services.FirstOrDefaultAsync(s => s.Id == id);

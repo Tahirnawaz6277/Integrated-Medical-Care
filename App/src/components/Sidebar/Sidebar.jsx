@@ -100,6 +100,18 @@ const Sidebar = () => {
                 className={({ isActive, isPending }) =>
                   isPending ? "pending" : isActive ? "active nav-link" : ""
                 }
+                to="/dashboard/ManageHcpRecord"
+              >
+                Manage Health Care Provider Records
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink
+                end
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active nav-link" : ""
+                }
                 to="/dashboard/feedbacks"
               >
                 Manage Customer Feedback

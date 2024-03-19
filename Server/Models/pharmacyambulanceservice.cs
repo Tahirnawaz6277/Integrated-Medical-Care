@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace imc_web_api.Models
 {
-    public class service
+    public class pharmacyambulanceservice
     {
         public Guid Id { get; set; }
 

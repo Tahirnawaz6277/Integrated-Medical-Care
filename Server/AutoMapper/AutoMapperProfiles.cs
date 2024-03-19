@@ -27,8 +27,8 @@ namespace imc_web_api.AutoMapper
             CreateMap<user_qualification, QualificationResponseDTO>().ReverseMap();
 
             //Mapping For Service
-            CreateMap<service, ServiceRequestDTO>().ReverseMap();
-            CreateMap<service, ServiceResponseDTO>().ReverseMap();
+            CreateMap<pharmacyambulanceservice, ServiceRequestDTO>().ReverseMap();
+            CreateMap<pharmacyambulanceservice, ServiceResponseDTO>().ReverseMap();
 
             //Mapping For Promotion
 

@@ -146,6 +146,21 @@ const AddNewServiceScreen = () => {
           )}
         </Form.Group>
 
+        <Form.Group className="mb-3">
+          <Form.Check
+            type="checkbox"
+            name="agreeTerms"
+            id="agreeTerms"
+            label="check it to keep the agreement with Administrator"
+            checked={formik.values.agreeTerms}
+            onChange={formik.handleChange}
+            isInvalid={formik.errors.agreeTerms && formik.touched.agreeTerms}
+          />
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.agreeTerms}
+          </Form.Control.Feedback>
+        </Form.Group>
+
         <Button
           disabled={!formik.isValid}
           type="submit"

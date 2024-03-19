@@ -15,7 +15,7 @@ namespace imc_web_api
         public DbSet<serviceprovidertype> ServiceProviderTypes { get; set; }
         public DbSet<user_qualification> User_Qualifications { get; set; }
 
-        public DbSet<service> Services { get; set; }
+        public DbSet<pharmacyambulanceservice> Services { get; set; }
 
         public DbSet<promotion> Promotions { get; set; }
 
@@ -46,7 +46,7 @@ namespace imc_web_api
                .WithOne(u => u.User_Qualification)
                 .IsRequired(false);
 
-            builder.Entity<service>()
+            builder.Entity<pharmacyambulanceservice>()
               .HasOne(s => s.ServiceProviderType)
               .WithMany(s => s.givenServices)
               .HasForeignKey(s => s.CreatedByProviderTypeId)
@@ -89,7 +89,7 @@ namespace imc_web_api
                 .WithOne(s => s.order)
                 .HasForeignKey<order>(o => o.ServiceId);
 
-            builder.Entity<service>()
+            builder.Entity<pharmacyambulanceservice>()
                .HasOne(o => o.order)
                .WithOne(s => s.Service)
                .HasForeignKey<order>(o => o.ServiceId);

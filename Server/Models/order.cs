@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using imc_web_api.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using imc_web_api.Models.Enums;
 
 namespace imc_web_api.Models
 {
@@ -48,7 +48,7 @@ namespace imc_web_api.Models
         public Guid ServiceId { get; set; }
 
         [ForeignKey("ServiceId")]
-        public service Service { get; set; }
+        public pharmacyambulanceservice Service { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

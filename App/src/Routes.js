@@ -62,5 +62,8 @@ export const RouteNames = {
     Agreement: {
       route: "/dashboard/agreement",
     },
+    HcpRecord: {
+      route: "/dashboard/ManageHcpRecord",
+    },
   },
 };

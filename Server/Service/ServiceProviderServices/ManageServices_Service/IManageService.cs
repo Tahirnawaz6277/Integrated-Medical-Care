@@ -4,14 +4,14 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service
 {
     public interface IManageService
     {
-        Task<service> AddService(service ServiceInputRequest, Guid CurrentUserId);
+        Task<pharmacyambulanceservice> AddService(pharmacyambulanceservice ServiceInputRequest, Guid CurrentUserId);
 
-        Task<service> DeleteService(Guid id);
+        Task<pharmacyambulanceservice> DeleteService(Guid id);
 
-        Task<service?> UpdateService(Guid id, service ServiceInputRequest);
+        Task<pharmacyambulanceservice?> UpdateService(Guid id, pharmacyambulanceservice ServiceInputRequest);
 
-        Task<service?> GetServiceById(Guid id);
+        Task<pharmacyambulanceservice?> GetServiceById(Guid id);
 
-        Task<List<service>> GetServices();
+        Task<List<pharmacyambulanceservice>> GetServices();
     }
 }

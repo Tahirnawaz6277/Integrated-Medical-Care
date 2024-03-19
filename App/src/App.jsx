@@ -20,6 +20,7 @@ import AddNewPromotionScreen from "./screens/dashboard/PromotionScreens/AddNewPr
 import RevenueExpenseScreen from "./screens/dashboard/RevenueExpenseScreens/RevenueExpenseScreen";
 import AgreementScreen from "./screens/dashboard/AgreementScreens/AgreementScreen";
 import CustomerRecordScreen from "./screens/dashboard/ManageCustomerRecordScreens/CustomerRecordScreen";
+import { HcpRecordScreen } from "./screens/dashboard/HcpRecordScreens/HcpRecordScreen";
 
 function App() {
   return (
@@ -90,6 +91,11 @@ function App() {
           <Route
             path={RouteNames.Admin.Agreement.route}
             element={<AgreementScreen />}
+          />
+
+          <Route
+            path={RouteNames.Admin.HcpRecord.route}
+            element={<HcpRecordScreen />}
           />
         </Route>
 

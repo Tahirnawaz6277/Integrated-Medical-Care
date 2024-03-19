@@ -1,26 +1,22 @@
 import React from "react";
 import { Card, Table } from "react-bootstrap";
 
-const CustomerRecordScreen = () => {
+export const HcpRecordScreen = () => {
   return (
     <Card>
-      <Card.Header>Manage Customer Record</Card.Header>
+      <Card.Header>Manage Service Provider Records</Card.Header>
 
       <Card.Body>
         <Table responsive="sm">
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email Address</th>
-              <th>Gender</th>
-              <th>Account Status</th>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Provided Services</th>
+              <th>Service Rating</th>
+              <th>Service Feedbacks</th>
               <th>Ordered Services</th>
-
-              <th>Rating</th>
-
-              <th>Feedbacks</th>
             </tr>
           </thead>
 
@@ -30,5 +26,3 @@ const CustomerRecordScreen = () => {
     </Card>
   );
 };
-
-export default CustomerRecordScreen;

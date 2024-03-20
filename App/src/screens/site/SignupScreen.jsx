@@ -3,6 +3,7 @@ import { registerUser } from "../../services/accountService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../site/signup.scss";
+import { AddServiceProviders } from "../../services/serviceProvidersService";
 
 const SignupScreen = () => {
   const formik = useFormik({
@@ -33,12 +34,21 @@ const SignupScreen = () => {
       phoneNumber: Yup.string().required(),
     }),
     onSubmit: async (values) => {
-      registerUser(values)
+      AddServiceProviders(values.providerType)
         .then((res) => {
           console.log("Res", res);
           if (res.success) {
-            formik.resetForm();
-            formik.setFieldValue("general", res.message);
+            registerUser(values)
+              .then((res) => {
+                console.log("Res", res);
+                if (res.success) {
+                  formik.resetForm();
+                  formik.setFieldValue("general", res.message);
+                }
+              })
+              .catch((err) => {
+                formik.setFieldValue("general", err.response.data.message);
+              });
           }
         })
         .catch((err) => {

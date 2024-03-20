@@ -14,8 +14,13 @@ const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [filterOn, setFilterOn] = useState("firstName");
+  const [filterQuery, setFilterQuery] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
   const fetchUsers = () => {
-    getUsers()
+    getUsers(filterOn, filterQuery, pageNumber, pageSize)
       .then((res) => {
         if (res.success) {
           setUsers(res.data);
@@ -26,6 +31,25 @@ const AccountScreen = () => {
         setLoading(true);
       });
   };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFilterQuery(e.target.value);
+
+    getUsers(filterOn, filterQuery, pageNumber, pageSize)
+      .then((res) => {
+        if (res.success) {
+          setUsers(res.data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(true);
+      });
+
+    setFilterQuery("");
+  };
+
   const handleDelete = (id) => {
     deleteUser(id)
       .then((res) => {
@@ -48,12 +72,20 @@ const AccountScreen = () => {
           <NavLink to="/dashboard/signup">
             <Button className="float-end">Add New User</Button>{" "}
           </NavLink>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              handleChange(e);
+            }}
+          >
             <FormControl
               type="search"
               placeholder="Search"
               className="mr-sm-2"
               aria-label="Search"
+              value={filterQuery}
+              onChange={(e) => {
+                setFilterQuery(e.target.value);
+              }}
             />
             <Button
               variant="outline-success"

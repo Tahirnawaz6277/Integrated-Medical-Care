@@ -7,8 +7,9 @@ export const registerUser = async (data) => {
   return result.data;
 };
 
-export const getUsers = async () => {
-  let result = await axios.get(endPoints.Account.GetUsers);
+export const getUsers = async (filterOn, filterQuery, pageNumber, pageSize) => {
+  const url = `${endPoints.Account.GetUsers}?filterOn=${filterOn}&filterQuery=${filterQuery}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+  let result = await axios.get(url);
   return result.data;
 };
 

@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Table } from "react-bootstrap";
+import { GetServiceProviders } from "../../../services/serviceProvidersService";
 
 export const HcpRecordScreen = () => {
+  const [HCP, setHCP] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchServiceProviders = () => {
+    GetServiceProviders()
+      .then((res) => {
+        if (res.success) {
+          console.log(res);
+          setHCP(res.data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(true);
+      });
+  };
+
+  useEffect(() => {
+    fetchServiceProviders();
+  }, []);
+
   return (
     <Card>
       <Card.Header>Manage Service Provider Records</Card.Header>
@@ -20,7 +42,19 @@ export const HcpRecordScreen = () => {
             </tr>
           </thead>
 
-          <tbody></tbody>
+          <tbody>
+            {HCP.map((hcp, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{hcp.providerName}</td>
+                <td>{hcp.user.phoneNumber}</td>
+                <td>{hcp.givenServices}</td>
+                <td>{hcp.serviceRating}</td>
+                <td>{hcp.serviceFeedbacks}</td>
+                <td>{hcp.orderedServices}</td>
+              </tr>
+            ))}
+          </tbody>
         </Table>
       </Card.Body>
     </Card>

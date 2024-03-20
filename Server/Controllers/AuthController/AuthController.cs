@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Models;
 using imc_web_api.Repository.AuthRepository;
@@ -8,6 +7,7 @@ using imc_web_api.Service.AuthServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace imc_web_api.Controllers.AuthController
 {

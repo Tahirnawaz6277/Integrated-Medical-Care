@@ -1,0 +1,16 @@
+.card {
+  width: 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+.card .card-img-top {
+  width: 100%;
+}
+.card .add-to-cart {
+  width: 100%;
+}
+.card .searchForm {
+  width: 100%; /* Adjust this width as needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}/*# sourceMappingURL=style.css.map */

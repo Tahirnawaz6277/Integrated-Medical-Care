@@ -11,6 +11,8 @@ namespace imc_web_api.Models
         [ForeignKey("ServiceId")]
         public service Service { get; set; }
 
+        public int Quantity { get; set; }
+
         public Guid OrderId { get; set; }
 
         [ForeignKey("OrderId")]

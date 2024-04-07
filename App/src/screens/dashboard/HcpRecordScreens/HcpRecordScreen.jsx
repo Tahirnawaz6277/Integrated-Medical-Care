@@ -47,7 +47,7 @@ export const HcpRecordScreen = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{hcp.providerName}</td>
-                <td>{hcp.user.phoneNumber}</td>
+                {/* <td>{hcp.user.phoneNumber}</td> */}
                 <td>{hcp.givenServices}</td>
                 <td>{hcp.serviceRating}</td>
                 <td>{hcp.serviceFeedbacks}</td>

@@ -104,7 +104,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         //-->GetAll Service
         [HttpGet]
         [Route("GetServices")]
-        [Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider,Customer")]
         public async Task<IActionResult> GetServices()
         {
             try
@@ -131,7 +131,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         // -->Get Service By Id
         [HttpGet]
         [Route("GetServiceById/{id:Guid}")]
-        [Authorize(Roles = "Admin,ServiceProvider")]
+        [Authorize(Roles = "Admin,ServiceProvider ,Customer")]
         public async Task<IActionResult> GetServiceById(Guid id)
         {
             try
@@ -187,7 +187,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
                 return BadRequest(new
                 {
                     Success = false,
-                    ErrorMessage = ex.Message,
+                    ErrorMessage = ex.InnerException.Message,
                 });
             }
         }

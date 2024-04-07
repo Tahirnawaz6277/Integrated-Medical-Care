@@ -16,10 +16,6 @@ namespace imc_web_api.Models
         [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Order quantity is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "Order quantity must be at least 1.")]
-        public int OrderQuantity { get; set; }
-
         [Required(ErrorMessage = "Order status is required.")]
         public OrderStatusEnum.OrderStatus orderStatus { get; set; }
 
@@ -44,7 +40,7 @@ namespace imc_web_api.Models
         //[ForeignKey("OrderToUserId")]
         //public user OrderTo { get; set; }
 
-       
+
         public List<orderItem> OrderItems { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -16,17 +16,21 @@ export const endPoints = {
   },
   ServiceProviders: {
     GetHCPs: `${BASE_URL}/ManageHCP/GetHCPs`,
-    DeleteHCP: `${BASE_URL}/ManageHCP/DeleteHCP`,
+    GetSingleHCP: `${BASE_URL}/ManageHCP/GetHCP`,
+    DeleteHcp: `${BASE_URL}/ManageHCP/DeleteHCP`,
     UpdateHCP: `${BASE_URL}/ManageHCP/UpdateHCP`,
     AddHCP: `${BASE_URL}/ManageHCP/AddHCP`,
   },
+
   Feedbacks: {
+    AddFeedback: `${BASE_URL}/ManageFeedBack/AddFeedback`,
     GetFeedbacks: `${BASE_URL}/ManageFeedBack/GetFeedbacks`,
     DeleteFeedback: `${BASE_URL}/ManageFeedBack/DeleteFeedback`,
   },
 
   Services: {
     GetServices: `${BASE_URL}/ManageServices/GetServices`,
+
     DeleteService: `${BASE_URL}/ManageServices/DeleteService`,
     AddService: `${BASE_URL}/ManageServices/AddService`,
   },
@@ -35,5 +39,13 @@ export const endPoints = {
     GetPromotions: `${BASE_URL}/ManagePromotion/GetPromotions`,
     SendPromotion: `${BASE_URL}/ManagePromotion/AddPromotion`,
     DeletePromotion: `${BASE_URL}/ManagePromotion/DeletePromotion`,
+  },
+
+  Qualifications: {
+    AddQualification: `${BASE_URL}/Auth/AddQualification`,
+  },
+
+  OrderItems: {
+    Add_OrderItems: `${BASE_URL}/OrderItem/OrderItem`,
   },
 };

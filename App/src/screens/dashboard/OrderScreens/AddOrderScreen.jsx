@@ -20,7 +20,6 @@ const AddOrderScreen = () => {
     initialValues: {
       contact: "",
       address: "",
-      orderQuantity: "",
       amount: "",
       paymentMode: "",
 
@@ -29,7 +28,7 @@ const AddOrderScreen = () => {
     validationSchema: Yup.object().shape({
       contact: Yup.string().required(),
       address: Yup.string().required(),
-      orderQuantity: Yup.number().required(),
+
       amount: Yup.string().required(),
       paymentMode: Yup.string().required(),
 
@@ -115,23 +114,6 @@ const AddOrderScreen = () => {
         />
         {formik.touched.address && (
           <Form.Text className="text-danger">{formik.errors.address}</Form.Text>
-        )}
-      </Form.Group>
-
-      <Form.Group className="mb-3 ">
-        <Form.Label>Quantity</Form.Label>
-        <Form.Control
-          type="number"
-          name="orderQuantity"
-          value={formik.values.orderQuantity}
-          placeholder="Enter The Order Quantity"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.orderQuantity && (
-          <Form.Text className="text-danger">
-            {formik.errors.orderQuantity}
-          </Form.Text>
         )}
       </Form.Group>
 

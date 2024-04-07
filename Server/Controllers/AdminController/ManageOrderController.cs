@@ -53,6 +53,7 @@ namespace imc_web_api.Controllers.AdminController
                 return Ok(new
                 {
                     Success = true,
+                    data = Order_DTO_Result,
                     Message = "Order Placed Successfully!",
                 });
             }

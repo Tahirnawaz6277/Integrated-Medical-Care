@@ -1,9 +1,14 @@
 import axios from "axios";
 import { endPoints } from "../config/endPoints";
 
-export const registerUser = async (data) => {
+export const registerUser = async (
+  data,
+  serviceProviderTypeId = null,
+  QualificationId = null
+) => {
+  data.ServiceProvidertypeId = serviceProviderTypeId;
+  data.User_QualificationId = QualificationId;
   let result = await axios.post(endPoints.Account.Signup, data);
-
   return result.data;
 };
 
@@ -31,5 +36,13 @@ export const addUser = async (data) => {
 
 export const editUser = async (id, data) => {
   let result = await axios.put(`${endPoints.Account.UpdateUser}/${id}`, data);
+  return result.data;
+};
+
+export const Add_User_Qualification = async (data) => {
+  let result = await axios.post(
+    endPoints.Qualifications.AddQualification,
+    data
+  );
   return result.data;
 };

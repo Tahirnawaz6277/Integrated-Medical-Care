@@ -58,12 +58,11 @@ namespace imc_web_api.Controllers.AdminController
             try
             {
                 var result = await _manageAccountService.GetUsers(filterOn, filterQuery, pageNumber, pageSize);
-                var Dto_Result = _mapper.Map<List<RegisterationResponseDto>>(result);
 
                 return Ok(new
                 {
                     Success = true,
-                    Data = Dto_Result
+                    Data = result
                 });
             }
             catch (Exception ex)

@@ -108,11 +108,20 @@ namespace imc_web_api.Controllers.AdminController
         //-->GetAll Feedback
         [HttpGet]
         [Route("GetFeedbacks")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> GetFeedbacks()
         {
             try
             {
+
+                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(CurrentUserId))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+
+
                 var FeedbackResult = await _feedbackService.GetFeedbacks();
 
                 var FeedbackDtoResult = _mapper.Map<List<FeedBackResponseDTO>>(FeedbackResult);

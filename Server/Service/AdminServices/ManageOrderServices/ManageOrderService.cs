@@ -28,7 +28,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         //-->  Delete Order
         public async Task<order?> DeleteOrder(Guid id)
         {
-            var Existing_Order = await _ImcDbContext.Orders
+            var Existing_Order = await _ImcDbContext.Orders.Include(o => o.OrderItems)
 
                 .FirstOrDefaultAsync(o => o.Id == id);
 
@@ -68,7 +68,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
                 Existing_Order.Contact = UserInputReguest.Contact;
 
                 Existing_Order.Address = UserInputReguest.Address;
-                Existing_Order.OrderQuantity = UserInputReguest.OrderQuantity;
+               
                 Existing_Order.Amount = UserInputReguest.Amount;
                 Existing_Order.PaymentMode = UserInputReguest.PaymentMode;
                 Existing_Order.IsDeleted = UserInputReguest.IsDeleted;

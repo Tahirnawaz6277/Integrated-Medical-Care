@@ -10,3 +10,17 @@ export const loggedOut_User = () => {
     type: "SET_LOGGED_Out_USER",
   };
 };
+
+export const AddToCart = (data) => {
+  return {
+    type: "Add_To_Cart",
+    payload: data,
+  };
+};
+
+export const DeleteFromCart = (id) => {
+  return {
+    type: "Delete_From_Cart",
+    payload: id,
+  };
+};

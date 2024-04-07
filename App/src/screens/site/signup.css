@@ -1,1 +1,26 @@
-/*# sourceMappingURL=signup.css.map */
+.signup-form {
+  margin: 0 auto;
+  padding: 45px;
+  border-radius: 5px;
+  background-color: white;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 39%;
+}
+.signup-form .form-control {
+  padding: 10px;
+}
+.signup-form .form-select {
+  padding: 10px;
+}
+.signup-form .text-danger {
+  font-size: 14px;
+  color: #dc3545;
+}
+.signup-form .btn-primary {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+}/*# sourceMappingURL=signup.css.map */

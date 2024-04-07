@@ -25,11 +25,14 @@ const HcpScreen = () => {
   const handleDelete = (id) => {
     DeleteServiceProviders(id)
       .then((res) => {
+        console.log(res);
         if (res.success) {
           updatedHCP();
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     updatedHCP();
@@ -52,6 +55,8 @@ const HcpScreen = () => {
               <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Service</th>
+
                 <th>Date Created</th>
                 <th>Action</th>
               </tr>
@@ -61,13 +66,14 @@ const HcpScreen = () => {
               {HCP.map((user, index) => (
                 <tr key={index}>
                   <td>{index}</td>
-                  <td>{user.providerName}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.serviceProviderType.providerName}</td>
                   <td>{user.createdAt}</td>
                   <td style={{ display: "flex", gap: "8px" }}>
                     <Button
                       variant="danger"
                       onClick={() => {
-                        handleDelete(user.id);
+                        handleDelete(user.serviceProviderType.id);
                       }}
                     >
                       Delete

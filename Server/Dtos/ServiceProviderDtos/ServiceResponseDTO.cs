@@ -15,15 +15,17 @@ namespace imc_web_api.Dtos.ServiceProviderDtos
         public int TotalQuantity { get; set; }
         //public string Status { get; set; }
 
-        public Guid? CreatedByProviderTypeId { get; set; }
+       
+        
+        //public Guid? CreatedByProviderTypeId { get; set; }
 
-        [ForeignKey("CreatedByProviderTypeId")]
-        public serviceprovidertype ServiceProviderType { get; set; }
+        //[ForeignKey("CreatedByProviderTypeId")]
+        //public serviceprovidertype ServiceProviderType { get; set; }
 
 
-        public string? AdminId { get; set; }
+        public string CreatedById { get; set; }
 
-        [ForeignKey("CreatedByAdminId")]
+        [ForeignKey("CreatedById")]
         public user User { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

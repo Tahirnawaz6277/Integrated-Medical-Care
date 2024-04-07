@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormControl,
   FormLabel,
+  Image,
 } from "react-bootstrap";
 import "./login.scss";
 import { loginUser } from "../../services/accountService";
@@ -59,6 +60,9 @@ const LoginScreen = () => {
   return (
     <>
       <Form className="form" onSubmit={formik.handleSubmit}>
+        <center>
+          <Image src="../../../images/logo.png" />{" "}
+        </center>
         <FormGroup className="form-group">
           <FormLabel className="form-label">Email address</FormLabel>
           <FormControl
@@ -94,6 +98,7 @@ const LoginScreen = () => {
             </Form.Text>
           )}
         </FormGroup>
+        <br />
 
         <Button
           disabled={!formik.isValid}

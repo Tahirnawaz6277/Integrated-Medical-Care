@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace imc_web_api.Migrations
 {
     /// <inheritdoc />
-    public partial class dbUpdated : Migration
+    public partial class DbInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -338,30 +338,30 @@ namespace imc_web_api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "07342fbe-09b6-49b0-8eae-9dad4a76633b", "07342fbe-09b6-49b0-8eae-9dad4a76633b", "Admin", "ADMIN" },
-                    { "c2e75608-0e4d-490a-a54c-50f82bddbecc", "c2e75608-0e4d-490a-a54c-50f82bddbecc", "ServiceProvider", "SERVICEPROVIDER" },
-                    { "ff6bba9a-dbd3-4f80-a93e-c744815e8b79", "ff6bba9a-dbd3-4f80-a93e-c744815e8b79", "Customer", "CUSTOMER" }
+                    { "055e5958-73bb-4789-92e1-5da12cb0b758", "055e5958-73bb-4789-92e1-5da12cb0b758", "Customer", "CUSTOMER" },
+                    { "a079577f-2202-4e86-be9d-f6ffa9ddcd6b", "a079577f-2202-4e86-be9d-f6ffa9ddcd6b", "Admin", "ADMIN" },
+                    { "c1b6eba5-e8da-4e67-bd6c-eee320b4f37c", "c1b6eba5-e8da-4e67-bd6c-eee320b4f37c", "ServiceProvider", "SERVICEPROVIDER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Discriminator", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "ServiceProvidertypeId", "TwoFactorEnabled", "UserName", "User_QualificationId" },
-                values: new object[] { "69fb4c78-27ec-4a13-9193-e61043fe31ac", 0, "7e006983-d385-432a-b536-119cb298f12e", new DateTime(2024, 4, 2, 19, 31, 48, 84, DateTimeKind.Utc).AddTicks(8479), "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEOrJoPwIySy7hv0Anx6YT9b39tMCERLUGBBr8KqhsAb6EkgPslh4Ka13syNr59Yh4g==", "03457689432", false, "Admin", "5bd87ac2-624a-4250-bc51-2823e1c9d819", null, false, "Aamir@gmail.com", null });
+                values: new object[] { "c17a1daf-d101-4764-b7c2-e62e4c9f99be", 0, "879909db-2071-4d60-b1c8-90fc82510b94", new DateTime(2024, 4, 7, 22, 34, 57, 705, DateTimeKind.Utc).AddTicks(7191), "user", "Aamir@gmail.com", true, "Aamir", "Male", "nawaz", false, null, "Aamir@gmail.com", "Aamir@gmail.com", "AQAAAAIAAYagAAAAEKmicdzhpi7zKtP0/N+AjfAxxV1o6NqJyQzXVWtNryG65khIk1RjDzjfmgsI6Ppn7A==", "03457689432", false, "Admin", "8bc75d8f-79da-48ad-a0cd-cce5f4952f09", null, false, "Aamir@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "ServiceProviderTypes",
                 columns: new[] { "Id", "CreatedAt", "ProviderName" },
                 values: new object[,]
                 {
-                    { new Guid("b42133e0-61a7-437f-9783-4c788b1a424e"), new DateTime(2024, 4, 2, 19, 31, 48, 184, DateTimeKind.Utc).AddTicks(246), "Pharmacy" },
-                    { new Guid("b5ee9dd5-8eb5-4f9c-98cb-596d2aabdeae"), new DateTime(2024, 4, 2, 19, 31, 48, 184, DateTimeKind.Utc).AddTicks(261), "Ambulance" },
-                    { new Guid("c3ad9ffd-4cf1-4992-ae70-550f9822eb1e"), new DateTime(2024, 4, 2, 19, 31, 48, 184, DateTimeKind.Utc).AddTicks(222), "Doctor" }
+                    { new Guid("4a990d02-39ad-4073-b6e9-464f72e05197"), new DateTime(2024, 4, 7, 22, 34, 57, 893, DateTimeKind.Utc).AddTicks(8973), "Pharmacy" },
+                    { new Guid("733e1bf4-9001-45f3-9617-c66977e0ff72"), new DateTime(2024, 4, 7, 22, 34, 57, 893, DateTimeKind.Utc).AddTicks(8935), "Doctor" },
+                    { new Guid("dc76d19c-a71e-48a6-9eb0-6cafa1010cbf"), new DateTime(2024, 4, 7, 22, 34, 57, 893, DateTimeKind.Utc).AddTicks(8975), "Ambulance" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "07342fbe-09b6-49b0-8eae-9dad4a76633b", "69fb4c78-27ec-4a13-9193-e61043fe31ac" });
+                values: new object[] { "a079577f-2202-4e86-be9d-f6ffa9ddcd6b", "c17a1daf-d101-4764-b7c2-e62e4c9f99be" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

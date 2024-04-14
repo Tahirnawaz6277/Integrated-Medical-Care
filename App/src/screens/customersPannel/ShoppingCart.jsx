@@ -23,8 +23,13 @@ const ShoppingCart = () => {
     setTotalPrice(totalPrice);
   };
   useEffect(() => {
-    setCartItems(getCartItems);
+    if (getCartItems && getCartItems.length >= 0) {
+      setCartItems(getCartItems);
+    } else {
+      setCartItems([]);
+    }
   }, [getCartItems]);
+
   useEffect(() => {
     getTotalPrice();
   }, [cartItem]);
@@ -109,7 +114,7 @@ const ShoppingCart = () => {
                     </td>
                     <td className="align-middle p-4">
                       <i
-                        class="fa fa-plus-circle "
+                        className="fa fa-plus-circle "
                         style={{ marginRight: "7px", cursor: "pointer" }}
                         aria-hidden="true"
                         onClick={() => {}}

@@ -73,7 +73,7 @@ const Sidebar = () => {
                       right: "-10px",
                     }}
                   >
-                    {getCartItems.length}
+                    {getCartItems.length >= 1 ? getCartItems.length : 0}
                   </Badge>
                 </i>
               </NavLink>

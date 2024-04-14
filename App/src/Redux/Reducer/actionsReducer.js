@@ -18,6 +18,13 @@ export const actionsReducer = (state = initialState, action) => {
       };
 
     case "Add_To_Cart":
+      if (!state.Cart) {
+        return {
+          ...state,
+          Cart: [],
+        };
+      }
+
       var itemExistsIndex = state.Cart.findIndex(
         (item) => item.id === action.payload.id
       );

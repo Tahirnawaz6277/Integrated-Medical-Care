@@ -9,6 +9,7 @@ using imc_web_api.Service.AdminServices.ManageHCPServices;
 using imc_web_api.Service.AdminServices.ManageOrderServices;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
 using imc_web_api.Service.AdminServices.NewFolder;
+using imc_web_api.Service.AdminServices.OrderItemServices;
 using imc_web_api.Service.AuthService;
 using imc_web_api.Service.AuthServices;
 using imc_web_api.Service.EmailServices;
@@ -97,6 +98,7 @@ builder.Services.AddScoped<IManageHCPService, ManageHCPServices>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddScoped<IManageService, ManageService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 
 builder.Services.AddScoped<IManageFeedbackService, ManageFeedBackService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();

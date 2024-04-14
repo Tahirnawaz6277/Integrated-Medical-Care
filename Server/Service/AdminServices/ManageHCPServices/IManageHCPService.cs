@@ -12,8 +12,8 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
 
         Task<serviceprovidertype?> UpdateProvider(Guid id, HCPRequestDTO InputRequestDTO);
 
-        Task<serviceprovidertype?> GetProviderById(Guid id);
+        Task<user?> GetProviderById(Guid id);
 
-        Task<List<serviceprovidertype>> GetProviders();
+        Task<List<user>> GetProviders();
     }
 }

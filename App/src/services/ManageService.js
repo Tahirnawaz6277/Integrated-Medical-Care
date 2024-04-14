@@ -35,6 +35,3 @@ export const AddService = async (data, loggedIn_User) => {
 
   return result.data;
 };
-
-// CreatedByProviderTypeId: "",
-//       CreatedByAdminId: "",

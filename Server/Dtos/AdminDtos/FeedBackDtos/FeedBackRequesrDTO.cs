@@ -3,9 +3,9 @@
     public class FeedBackRequesrDTO
     {
         public string Description { get; set; }
-        public decimal Rating { get; set; }
+        public int Rating { get; set; }
 
-        //public Guid ratedById { get; set; }
+       public Guid ratedById { get; set; }
 
         public Guid ratedToId { get; set; }
     }

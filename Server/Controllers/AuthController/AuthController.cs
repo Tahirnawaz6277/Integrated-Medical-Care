@@ -63,7 +63,7 @@ namespace imc_web_api.Controllers.AuthController
                 {
                     Success = false,
 
-                    ErrorMessage = ex.Message,
+                    ErrorMessage = ex.InnerException.Message,
                 });
             }
         }
@@ -97,6 +97,7 @@ namespace imc_web_api.Controllers.AuthController
             var Qualification_Dto_Result = _mapper.Map<QualificationResponseDTO>(Qualification_Model_Result);
             return Ok(new
             {
+                Success = true,
                 Data = Qualification_Dto_Result
             });
         }

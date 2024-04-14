@@ -14,8 +14,8 @@ const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [filterOn, setFilterOn] = useState("firstName");
-  const [filterQuery, setFilterQuery] = useState("");
+  const [filterOn, setFilterOn] = useState(null);
+  const [filterQuery, setFilterQuery] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 

@@ -27,17 +27,29 @@ namespace imc_web_api
         {
             builder.Entity<user>()
                 .HasOne(u => u.ServiceProviderType)
-                .WithOne(u => u.User)
-                .HasForeignKey<user>(u => u.ServiceProvidertypeId)
+                .WithMany(u => u.Users)
+                .HasForeignKey(u => u.ServiceProvidertypeId)
+                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired(false);
+
+            //builder.Entity<serviceprovidertype>()
+            // .HasOne(s => s.User)
+            // .WithOne(s => s.ServiceProviderType)
+            //.HasForeignKey(s => s.UserId)
+            // .IsRequired(false);
 
             builder.Entity<user>()
                .HasOne(u => u.User_Qualification)
                .WithOne(u => u.User)
                .HasForeignKey<user>(u => u.User_QualificationId)
+              .OnDelete(DeleteBehavior.ClientCascade)
                .IsRequired(false);
 
-    
+            builder.Entity<user_qualification>()
+              .HasOne(u => u.User)
+              .WithOne(u => u.User_Qualification)
+              .OnDelete(DeleteBehavior.ClientCascade)
+              .IsRequired(false);
 
             //----------------- Order Relationshipe
 
@@ -45,36 +57,30 @@ namespace imc_web_api
             .HasOne(o => o.OrderBy)             // Order has one User
             .WithMany(u => u.OrdersByUser)         // User has many Orders
             .HasForeignKey(o => o.OrderByUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.ClientCascade);
+
 
             // Configure the relationship between orderItem and service
             builder.Entity<orderItem>()
                 .HasOne(oi => oi.Service)
                 .WithMany(s => s.OrderItems)
                 .HasForeignKey(oi => oi.ServiceId)
-                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+                .OnDelete(DeleteBehavior.ClientCascade); // Prevent cascade delete
 
             // Configure the relationship between orderItem and order
             builder.Entity<orderItem>()
                 .HasOne(oi => oi.Order)
                 .WithMany(o => o.OrderItems)
                 .HasForeignKey(oi => oi.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.ClientCascade);
 
             //----------------- Service Relationshipe
 
             builder.Entity<service>()
-              .HasOne(s => s.ServiceProviderType)
-              .WithMany(s => s.givenServices)
-              .HasForeignKey(s => s.CreatedByProviderTypeId)
-                 .OnDelete(DeleteBehavior.Restrict)
-              .IsRequired(false);
-
-            builder.Entity<service>()
            .HasOne(s => s.User)
            .WithMany(s => s.services)
-           .HasForeignKey(s => s.CreatedByAdminId)
-       .OnDelete(DeleteBehavior.Restrict)
+           .HasForeignKey(s => s.CreatedById)
+           .OnDelete(DeleteBehavior.ClientCascade)
            .IsRequired(false);
 
             //------------------    relationship for feedback
@@ -83,13 +89,13 @@ namespace imc_web_api
               .HasOne(f => f.User)
               .WithMany(u => u.User_Feedbacks)
               .HasForeignKey(f => f.ratedById)
-              .OnDelete(DeleteBehavior.Restrict);
+    .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.Entity<feedback>()
              .HasOne(f => f.Service)
              .WithMany(u => u.User_Feedbacks)
              .HasForeignKey(f => f.ratedToId)
-               .OnDelete(DeleteBehavior.Restrict);
+ .OnDelete(DeleteBehavior.ClientCascade);
 
             //------------------    relationship for Promotion
 
@@ -97,15 +103,13 @@ namespace imc_web_api
                 .HasOne(p => p.PromoteToUser)          //has one user
                 .WithMany(u => u.PromoteTo)                   //have many Promotion
                 .HasForeignKey(p => p.PromoteToId)
-                .OnDelete(DeleteBehavior.Restrict);
+    .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.Entity<promotion>()
                 .HasOne(p => p.PromoteByUser)      //has one user
                 .WithMany(u => u.PromoteBy)                    //admin sent many Promotions to user
                 .HasForeignKey(p => p.PromoteById)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-       
+              .OnDelete(DeleteBehavior.ClientCascade);
 
             base.OnModelCreating(builder);
             var AdminRoleId = Guid.NewGuid().ToString();
@@ -204,74 +208,6 @@ namespace imc_web_api
                 experience = "1 YEAR",
                }
             };
-
-            //--->> Data seeding for User_Provider_doctor
-
-            var provider_Doctor = new List<user>()
-            {
-                new user
-                {
-                   Id = Guid.NewGuid().ToString(),
-                FirstName = "Aqib",
-                LastName = "nawaz",
-                PhoneNumber = "03457689432",
-                Gender = "Male",
-                Role = "Provider",
-                UserName = "Aqib@gmail.com",
-                NormalizedUserName = "Aqib@gmail.com",
-                Email = "Aqib@gmail.com",
-                NormalizedEmail = "Aqib@gmail.com",
-                EmailConfirmed = true,
-                ServiceProvidertypeId = providerTypeData[0].Id,
-                User_QualificationId = qualification[0].Id,
-                },
-                new user
-                {
-                   Id = Guid.NewGuid().ToString(),
-                FirstName = "Waheed",
-                LastName = "Quraishi",
-                PhoneNumber = "03457689432",
-                Gender = "Male",
-                Role = "Provider",
-                UserName = "Waheed@gmail.com",
-                NormalizedUserName = "Waheed@gmail.com",
-                Email = "Waheed@gmail.com",
-                NormalizedEmail = "Waheed@gmail.com",
-                EmailConfirmed = true,
-                ServiceProvidertypeId = providerTypeData[1].Id,
-                User_QualificationId = qualification[1] .Id,
-                },
-                new user
-                {
-                   Id = Guid.NewGuid().ToString(),
-                FirstName = "Hameed",
-                LastName = "Khan",
-                PhoneNumber = "03457689432",
-                Gender = "Male",
-                Role = "Provider",
-                UserName = "Hameed@gmail.com",
-                NormalizedUserName = "Hameed@gmail.com",
-                Email = "Hameed@gmail.com",
-                NormalizedEmail = "Hameed@gmail.com",
-                EmailConfirmed = true,
-                ServiceProvidertypeId = providerTypeData[2].Id,
-                User_QualificationId = qualification[2].Id,
-                }
-            };
-
-            builder.Entity<user_qualification>().HasData(qualification);
-            string provider_DoctorPass = "Aamir@123"; // Replace with a secure password
-            string provider_DoctorPass1 = "Waheed@123"; // Replace with a secure password
-
-            string provider_DoctorPass2 = "Hameed@123"; // Replace with a secure password
-
-            var passHasher = new PasswordHasher<user>();
-            provider_Doctor[0].PasswordHash = passwordHasher.HashPassword(provider_Doctor[0], provider_DoctorPass);
-
-            provider_Doctor[1].PasswordHash = passwordHasher.HashPassword(provider_Doctor[1], provider_DoctorPass1);
-            provider_Doctor[2].PasswordHash = passwordHasher.HashPassword(provider_Doctor[2], provider_DoctorPass2);
-
-            builder.Entity<user>().HasData(provider_Doctor);
         }
     }
 }

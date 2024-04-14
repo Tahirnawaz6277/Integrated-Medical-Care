@@ -6,9 +6,16 @@ export const GetServiceProviders = async () => {
   return result.data;
 };
 
+export const GetSingleServiceProvider = async (id) => {
+  const result = await axios.get(
+    `${endPoints.ServiceProviders.GetSingleHCP}/${id}`
+  );
+  return result.data;
+};
+
 export const DeleteServiceProviders = async (id) => {
   let result = await axios.delete(
-    `${endPoints.ServiceProviders.DeleteHCP}?id=${id}`
+    `${endPoints.ServiceProviders.DeleteHcp}?id=${id}`
   );
 
   return result.data;
@@ -16,7 +23,11 @@ export const DeleteServiceProviders = async (id) => {
 
 export const AddServiceProviders = async (data) => {
   const result = await axios.post(endPoints.ServiceProviders.AddHCP, data);
-  return result.data;
+  const providers = await axios.get(endPoints.ServiceProviders.GetHCPs);
+  return {
+    providerRequestData: result.data,
+    providerResponseData: providers.data,
+  };
 };
 
 export const UpdateServiceProviders = async (id, data) => {

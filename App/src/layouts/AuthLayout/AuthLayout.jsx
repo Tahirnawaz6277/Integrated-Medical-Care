@@ -7,11 +7,8 @@ const AuthLayout = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6 p-5">
+          <div className="col-md-12 AuthSidebar">
             <Outlet />
-          </div>
-          <div className="col-md-6 AuthSidebar">
-            <h1>IMC</h1>
           </div>
         </div>
       </div>

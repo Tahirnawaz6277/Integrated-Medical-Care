@@ -1,16 +1,14 @@
-﻿using imc_web_api.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using imc_web_api.Models;
 
 namespace imc_web_api.Dtos.AdminDtos.OrderDtos
 {
     public class OrderResponseDTO
     {
-        
         public Guid Id { get; set; }
         public string Contact { get; set; }
         public string Address { get; set; }
-        public int OrderQuantity { get; set; }
+
         public string OrderStatus { get; set; }
         public int Amount { get; set; }
         public string PaymentMode { get; set; }
@@ -19,12 +17,6 @@ namespace imc_web_api.Dtos.AdminDtos.OrderDtos
 
         [ForeignKey("OrderByUserId")]
         public user OrderBy { get; set; }
-
-        public Guid ServiceId { get; set; }
-
-        [ForeignKey("ServiceId")]
-        public service Service { get; set; }
-
 
         public DateTime OrderDate { get; set; }
     }

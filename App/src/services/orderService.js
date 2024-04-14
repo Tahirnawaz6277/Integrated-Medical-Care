@@ -18,12 +18,50 @@ export const DeleteOrder = async (id, loggedIn_User) => {
   return result.data;
 };
 
-export const AddOrder = async (data, loggedIn_User) => {
-  data.OrderByUserId = loggedIn_User.LoggedIn_User_Id;
-  let result = await axios.post(endPoints.Orders.AddOrder, data, {
-    headers: {
-      Authorization: `Bearer ${loggedIn_User.token}`,
-    },
+export const AddOrder = async (orderData, loggedIn_User) => {
+  orderData.OrderByUserId = loggedIn_User.LoggedIn_User_Id;
+
+  // Iterate over each service ID and create an order for each
+  const ordersPromises = orderData.serviceId.map(async (serviceId, index) => {
+    const order = {
+      contact: orderData.contact,
+      address: orderData.address,
+      amount: orderData.amount[index],
+      paymentMode: orderData.paymentMode,
+      quantity: orderData.quantity[index],
+      OrderByUserId: orderData.OrderByUserId,
+      serviceId: serviceId,
+    };
+
+    return axios.post(endPoints.Orders.AddOrder, order, {
+      headers: {
+        Authorization: `Bearer ${loggedIn_User.token}`,
+      },
+    });
   });
-  return result.data;
+
+  const orderResponses = await Promise.all(ordersPromises);
+
+  // Gather all order IDs
+  const orderIds = orderResponses.map((response) => response.data.data.id);
+
+  // Prepare order items array
+  const orderItems = orderData.serviceId.map((serviceId, index) => ({
+    ServiceId: serviceId,
+    OrderId: orderIds[index],
+    Quantity: orderData.quantity[index],
+  }));
+
+  // Insert all order items asynchronously
+  const orderItemPromises = orderItems.map((element) => {
+    return axios.post(endPoints.OrderItems.Add_OrderItems, element, {
+      headers: {
+        Authorization: `Bearer ${loggedIn_User.token}`,
+      },
+    });
+  });
+
+  const orderItemRes = await Promise.all(orderItemPromises);
+
+  return orderItemRes;
 };

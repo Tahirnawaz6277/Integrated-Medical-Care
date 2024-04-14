@@ -31,7 +31,7 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
         {
             var serviceProvider = await _imcDbContext.ServiceProviderTypes
                 .Include(p => p.givenServices)
-                .Include(p => p.User)
+                .Include(p => p.Users)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (serviceProvider == null)
@@ -39,9 +39,12 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
                 return null;
             }
 
-            if (serviceProvider.User != null)
+            if (serviceProvider.Users != null)
             {
-                _imcDbContext.Users.Remove(serviceProvider.User);
+                foreach (var user in serviceProvider.Users.ToList())
+                {
+                    _imcDbContext.Users.Remove(user);
+                }
             }
             // Remove each given service
             if (serviceProvider.givenServices != null)
@@ -57,18 +60,27 @@ namespace imc_web_api.Service.AdminServices.ManageHCPServices
             return serviceProvider;
         }
 
-        public async Task<List<serviceprovidertype>> GetProviders()
+        public async Task<List<user>> GetProviders()
         {
-            return await _imcDbContext.ServiceProviderTypes
-                .Include(p => p.givenServices)
-                .Include(p => p.User)
+            var serviceProviders = await _imcDbContext.Users
+       .Where(sp => sp.Role == "ServiceProvider")
+       .Include(sp => sp.ServiceProviderType)
+       .Include(sp => sp.User_Feedbacks)
 
-                .ToListAsync();
+       .Include(sp => sp.services)
+       .ToListAsync();
+
+            return serviceProviders;
         }
 
-        public async Task<serviceprovidertype?> GetProviderById(Guid id)
+        public async Task<user> GetProviderById(Guid id)
         {
-            return await _imcDbContext.ServiceProviderTypes.FirstOrDefaultAsync(sp => sp.Id == id);
+            return await _imcDbContext.Users
+                .Include(u => u.ServiceProviderType)
+                .Include(u => u.services)
+                   .ThenInclude(u => u.User_Feedbacks)
+
+                  .Where(u => u.Id == id.ToString()).SingleAsync();
         }
 
         public async Task<serviceprovidertype?> UpdateProvider(Guid id, HCPRequestDTO inputRequestDTO)

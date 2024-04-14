@@ -27,6 +27,7 @@ const ServiceScreen = () => {
   const fetchServices = () => {
     getServices(loggedIn_User)
       .then((res) => {
+        console.log(res);
         if (res.success) {
           setServices(res.data);
           setLoading(false);
@@ -59,6 +60,7 @@ const ServiceScreen = () => {
               <th>Service</th>
               <th>Charges</th>
               <th>Provided By</th>
+              <th>Role</th>
               <th>Date Created</th>
               <th>Action</th>
             </tr>
@@ -71,6 +73,8 @@ const ServiceScreen = () => {
                 <td>{service.serviceName}</td>
                 <td>{service.charges}</td>
                 <td>{`${service.user.firstName}  ${service.user.lastName}`}</td>
+
+                <td>{service.user.role}</td>
                 <td>{service.createdAt}</td>
 
                 <td style={{ display: "flex", gap: "8px" }}>

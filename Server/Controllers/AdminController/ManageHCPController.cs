@@ -38,12 +38,14 @@ namespace imc_web_api.Controllers.AdminController
                 var HCP_Model = _mapper.Map<serviceprovidertype>(UserInputReguest);
                 var HCP_Result = await _manageHCPService.AddProvider(HCP_Model);
 
-                var HCPDto_Result = _mapper.Map<HCPRequestDTO>(HCP_Result);
+                //var HCPDto_Result = _mapper.Map<HCPRequestDTO>(HCP_Result);
 
                 return Ok(new
                 {
                     success = true,
                     Message = "Provider Added Successfully!",
+                    Data = HCP_Result
+
                 });
             }
             catch (Exception ex)
@@ -98,12 +100,12 @@ namespace imc_web_api.Controllers.AdminController
             try
             {
                 var HCP_Model_Result = await _manageHCPService.GetProviders();
-                var HCP_DTO_Result = _mapper.Map<List<HCPResponseDTO>>(HCP_Model_Result);
+                //var HCP_DTO_Result = _mapper.Map<List<HCPResponseDTO>>(HCP_Model_Result);
 
                 return Ok(new
                 {
                     Success = true,
-                    Data = HCP_DTO_Result,
+                    Data = HCP_Model_Result,
                 });
             }
             catch (Exception ex)
@@ -129,12 +131,12 @@ namespace imc_web_api.Controllers.AdminController
                 }
                 var HCP_Model_Result = await _manageHCPService.GetProviderById(id);
 
-                var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
+                //var HCP_DTO_Result = _mapper.Map<HCPResponseDTO>(HCP_Model_Result);
 
                 return Ok(new
                 {
                     success = true,
-                    Data = HCP_DTO_Result,
+                    Data = HCP_Model_Result,
                 });
             }
             catch (Exception ex)

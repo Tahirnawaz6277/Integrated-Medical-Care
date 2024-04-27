@@ -13,6 +13,9 @@ namespace imc_web_api.Dtos.AdminDtos.OrderDtos
         public int Amount { get; set; }
         public string PaymentMode { get; set; }
         public bool IsDeleted { get; set; }
+
+
+        public bool Paid { get; set; }
         public string OrderByUserId { get; set; }
 
         [ForeignKey("OrderByUserId")]

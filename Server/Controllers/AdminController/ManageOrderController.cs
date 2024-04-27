@@ -4,6 +4,7 @@ using imc_web_api.Dtos.AdminDtos.OrderDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageOrderServices;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
@@ -75,7 +76,16 @@ namespace imc_web_api.Controllers.AdminController
         {
             try
             {
-                var Order_Model_Result = await _manageOrderService.GetOrders();
+                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                // Get the current user's role
+                var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+
+                if (string.IsNullOrEmpty(CurrentUserId))
+                {
+                    return Unauthorized("User is not authenticated.");
+                }
+                var Order_Model_Result = await _manageOrderService.GetOrders(CurrentUserId , userRole);
                 var Order_DTO_Result = _mapper.Map<List<OrderResponseDTO>>(Order_Model_Result);
 
                 return Ok(new
@@ -125,10 +135,10 @@ namespace imc_web_api.Controllers.AdminController
         }
 
         //-->  Update Order
-        [HttpPut]
+        [HttpPatch]
         [Route("UpdateOrder/{id:Guid}")]
         [Authorize(Roles = "Admin,Customer,ServiceProvider")]
-        public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderRequestDTO Order_Input_Request)
+        public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] JsonPatchDocument patch)
         {
             try
             {
@@ -136,21 +146,18 @@ namespace imc_web_api.Controllers.AdminController
                 {
                     return BadRequest("Id Field is Required!");
                 }
-                var Order_Model = _mapper.Map<order>(Order_Input_Request);
-                var Order_Model_Result = await _manageOrderService.UpdateOrder(id, Order_Model);
+
+                var Order_Model_Result = await _manageOrderService.UpdateOrder(id, patch);
 
                 if (Order_Model_Result == null)
                 {
                     return NotFound("Record Not Found!");
                 }
 
-                var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
                 return Ok(new
                 {
                     Success = true,
-                    Message = "Order Updated!"
-
-,
+                    Message = "Order Updated!",
                 });
             }
             catch (Exception ex)
@@ -171,11 +178,15 @@ namespace imc_web_api.Controllers.AdminController
         {
             try
             {
+
+                // Get the current user's role
+                var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+
                 if (id == Guid.Empty)
                 {
                     return BadRequest("Id Field is Required!");
                 }
-                var Order_Model_Result = await _manageOrderService.DeleteOrder(id);
+                var Order_Model_Result = await _manageOrderService.DeleteOrder(id , userRole);
 
                 if (Order_Model_Result == null)
                 {

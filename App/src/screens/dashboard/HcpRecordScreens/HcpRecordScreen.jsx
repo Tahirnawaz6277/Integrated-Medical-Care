@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Card, Table } from "react-bootstrap";
+import { Button, Card, Table } from "react-bootstrap";
 import { GetServiceProviders } from "../../../services/serviceProvidersService";
+import { deleteUser } from "../../../services/accountService";
 
 export const HcpRecordScreen = () => {
   const [HCP, setHCP] = useState([]);
@@ -10,8 +11,11 @@ export const HcpRecordScreen = () => {
     GetServiceProviders()
       .then((res) => {
         if (res.success) {
-          console.log(res);
-          setHCP(res.data);
+          let serviceProviders = res.data.filter((hcp) => {
+            return hcp.role === "ServiceProvider";
+          });
+
+          setHCP(serviceProviders);
           setLoading(false);
         }
       })
@@ -20,13 +24,32 @@ export const HcpRecordScreen = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    deleteUser(id)
+      .then((res) => {
+        if (res.success) {
+          fetchServiceProviders();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     fetchServiceProviders();
   }, []);
 
   return (
     <Card>
-      <Card.Header>Manage Service Provider Records</Card.Header>
+      <Card.Header
+        style={{
+          background: "black  ",
+          padding: "20px ",
+          color: "white",
+        }}
+      >
+        Manage Service Provider Records
+      </Card.Header>
 
       <Card.Body>
         <Table responsive="sm">
@@ -34,25 +57,75 @@ export const HcpRecordScreen = () => {
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>Gender</th>
               <th>Phone Number</th>
-              <th>Provided Services</th>
-              <th>Service Rating</th>
-              <th>Service Feedbacks</th>
-              <th>Ordered Services</th>
+              <th> Speciality </th>
+              <th> Provided Services </th>
+
+              <th>Rating</th>
+              <th></th>
             </tr>
           </thead>
 
           <tbody>
             {HCP.map((hcp, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{hcp.providerName}</td>
-                {/* <td>{hcp.user.phoneNumber}</td> */}
-                <td>{hcp.givenServices}</td>
-                <td>{hcp.serviceRating}</td>
-                <td>{hcp.serviceFeedbacks}</td>
-                <td>{hcp.orderedServices}</td>
-              </tr>
+              <React.Fragment key={index}>
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{hcp.firstName}</td>
+                  <td>{hcp.gender}</td>
+                  <td>{hcp.phoneNumber}</td>
+                  <td>
+                    {hcp.serviceProviderType
+                      ? hcp.serviceProviderType.providerName
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {hcp.services.length > 0
+                      ? hcp.services.map((service, serviceIndex) => (
+                          <span key={serviceIndex}>
+                            {service.serviceName}
+                            {serviceIndex !== hcp.services.length - 1 && ", "}
+                          </span>
+                        ))
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {hcp.services.length > 0 ? (
+                      hcp.services.map((service, serviceIndex) => (
+                        <span key={serviceIndex}>
+                          {service.user_Feedbacks.length > 0 ? (
+                            <b>
+                              {(
+                                service.user_Feedbacks.reduce(
+                                  (total, feedback) => total + feedback.rating,
+                                  0
+                                ) / service.user_Feedbacks.length
+                              ).toFixed(2)}
+                            </b>
+                          ) : (
+                            <p>N/A</p>
+                          )}
+                          {serviceIndex !== hcp.services.length - 1 && ", "}
+                        </span>
+                      ))
+                    ) : (
+                      <p>N/A</p>
+                    )}
+                  </td>
+
+                  <td>
+                    <Button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        handleDelete(hcp.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </React.Fragment>
             ))}
           </tbody>
         </Table>

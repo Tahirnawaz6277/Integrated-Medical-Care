@@ -7,17 +7,27 @@ import {
   Table,
   Form,
 } from "react-bootstrap";
-import { deleteUser, getUsers } from "../../../services/accountService";
-import { NavLink } from "react-router-dom";
+import {
+  deleteUser,
+  getSingleUser,
+  getUsers,
+} from "../../../services/accountService";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const [filterOn, setFilterOn] = useState(null);
   const [filterQuery, setFilterQuery] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
 
   const fetchUsers = () => {
     getUsers(filterOn, filterQuery, pageNumber, pageSize)
@@ -57,7 +67,21 @@ const AccountScreen = () => {
           fetchUsers();
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleEdit = (id) => {
+    getSingleUser(id, loggedIn_User)
+      .then((res) => {
+        navigate("/dashboard/UpdateUserScreen", {
+          state: { user: res.data },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -67,7 +91,13 @@ const AccountScreen = () => {
   return (
     <>
       <Card>
-        <Card.Header>
+        <Card.Header
+          style={{
+            background: "black  ",
+            padding: "20px ",
+            color: "white",
+          }}
+        >
           Manage Accounts
           <NavLink to="/dashboard/signup">
             <Button className="float-end">Add New User</Button>{" "}
@@ -130,7 +160,14 @@ const AccountScreen = () => {
                     >
                       Delete
                     </Button>
-                    <Button className="btn btn-primary">Details</Button>
+                    <Button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        handleEdit(user.id);
+                      }}
+                    >
+                      Edit
+                    </Button>
                   </td>
                 </tr>
               ))}

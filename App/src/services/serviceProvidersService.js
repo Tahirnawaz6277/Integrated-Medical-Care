@@ -2,7 +2,7 @@ import axios from "axios";
 import { endPoints } from "../config/endPoints";
 
 export const GetServiceProviders = async () => {
-  const result = await axios.get(endPoints.ServiceProviders.GetHCPs);
+  const result = await axios.get(endPoints.Account.GetUsers);
   return result.data;
 };
 
@@ -24,10 +24,7 @@ export const DeleteServiceProviders = async (id) => {
 export const AddServiceProviders = async (data) => {
   const result = await axios.post(endPoints.ServiceProviders.AddHCP, data);
   const providers = await axios.get(endPoints.ServiceProviders.GetHCPs);
-  return {
-    providerRequestData: result.data,
-    providerResponseData: providers.data,
-  };
+  return result.data;
 };
 
 export const UpdateServiceProviders = async (id, data) => {

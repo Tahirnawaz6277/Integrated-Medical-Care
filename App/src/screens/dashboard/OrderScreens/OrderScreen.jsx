@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Spinner, Table } from "react-bootstrap";
+import { Button, Card, Dropdown, Spinner, Table } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-import { getOrders, DeleteOrder } from "../../../services/orderService";
+import {
+  getOrders,
+  DeleteOrder,
+  UpdateOrderStatus,
+} from "../../../services/orderService";
 import { useSelector } from "react-redux";
 
 const OrderScreen = () => {
@@ -33,6 +37,19 @@ const OrderScreen = () => {
       })
       .catch((err) => {});
   };
+
+  const handleOrderStatus = (id, status) => {
+    UpdateOrderStatus(id, loggedIn_User, status)
+      .then((res) => {
+        if (res.success) {
+          fetchOrders();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -40,7 +57,13 @@ const OrderScreen = () => {
   return (
     <>
       <Card>
-        <Card.Header>
+        <Card.Header
+          style={{
+            background: "black  ",
+            padding: "20px ",
+            color: "white",
+          }}
+        >
           Manage Orders
           <NavLink to="/dashboard/AddOrderScreen">
             <Button className="float-end">Create Order</Button>
@@ -57,6 +80,7 @@ const OrderScreen = () => {
                 <th>Order Date</th>
                 <th>Price</th>
                 <th>status </th>
+                <th>Payement Status </th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -69,7 +93,54 @@ const OrderScreen = () => {
                   <td> {order.orderDate} </td>
                   <td> {order.amount} </td>
                   <td> {order.orderStatus} </td>
+
+                  <td>
+                    {order.paid == true ? (
+                      <b style={{ color: "green" }}>Paid</b>
+                    ) : (
+                      <b style={{ color: "red" }}>UnPaid</b>
+                    )}
+                  </td>
+
                   <td style={{ display: "flex", gap: "8px" }}>
+                    <Dropdown className="float-end" key={order.id}>
+                      <Dropdown.Toggle variant="success">
+                        Order Status
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu style={{ width: "200px" }}>
+                        <Dropdown.Item
+                          onClick={() => handleOrderStatus(order.id, "Pending")}
+                        >
+                          Pending
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleOrderStatus(order.id, "Processing")
+                          }
+                        >
+                          Processing
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleOrderStatus(order.id, "Shipped")}
+                        >
+                          Shipped
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleOrderStatus(order.id, "Cancelled")
+                          }
+                        >
+                          Cancelled
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleOrderStatus(order.id, "Delivered")
+                          }
+                        >
+                          Delivered
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                     <Button
                       variant="danger"
                       onClick={() => {

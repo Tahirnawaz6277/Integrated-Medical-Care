@@ -12,7 +12,7 @@ export const ProtectedRoute = ({ children, allowedRoles }) => {
       navigate("/");
     }
 
-    if (!isValidRole) navigate("/dashboard");
+    if (!isValidRole) navigate("/");
   }, [userData, navigate]);
 
   return <>{children}</>;

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import { getServices, DeleteService } from "../../../services/ManageService";
-import { NavLink } from "react-router-dom";
+import {
+  getServices,
+  DeleteService,
+  getService,
+} from "../../../services/ManageService";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ServiceScreen = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
@@ -27,7 +32,6 @@ const ServiceScreen = () => {
   const fetchServices = () => {
     getServices(loggedIn_User)
       .then((res) => {
-        console.log(res);
         if (res.success) {
           setServices(res.data);
           setLoading(false);
@@ -38,13 +42,33 @@ const ServiceScreen = () => {
       });
   };
 
+  const handleEditService = (id) => {
+    getService(id, loggedIn_User)
+      .then((res) => {
+        if (res.success) {
+          navigate("/dashboard/updateService", {
+            state: { service: res.data },
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     fetchServices();
   }, [loggedIn_User]);
 
   return (
     <Card>
-      <Card.Header>
+      <Card.Header
+        style={{
+          background: "black  ",
+          padding: "20px ",
+          color: "white",
+        }}
+      >
         Manage Services
         <NavLink to="/dashboard/AddNewServiceScreen">
           <Button className="float-end">Add New Service</Button>
@@ -61,6 +85,8 @@ const ServiceScreen = () => {
               <th>Charges</th>
               <th>Provided By</th>
               <th>Role</th>
+
+              <th>Approval status</th>
               <th>Date Created</th>
               <th>Action</th>
             </tr>
@@ -75,10 +101,29 @@ const ServiceScreen = () => {
                 <td>{`${service.user.firstName}  ${service.user.lastName}`}</td>
 
                 <td>{service.user.role}</td>
+
+                <td>
+                  <span
+                    style={{
+                      color: service.status ? "green" : "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {service.status ? "Approved" : "Pending"}
+                  </span>
+                </td>
+
                 <td>{service.createdAt}</td>
 
                 <td style={{ display: "flex", gap: "8px" }}>
-                  <Button variant="primary">Edit</Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      handleEditService(service.id);
+                    }}
+                  >
+                    Edit
+                  </Button>
                   <Button
                     variant="danger"
                     onClick={() => {

@@ -45,7 +45,15 @@ const FeedbackScreen = () => {
 
   return (
     <Card>
-      <Card.Header>Manage Feedbacks</Card.Header>
+      <Card.Header
+        style={{
+          background: "black  ",
+          padding: "20px ",
+          color: "white",
+        }}
+      >
+        Manage Feedbacks
+      </Card.Header>
 
       <Card.Body>
         {loading && <Spinner size="sm" />}

@@ -13,7 +13,11 @@ const ServiceProvidersScreen = () => {
     GetServiceProviders()
       .then((res) => {
         if (res.success) {
-          setHCP(res.data);
+          let hcps = res.data.filter((hcp) => {
+            return hcp.role === "ServiceProvider";
+          });
+
+          setHCP(hcps);
           setLoading(false);
         }
       })
@@ -52,8 +56,8 @@ const ServiceProvidersScreen = () => {
                   <Card.Text>
                     <strong>Email:</strong> {user.email} <br />
                     <strong>Phone Number:</strong> {user.phoneNumber} <br />
-                    <strong>Service:</strong>{" "}
-                    {user.serviceProviderType.providerName}
+                    <strong>Service:</strong>
+                    {user.serviceProviderType?.providerName || "N/A"}
                   </Card.Text>
 
                   <Button onClick={() => hanldeFeedbackRating(user.id)}>

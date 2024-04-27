@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using imc_web_api.Dtos.AdminDtos.ExpenseDtos;
 using imc_web_api.Dtos.AdminDtos.FeedBackDtos;
 using imc_web_api.Dtos.AdminDtos.HCPDtos;
+using imc_web_api.Dtos.AdminDtos.InventoryDtos;
 using imc_web_api.Dtos.AdminDtos.Order_ItemsDtos;
 using imc_web_api.Dtos.AdminDtos.OrderDtos;
 using imc_web_api.Dtos.AdminDtos.PromotionDtos;
+using imc_web_api.Dtos.AdminDtos.RevenueDtos;
 using imc_web_api.Dtos.AuthDtos;
 using imc_web_api.Dtos.ServiceProviderDtos;
 using imc_web_api.Models;
@@ -29,6 +32,8 @@ namespace imc_web_api.AutoMapper
             CreateMap<service, ServiceRequestDTO>().ReverseMap();
             CreateMap<service, ServiceResponseDTO>().ReverseMap();
 
+            CreateMap<service, ServiceUpdateDto>().ReverseMap();
+
             //Mapping For Promotion
 
             CreateMap<promotion, PromotionRequestDTO>().ReverseMap();
@@ -47,6 +52,21 @@ namespace imc_web_api.AutoMapper
 
             CreateMap<orderItem, OrderItemRequestDto>().ReverseMap();
             CreateMap<orderItem, OrderItemResponseDto>().ReverseMap();
+
+            //Mapping for Inventory
+
+            CreateMap<Inventory, InventoryRequestDto>().ReverseMap();
+            CreateMap<Inventory, InventoryResponseDto>().ReverseMap();
+
+            //Mapping for Revenue
+
+            CreateMap<Revenue, RevenueRequestDto>().ReverseMap();
+            CreateMap<Revenue, RevenueResponseDto>().ReverseMap();
+
+            //Mapping for Expense
+
+            CreateMap<Expense, ExpenseRequestDto>().ReverseMap();
+            CreateMap<Expense, ExpenseResponseDto>().ReverseMap();
         }
     }
 }

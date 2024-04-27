@@ -8,7 +8,9 @@
         public string image { get; set; }
         public int AvailableQuantity { get; set; }
 
+        public bool QualityTermsAgreedWithAdmin { get; set; }
+
+     
         public int TotalQuantity { get; set; }
-  
     }
 }

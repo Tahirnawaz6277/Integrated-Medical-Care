@@ -12,6 +12,6 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service
 
         Task<service?> GetServiceById(Guid id);
 
-        Task<List<service>> GetServices();
+        Task<List<service>> GetServices(string? userId=null);
     }
 }

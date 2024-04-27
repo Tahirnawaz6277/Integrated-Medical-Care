@@ -4,7 +4,15 @@ import { Card, Table } from "react-bootstrap";
 const CustomerRecordScreen = () => {
   return (
     <Card>
-      <Card.Header>Manage Customer Record</Card.Header>
+      <Card.Header
+        style={{
+          background: "black  ",
+          padding: "20px ",
+          color: "white",
+        }}
+      >
+        Manage Customer Record
+      </Card.Header>
 
       <Card.Body>
         <Table responsive="sm">

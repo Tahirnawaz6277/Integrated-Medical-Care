@@ -18,6 +18,12 @@ export const getUsers = async (filterOn, filterQuery, pageNumber, pageSize) => {
   return result.data;
 };
 
+export const getSingleUser = async (id) => {
+  const url = `${endPoints.Account.GetUser}/${id}`;
+  let result = await axios.get(url);
+  return result.data;
+};
+
 export const deleteUser = async (id) => {
   let result = await axios.delete(`${endPoints.Account.DeleteUser}/${id}`);
 
@@ -34,7 +40,7 @@ export const addUser = async (data) => {
   return result.data;
 };
 
-export const editUser = async (id, data) => {
+export const editUser = async (id, data, loggedIn_User) => {
   let result = await axios.put(`${endPoints.Account.UpdateUser}/${id}`, data);
   return result.data;
 };

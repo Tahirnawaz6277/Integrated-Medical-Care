@@ -56,9 +56,6 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         }
 
         //---> DeleteUser
-
-
-
         public async Task<user?> DeleteUser(Guid id)
         {
             var user = await _userManager.Users
@@ -66,27 +63,41 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 .Include(u => u.User_Qualification)
                 .Include(u => u.OrdersByUser)
                 .Include(u => u.services)
+                .Include(u => u.User_Feedbacks)
+
                 .FirstOrDefaultAsync(u => u.Id == id.ToString());
+
+            var revenue = await _imcDbContext.Revenues.FirstAsync(u => u.PayerId == id.ToString());
 
             if (user == null)
             {
                 return null;
             }
 
-            // Get all orders for the user
-            var orders = await _imcDbContext.Orders
-                .Where(order => order.OrderByUserId == user.Id)
-                .ToListAsync();
+            // --- Delete the Revenue Record associated with ServiceProvider
 
-            // Delete associated order items for each order
-            foreach (var order in orders)
+            if (revenue != null)
             {
-                var orderItems = await _imcDbContext.OrderItems
-                    .Where(item => item.OrderId == order.Id)
-                    .ToListAsync();
-
-                _imcDbContext.OrderItems.RemoveRange(orderItems);
+                _imcDbContext.Revenues.Remove(revenue);
+                await _imcDbContext.SaveChangesAsync();
             }
+
+            // Get all associated services with the user
+
+            if (user.services != null)
+            {
+                foreach (var service in user.services)
+                {
+                    var orderItems = _imcDbContext.OrderItems.Where(oi => oi.ServiceId == service.Id);
+                    _imcDbContext.OrderItems.RemoveRange(orderItems);
+
+                    // Delete feedback associated with the service
+                    var feedbacks = await _imcDbContext.Feedbacks.Where(f => f.ratedToId == service.Id).ToListAsync();
+                    _imcDbContext.Feedbacks.RemoveRange(feedbacks);
+                }
+            }
+            // Delete services associated with the user
+            _imcDbContext.Services.RemoveRange(user.services);
 
             // Delete user-related entities
             if (user.ServiceProviderType != null)
@@ -99,11 +110,6 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 _imcDbContext.User_Qualifications.Remove(user.User_Qualification);
             }
 
-            if (user.services != null)
-            {
-                _imcDbContext.Services.RemoveRange(user.services);
-            }
-
             // Delete the user
             var result = await _userManager.DeleteAsync(user);
 
@@ -114,64 +120,6 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 
             return user;
         }
-
-
-
-
-
-
-
-
-
-        //-----------------------------end
-        //public async Task<user?> DeleteUser(Guid id)
-        //{
-        //    var user = await _userManager.Users
-
-        // .Include(u => u.ServiceProviderType)
-        // .Include(u => u.User_Qualification)
-        // .Include(u => u.OrdersByUser)
-        // .Include(u => u.services)
-        // .FirstOrDefaultAsync(u => u.Id == id.ToString());
-
-        //    if (user == null)
-        //    {
-        //        return null;
-        //    }
-
-
-
-        //    if (user.ServiceProviderType != null)
-        //    {
-        //        _imcDbContext.ServiceProviderTypes.Remove(user.ServiceProviderType);
-        //    }
-
-        //    if (user.User_Qualification != null)
-        //    {
-        //        _imcDbContext.User_Qualifications.Remove(user.User_Qualification);
-        //    }
-
-        //    if (user.services != null)
-        //    {
-        //        foreach (var service in user.services)
-        //        {
-
-        //            var orderItems = _imcDbContext.OrderItems.Where(oi => oi.ServiceId == service.Id);
-        //            _imcDbContext.OrderItems.RemoveRange(orderItems);
-        //            _imcDbContext.Services.RemoveRange(service);
-        //        }
-        //    }
-
-
-
-        //    var result = await _userManager.DeleteAsync(user);
-
-        //    if (!result.Succeeded)
-        //    {
-        //        return null;
-        //    }
-        //    return user;
-        //}
 
         //---> GetUserById
         public async Task<user?> GetUserById(Guid id)
@@ -190,6 +138,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                  .Include(u => u.ServiceProviderType)
                  .Include(u => u.User_Qualification)
                  .Include(u => u.OrdersByUser)
+                 .Include(u => u.User_Feedbacks)
                  .Include(u => u.services).AsQueryable();
 
             //if (filterOn.Equals("firstname", StringComparison.OrdinalIgnoreCase))

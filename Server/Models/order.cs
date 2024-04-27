@@ -40,8 +40,11 @@ namespace imc_web_api.Models
         //[ForeignKey("OrderToUserId")]
         //public user OrderTo { get; set; }
 
+    
 
         public List<orderItem> OrderItems { get; set; }
+
+        public bool Paid { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -34,11 +34,15 @@ namespace imc_web_api.Models
         public List<feedback> User_Feedbacks { get; set; }
 
         public List<promotion> PromoteTo { get; set; }
-        
+
         public List<promotion> PromoteBy { get; set; }
 
-        public  List<order> OrdersByUser { get; set; }
+        public List<order> OrdersByUser { get; set; }
         //public List<order> OrderToUser { get; set; }
+
+        public List<Revenue> revenues { get; set; }
+
+        public List<Expense> expenses { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

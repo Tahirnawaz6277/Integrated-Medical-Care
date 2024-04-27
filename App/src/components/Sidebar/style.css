@@ -1,6 +1,6 @@
 nav li .active {
   color: black !important;
-  background-color: white;
+  background-color: white !important;
   padding-bottom: 10%;
 }
 nav li .custom-icon {
@@ -18,5 +18,10 @@ nav li {
 
 nav a {
   color: white;
+  text-decoration: none; /* Remove underline from links */
+}
+
+.nav-link {
+  color: white !important; /* Set the color to white */
   text-decoration: none; /* Remove underline from links */
 }/*# sourceMappingURL=style.css.map */

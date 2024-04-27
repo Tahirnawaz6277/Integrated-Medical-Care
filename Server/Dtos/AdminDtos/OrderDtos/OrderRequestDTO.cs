@@ -9,6 +9,8 @@
 
         public string PaymentMode { get; set; }
 
+        public bool Paid { get; set; }   
+
         //public Guid ServiceId { get; set; }
     }
 }

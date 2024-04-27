@@ -50,10 +50,10 @@ export const RouteNames = {
     },
     Services: {
       route: "/dashboard/services",
-      roles: [ROLES.ADMIN, ROLES.CUSTOMER],
+      roles: [ROLES.ADMIN, ROLES.PROVIDER, ROLES.CUSTOMER],
       AddNewService: {
         route: "/dashboard/AddNewServiceScreen",
-        roles: [ROLES.ADMIN, ROLES.CUSTOMER],
+        roles: [ROLES.ADMIN, ROLES.PROVIDER],
       },
     },
     Promotions: {
@@ -66,15 +66,55 @@ export const RouteNames = {
     },
     AddNewUser: {
       route: "/dashboard/signup",
+
+      UpdateUser: {
+        route: "/dashboard/UpdateUserScreen",
+      },
     },
 
-    RevenueExpense: {
-      route: "/dashboard/RevenueExpense",
+    Revenue: {
+      route: "/dashboard/Revenue",
       roles: [ROLES.ADMIN],
+
+      AddRevenue: {
+        route: "/dashboard/AddRevenue",
+        roles: [ROLES.ADMIN],
+      },
+
+      UpdateRevenue: {
+        route: "/dashboard/UpdateRevenue",
+        roles: [ROLES.ADMIN],
+      },
     },
-    Agreement: {
-      route: "/dashboard/agreement",
+
+    Expense: {
+      route: "/dashboard/expense",
       roles: [ROLES.ADMIN],
+
+      AddExpense: {
+        route: "/dashboard/CreateExpense",
+        roles: [ROLES.ADMIN],
+      },
+
+      EditExpense: {
+        route: "/dashboard/UpdateExpense",
+        roles: [ROLES.ADMIN],
+      },
+    },
+
+    Inventory: {
+      route: "/dashboard/inventory",
+      roles: [ROLES.ADMIN],
+
+      AddInventory: {
+        route: "/dashboard/AddInventory",
+        roles: [ROLES.ADMIN],
+      },
+
+      UpdateInventory: {
+        route: "/dashboard/UpdateInventory",
+        roles: [ROLES.ADMIN],
+      },
     },
     HcpRecord: {
       route: "/dashboard/ManageHcpRecord",
@@ -114,6 +154,38 @@ export const RouteNames = {
     customerFeedback: {
       route: "/dashboard/feedback",
       roles: [ROLES.ADMIN, ROLES.CUSTOMER],
+    },
+  },
+
+  SProvider: {
+    Services: {
+      route: "/dashboard/pservices",
+      roles: [ROLES.PROVIDER, ROLES.ADMIN],
+      CreateNewService: {
+        route: "/dashboard/createService",
+        roles: [ROLES.PROVIDER],
+      },
+      UpdateService: {
+        route: "/dashboard/updateService",
+        roles: [ROLES.PROVIDER, ROLES.ADMIN],
+      },
+    },
+    Order: {
+      route: "/dashboard/order",
+      roles: [ROLES.PROVIDER],
+      // PlaceNewOrder: {
+      //   route: "/dashboard/addOrder",
+      //   roles: [ROLES.PROVIDER],
+      // },
+    },
+    Payement: {
+      route: "/dashboard/Payement",
+      roles: [ROLES.PROVIDER],
+
+      TransferPayement: {
+        route: "/dashboard/transferPayement",
+        roles: [ROLES.PROVIDER],
+      },
     },
   },
 };

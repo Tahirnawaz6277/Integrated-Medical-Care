@@ -1,0 +1,21 @@
+.nav-tabs {
+  padding: 20px;
+  background-color: black;
+  .nav-link.active {
+    background-color: rgb(72, 165, 223) !important;
+    border: none;
+  }
+  .nav-link:hover {
+    border: none !important;
+  }
+  .nav-link {
+    margin-right: "50px !important";
+
+    margin-left: 40px;
+    border-radius: 0px !important;
+  }
+}
+
+.btn-custom {
+  border-radius: 0px !important;
+}

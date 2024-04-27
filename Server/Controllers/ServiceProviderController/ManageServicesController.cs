@@ -72,7 +72,7 @@ namespace imc_web_api.Controllers.ServiceProviderController
         [HttpPut]
         [Route("UpdateService/{id:Guid}")]
         [Authorize(Roles = "Admin,ServiceProvider")]
-        public async Task<IActionResult> UpdateService(Guid id, [FromBody] ServiceRequestDTO ServiceInputRequest)
+        public async Task<IActionResult> UpdateService(Guid id, [FromBody] ServiceUpdateDto ServiceInputRequest)
         {
             try
             {
@@ -109,14 +109,47 @@ namespace imc_web_api.Controllers.ServiceProviderController
         {
             try
             {
-                var ServiceModel = await _manageServices.GetServices();
-                var ServiceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(ServiceModel);
+                // Get the current user's role claim
+                var roleClaim = HttpContext.User.FindFirst(ClaimTypes.Role);
 
-                return Ok(new
+                if (roleClaim == null)
                 {
-                    Success = true,
-                    Data = ServiceDtoResult,
-                });
+                    return Unauthorized("Role claim not found for the current user.");
+                }
+
+                if (roleClaim.Value == "ServiceProvider")
+                {
+                    // Get the current user's role id
+                    var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                    var ServiceModel = await _manageServices.GetServices(userId);
+                    var ServiceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(ServiceModel);
+
+                    return Ok(new
+                    {
+                        Success = true,
+                        Data = ServiceDtoResult,
+                    });
+                }
+                else if (roleClaim.Value == "Admin" || roleClaim.Value == "Customer")
+                {
+                    // Call a service method to retrieve all services
+                    var services = await _manageServices.GetServices();
+
+                    // Map the service models to DTOs
+                    var serviceDtoResult = _mapper.Map<List<ServiceResponseDTO>>(services);
+
+                    return Ok(new
+                    {
+                        Success = true,
+                        Data = serviceDtoResult,
+                    });
+                }
+                // For other roles, return an unauthorized response
+                else
+                {
+                    return Unauthorized("Unauthorized access.");
+                }
             }
             catch (Exception ex)
             {

@@ -46,7 +46,13 @@ const PromotionScreen = () => {
 
   return (
     <Card>
-      <Card.Header>
+      <Card.Header
+        style={{
+          background: "black  ",
+          padding: "20px ",
+          color: "white",
+        }}
+      >
         Manage Promotion
         <NavLink to="/dashboard/AddNewPromotionScreen">
           <Button className="float-end">Send New Promotion</Button>

@@ -31,6 +31,7 @@ export const AddOrder = async (orderData, loggedIn_User) => {
       quantity: orderData.quantity[index],
       OrderByUserId: orderData.OrderByUserId,
       serviceId: serviceId,
+      Paid: true,
     };
 
     return axios.post(endPoints.Orders.AddOrder, order, {
@@ -64,4 +65,26 @@ export const AddOrder = async (orderData, loggedIn_User) => {
   const orderItemRes = await Promise.all(orderItemPromises);
 
   return orderItemRes;
+};
+
+export const UpdateOrderStatus = async (id, loggedIn_User, status) => {
+  const patchDocument = [
+    {
+      path: "/orderStatus",
+      op: "replace",
+      value: status,
+    },
+  ];
+
+  const result = await axios.patch(
+    `${endPoints.Orders.UpdateOrder}/${id}`,
+    patchDocument,
+    {
+      headers: {
+        Authorization: `Bearer ${loggedIn_User.token}`,
+      },
+    }
+  );
+
+  return result.data;
 };

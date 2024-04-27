@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
-import {
-  GetServiceProviders,
-  DeleteServiceProviders,
-} from "../../services/serviceProvidersService";
-import { NavLink } from "react-router-dom";
 
-const HcpScreen = () => {
+import { NavLink } from "react-router-dom";
+import { GetServiceProviders } from "../../../services/serviceProvidersService";
+import { deleteUser } from "../../../services/accountService";
+
+const ManageHcpScreen = () => {
   const [HCP, setHCP] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +13,11 @@ const HcpScreen = () => {
     GetServiceProviders()
       .then((res) => {
         if (res.success) {
-          setHCP(res.data);
+          // Filter the list of health care providers based on the role being "ServiceProviders"
+          const serviceProviders = res.data.filter(
+            (hcp) => hcp.role === "ServiceProvider"
+          );
+          setHCP(serviceProviders);
           setLoading(false);
         }
       })
@@ -23,7 +26,7 @@ const HcpScreen = () => {
       });
   };
   const handleDelete = (id) => {
-    DeleteServiceProviders(id)
+    deleteUser(id)
       .then((res) => {
         console.log(res);
         if (res.success) {
@@ -41,10 +44,16 @@ const HcpScreen = () => {
   return (
     <>
       <Card>
-        <Card.Header>
+        <Card.Header
+          style={{
+            background: "black  ",
+            padding: "20px ",
+            color: "white",
+          }}
+        >
           Manage Health Care Providers
           <NavLink to="/dashboard/AddNewHCPScreen">
-            <Button className="float-end">Add NEW HCP</Button>
+            <Button className="float-end btn-custom">Add NEW HCP</Button>
           </NavLink>
         </Card.Header>
 
@@ -73,7 +82,7 @@ const HcpScreen = () => {
                     <Button
                       variant="danger"
                       onClick={() => {
-                        handleDelete(user.serviceProviderType.id);
+                        handleDelete(user.id);
                       }}
                     >
                       Delete
@@ -89,4 +98,4 @@ const HcpScreen = () => {
   );
 };
 
-export default HcpScreen;
+export default ManageHcpScreen;

@@ -107,7 +107,7 @@ namespace imc_web_api.Controllers.AdminController
         //--> Update User
         //[Authorize(Roles = "Admin")]
         [HttpPut]
-        [Route("UpdateUser /{id:Guid}")]
+        [Route("UpdateUser/{id:Guid}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] RegisterRequestDTO UserInputRequest)
         {
             try
@@ -163,7 +163,7 @@ namespace imc_web_api.Controllers.AdminController
                 return Ok(new
                 {
                     Success = true,
-                    Data = result
+                    Data = result,
                 });
             }
             catch (Exception ex)

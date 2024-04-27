@@ -23,6 +23,12 @@ namespace imc_web_api
         public DbSet<feedback> Feedbacks { get; set; }
         public DbSet<orderItem> OrderItems { get; set; }
 
+        public DbSet<Inventory> Inventories { get; set; }
+
+        public DbSet<Revenue> Revenues { get; set; }
+
+        public DbSet<Expense> Expenses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<user>()
@@ -31,12 +37,6 @@ namespace imc_web_api
                 .HasForeignKey(u => u.ServiceProvidertypeId)
                  .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired(false);
-
-            //builder.Entity<serviceprovidertype>()
-            // .HasOne(s => s.User)
-            // .WithOne(s => s.ServiceProviderType)
-            //.HasForeignKey(s => s.UserId)
-            // .IsRequired(false);
 
             builder.Entity<user>()
                .HasOne(u => u.User_Qualification)
@@ -59,7 +59,6 @@ namespace imc_web_api
             .HasForeignKey(o => o.OrderByUserId)
             .OnDelete(DeleteBehavior.ClientCascade);
 
-
             // Configure the relationship between orderItem and service
             builder.Entity<orderItem>()
                 .HasOne(oi => oi.Service)
@@ -81,7 +80,7 @@ namespace imc_web_api
            .WithMany(s => s.services)
            .HasForeignKey(s => s.CreatedById)
            .OnDelete(DeleteBehavior.ClientCascade)
-           .IsRequired(false);
+            .IsRequired(false);
 
             //------------------    relationship for feedback
 
@@ -96,6 +95,22 @@ namespace imc_web_api
              .WithMany(u => u.User_Feedbacks)
              .HasForeignKey(f => f.ratedToId)
  .OnDelete(DeleteBehavior.ClientCascade);
+
+            //------------------    relationship for Revenue and User
+
+            builder.Entity<Revenue>()
+             .HasOne(e => e.Payer)
+               .WithMany(u => u.revenues)
+             .HasForeignKey(e => e.PayerId)
+               .OnDelete(DeleteBehavior.ClientCascade);
+
+            //------------------    relationship for Expense and User
+
+            builder.Entity<Expense>()
+             .HasOne(e => e.Payee)
+               .WithMany(u => u.expenses)
+             .HasForeignKey(e => e.PayeeId)
+               .OnDelete(DeleteBehavior.ClientCascade);
 
             //------------------    relationship for Promotion
 
@@ -178,36 +193,36 @@ namespace imc_web_api
 
             // Data seeding for serviceProviderType
 
-            var providerTypeData = new List<serviceprovidertype>
-            {
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Doctor" },
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Pharmacy" },
-                new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Ambulance" },
-            };
+            //var providerTypeData = new List<serviceprovidertype>
+            //{
+            //    new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Doctor" },
+            //    new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Pharmacy" },
+            //    new serviceprovidertype { Id = Guid.NewGuid(), ProviderName = "Ambulance" },
+            //};
 
-            builder.Entity<serviceprovidertype>().HasData(providerTypeData);
+            //builder.Entity<serviceprovidertype>().HasData(providerTypeData);
 
             //--->> Data seeding for Qualification
 
-            var qualification = new List<user_qualification>()
-            {
-               new user_qualification{
-                   Id = Guid.NewGuid(),
-                qualification = "MBBS",
-                experience = "10 YEAR",
-               },
-                 new user_qualification{
-                   Id = Guid.NewGuid(),
-                qualification = "MD",
-                experience = "3 YEAR",
-               }
-                 ,
-                   new user_qualification{
-                   Id = Guid.NewGuid(),
-                qualification = "BDS",
-                experience = "1 YEAR",
-               }
-            };
+            //var qualification = new List<user_qualification>()
+            //{
+            //   new user_qualification{
+            //       Id = Guid.NewGuid(),
+            //    qualification = "MBBS",
+            //    experience = "10 YEAR",
+            //   },
+            //     new user_qualification{
+            //       Id = Guid.NewGuid(),
+            //    qualification = "MD",
+            //    experience = "3 YEAR",
+            //   }
+            //     ,
+            //       new user_qualification{
+            //       Id = Guid.NewGuid(),
+            //    qualification = "BDS",
+            //    experience = "1 YEAR",
+            //   }
+            //};
         }
     }
 }

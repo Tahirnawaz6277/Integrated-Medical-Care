@@ -1,13 +1,18 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using imc_web_api;
 using imc_web_api.AutoMapper;
 using imc_web_api.Models;
 using imc_web_api.Models.Enums;
 using imc_web_api.Repository.AuthRepository;
 using imc_web_api.Service.AdminServices.ManageAccountServices;
+using imc_web_api.Service.AdminServices.ManageExpenseServices;
 using imc_web_api.Service.AdminServices.ManageFeedBackServicess;
 using imc_web_api.Service.AdminServices.ManageHCPServices;
+using imc_web_api.Service.AdminServices.ManageInventoryServices;
 using imc_web_api.Service.AdminServices.ManageOrderServices;
 using imc_web_api.Service.AdminServices.ManagePromotionServices;
+using imc_web_api.Service.AdminServices.ManageRevenueServices;
 using imc_web_api.Service.AdminServices.NewFolder;
 using imc_web_api.Service.AdminServices.OrderItemServices;
 using imc_web_api.Service.AuthService;
@@ -22,8 +27,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +42,10 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -78,13 +84,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<ImcDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("IMCConnectionString"));
-        //sqlServerOptionsAction: sqlOptions =>
-        //{
-        //    sqlOptions.EnableRetryOnFailure(
-        //        maxRetryCount: 5, // Adjust this as needed
-        //        maxRetryDelay: TimeSpan.FromSeconds(30),
-        //        errorNumbersToAdd: null);
-        //});
 });
 
 //--> Add Repositories
@@ -99,6 +98,9 @@ builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddScoped<IManageService, ManageService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+builder.Services.AddScoped<IManageInventoryService, ManageInventoryServices>();
+builder.Services.AddScoped<IManageRevenueService, ManageRevenueServices>();
+builder.Services.AddScoped<IManageExpenseService, ManageExpenseServices>();
 
 builder.Services.AddScoped<IManageFeedbackService, ManageFeedBackService>();
 builder.Services.AddScoped<IManagePromotionService, ManagePromotionService>();
@@ -125,7 +127,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
     options.Password.RequiredLength = 6;
 });
-
 
 // Cors Policy
 builder.Services.AddCors(options =>
@@ -161,7 +162,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {

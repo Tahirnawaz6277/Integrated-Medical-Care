@@ -40,19 +40,19 @@ const SignupScreen = () => {
     }),
     onSubmit: async (values) => {
       try {
-        if (values.role !== "Customer") {
+        if (values.role != "Customer" && values.role != "Admin") {
           const provider = { providerName: values.providerType.toLowerCase() };
           const res = await AddServiceProviders(provider);
-          const providerId = res?.providerRequestData?.data?.id;
+          const providerId = res?.data?.id;
+
           if (providerId) {
             let qualificationId = null;
-            if (provider.providerName === "doctor") {
+            if (provider.providerName === "Doctor") {
               const qualificationRes = await Add_User_Qualification({
                 qualification: values.qualification,
                 experience: values.experience,
               });
               qualificationId = qualificationRes?.data?.id;
-
               const registerRes = await registerUser(
                 values,
                 providerId,
@@ -83,65 +83,6 @@ const SignupScreen = () => {
           err.response?.data?.message || err.message
         );
       }
-
-      // if (provider.providerName.toLowerCase() === "doctor") {
-      //   AddServiceProviders(provider)
-      //     .then((res) => {
-      //       if (
-      //         res &&
-      //         res.providerRequestData &&
-      //         res.providerRequestData.data
-      //       ) {
-      //         const providerId = res.providerRequestData.data.id;
-      //         const User_Qualification = {
-      //           qualification: values.qualification,
-      //           experience: values.experience,
-      //         };
-      //         Add_User_Qualification(User_Qualification).then((res) => {
-      //           const Qualification_Id = res.data.id;
-      //           if (res.success) {
-      //             registerUser(values, providerId, Qualification_Id)
-      //               .then((res) => {
-      //                 if (res.success) {
-      //                   formik.resetForm();
-      //                   formik.setFieldValue("general", res.message);
-      //                 }
-      //               })
-      //               .catch((err) => {
-      //                 formik.setFieldValue("general", err);
-      //               });
-      //           }
-      //         });
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       formik.setFieldValue("general", err.response.data.message);
-      //     });
-      // } else {
-      //   AddServiceProviders(provider)
-      //     .then((res) => {
-      //       if (
-      //         res &&
-      //         res.providerRequestData &&
-      //         res.providerRequestData.data
-      //       ) {
-      //         const providerId = res.providerRequestData.data.id;
-      //         registerUser(values, providerId)
-      //           .then((res) => {
-      //             if (res.success) {
-      //               formik.resetForm();
-      //               formik.setFieldValue("general", res.message);
-      //             }
-      //           })
-      //           .catch((err) => {
-      //             formik.setFieldValue("general", err);
-      //           });
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       formik.setFieldValue("general", err.response.data.message);
-      //     });
-      // }
     },
   });
   return (

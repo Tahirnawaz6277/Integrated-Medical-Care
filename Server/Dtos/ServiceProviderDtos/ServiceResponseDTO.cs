@@ -1,5 +1,5 @@
-﻿using imc_web_api.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using imc_web_api.Models;
 
 namespace imc_web_api.Dtos.ServiceProviderDtos
 {
@@ -13,15 +13,9 @@ namespace imc_web_api.Dtos.ServiceProviderDtos
         public int AvailableQuantity { get; set; }
 
         public int TotalQuantity { get; set; }
-        //public string Status { get; set; }
 
-       
-        
-        //public Guid? CreatedByProviderTypeId { get; set; }
-
-        //[ForeignKey("CreatedByProviderTypeId")]
-        //public serviceprovidertype ServiceProviderType { get; set; }
-
+        public bool QualityAgreementApproved { get; set; }
+        public bool Status { get; set; }
 
         public string CreatedById { get; set; }
 
@@ -29,7 +23,5 @@ namespace imc_web_api.Dtos.ServiceProviderDtos
         public user User { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-
     }
 }

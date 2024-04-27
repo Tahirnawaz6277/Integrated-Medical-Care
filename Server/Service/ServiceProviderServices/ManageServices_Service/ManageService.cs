@@ -22,12 +22,15 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         {
             var CurrentLoggedInUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == CurrentUserId.ToString());
 
-            if (CurrentLoggedInUser == null && CurrentLoggedInUser.ServiceProvidertypeId == null)
+            if (CurrentLoggedInUser == null)
             {
                 return null;
             }
 
             serviceInputRequest.CreatedById = CurrentLoggedInUser.Id;
+            serviceInputRequest.QualityTermsAgreedWithAdmin = serviceInputRequest.QualityTermsAgreedWithAdmin;
+            serviceInputRequest.Status = false;
+
             await _dbContext.AddAsync(serviceInputRequest);
             await _dbContext.SaveChangesAsync();
             return serviceInputRequest;
@@ -40,9 +43,22 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
         }
 
         //--> Get Services
-        public async Task<List<service>> GetServices()
+        public async Task<List<service>> GetServices(string? userId = null)
         {
-            return await _dbContext.Services.Include(s => s.User).ToListAsync();
+            if (userId != null)
+            {
+                return await _dbContext.Services
+                    .Where(p => p.CreatedById == userId)
+                    .Include(s => s.User)
+                    .ToListAsync();
+            }
+            else
+            {
+                // Return all services
+                return await _dbContext.Services
+                    .Include(s => s.User)
+                    .ToListAsync();
+            }
         }
 
         //--> Update Service
@@ -63,6 +79,9 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
                 ExistingService.charges = ServiceInputRequest.charges;
                 ExistingService.AvailableQuantity = ServiceInputRequest.AvailableQuantity;
                 ExistingService.TotalQuantity = ServiceInputRequest.TotalQuantity;
+                ExistingService.QualityTermsAgreedWithAdmin = true;
+                ExistingService.Status = ServiceInputRequest.Status;
+
                 await _dbContext.SaveChangesAsync();
                 return ExistingService;
             }
@@ -78,8 +97,6 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             {
                 return null;
             }
-
-            //else if (Service. == id)
 
             _dbContext.Services.Remove(Service);
             await _dbContext.SaveChangesAsync();

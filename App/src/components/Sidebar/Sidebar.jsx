@@ -195,9 +195,9 @@ const Sidebar = () => {
                     className={({ isActive, isPending }) =>
                       isPending ? "pending" : isActive ? "active nav-link" : ""
                     }
-                    to="/dashboard/agreement"
+                    to="/dashboard/inventory"
                   >
-                    Manage Agreement
+                    Manage Inventory
                   </NavLink>
                 </li>
 
@@ -207,7 +207,7 @@ const Sidebar = () => {
                     className={({ isActive, isPending }) =>
                       isPending ? "pending" : isActive ? "active nav-link" : ""
                     }
-                    to="/dashboard/RevenueExpense"
+                    to="/dashboard/Revenue"
                   >
                     Manage Revenue & Expense
                   </NavLink>
@@ -269,6 +269,7 @@ const Sidebar = () => {
               </>
             )}
 
+            {/* ------------------------------- Service Provider Pannel */}
             {loggedInUserRole === "ServiceProvider" && (
               <>
                 <li className="nav-item">
@@ -277,7 +278,7 @@ const Sidebar = () => {
                     className={({ isActive, isPending }) =>
                       isPending ? "pending" : isActive ? "active nav-link" : ""
                     }
-                    to="/dashboard/services"
+                    to="/dashboard/pservices"
                   >
                     Manage Services
                   </NavLink>
@@ -289,7 +290,7 @@ const Sidebar = () => {
                     className={({ isActive, isPending }) =>
                       isPending ? "pending" : isActive ? "active nav-link" : ""
                     }
-                    to="/dashboard/orders"
+                    to="/dashboard/order"
                   >
                     Manage Orders
                   </NavLink>
@@ -301,33 +302,9 @@ const Sidebar = () => {
                     className={({ isActive, isPending }) =>
                       isPending ? "pending" : isActive ? "active nav-link" : ""
                     }
-                    to="/dashboard/promotions"
+                    to="/dashboard/payement"
                   >
-                    Manage Promotion
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink
-                    end
-                    className={({ isActive, isPending }) =>
-                      isPending ? "pending" : isActive ? "active nav-link" : ""
-                    }
-                    to="/dashboard/agreement"
-                  >
-                    View Agreements On Quality
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink
-                    end
-                    className={({ isActive, isPending }) =>
-                      isPending ? "pending" : isActive ? "active nav-link" : ""
-                    }
-                    to="/dashboard/customerrecord"
-                  >
-                    Customer Feedbacks
+                    Payement
                   </NavLink>
                 </li>
               </>

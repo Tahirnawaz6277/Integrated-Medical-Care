@@ -94,9 +94,15 @@ const CustomerServicesScreen = () => {
                   <Card.Text>
                     <strong>Service:</strong> {service.serviceName}
                   </Card.Text>
-                  <Card.Text>
-                    <strong>Charges:</strong> {service.charges}
-                  </Card.Text>
+
+                  {service.status && (
+                    <Card.Text>
+                      <strong>Charges:</strong>
+
+                      {service.charges}
+                    </Card.Text>
+                  )}
+
                   <Card.Text>
                     <strong>Provided By:</strong>{" "}
                     {`${service.user.firstName} ${service.user.lastName}`}
@@ -111,13 +117,16 @@ const CustomerServicesScreen = () => {
                     }}
                   >
                     <Button
-                      variant="primary"
+                      variant={service.status ? "primary" : "danger"}
                       className="add-to-cart"
                       onClick={() => {
                         handleCart(service, index);
                       }}
+                      disabled={!service.status}
                     >
-                      AddToCart
+                      {service.status
+                        ? "Add to Cart"
+                        : "Service Pending Approval"}
                     </Button>
                   </div>
                 </Card.Body>

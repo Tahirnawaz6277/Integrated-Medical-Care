@@ -1,5 +1,6 @@
 ﻿using imc_web_api.Models;
 using imc_web_api.Models.Enums;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageOrderServices
@@ -19,6 +20,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
             UserInputReguest.OrderByUserId = CurrentUserId;
             UserInputReguest.orderStatus = OrderStatusEnum.OrderStatus.Pending;
             UserInputReguest.IsDeleted = false;
+            UserInputReguest.Paid = UserInputReguest.Paid;
             await _ImcDbContext.Orders.AddAsync(UserInputReguest);
             _ImcDbContext.SaveChanges();
 
@@ -26,20 +28,29 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         }
 
         //-->  Delete Order
-        public async Task<order?> DeleteOrder(Guid id)
-        {
-            var Existing_Order = await _ImcDbContext.Orders.Include(o => o.OrderItems)
 
+        public async Task<order?> DeleteOrder(Guid id, string userRole)
+        {
+            var existingOrder = await _ImcDbContext.Orders
+                .Include(o => o.OrderItems)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
-            if (Existing_Order == null)
+            if (existingOrder == null)
             {
                 return null;
             }
 
-            _ImcDbContext.Remove(Existing_Order);
+            if (userRole == "Admin")
+            {
+                _ImcDbContext.Remove(existingOrder);
+            }
+            else
+            {
+                existingOrder.IsDeleted = true;
+            }
+
             await _ImcDbContext.SaveChangesAsync();
-            return Existing_Order;
+            return existingOrder;
         }
 
         //-->  Get Order By Id
@@ -51,27 +62,33 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         }
 
         //-->  Get Orders
-        public async Task<List<order>> GetOrders()
+        public async Task<List<order>> GetOrders(string CurrentUserId, string userRole)
         {
-            return await _ImcDbContext.Orders
-                .Include(o => o.OrderBy)
-                .Include(o => o.OrderItems).ToListAsync();
+            IQueryable<order> query = _ImcDbContext.Orders
+            .Include(o => o.OrderBy)
+            .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Service);
+
+            if (userRole == "Admin")
+            {
+                return await query.ToListAsync();
+            }
+            else
+            {
+                return await query
+                    .Where(o => !o.IsDeleted && o.OrderItems.Any(oi => oi.Service.CreatedById == CurrentUserId))
+                    .ToListAsync();
+            }
         }
 
         //-->  Update Order
-        public async Task<order?> UpdateOrder(Guid id, order UserInputReguest)
+        public async Task<order?> UpdateOrder(Guid id, JsonPatchDocument patch)
         {
             var Existing_Order = await _ImcDbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
 
             if (Existing_Order != null)
             {
-                Existing_Order.Contact = UserInputReguest.Contact;
-
-                Existing_Order.Address = UserInputReguest.Address;
-               
-                Existing_Order.Amount = UserInputReguest.Amount;
-                Existing_Order.PaymentMode = UserInputReguest.PaymentMode;
-                Existing_Order.IsDeleted = UserInputReguest.IsDeleted;
+                patch.ApplyTo(Existing_Order);
 
                 _ImcDbContext.SaveChanges();
                 return Existing_Order;

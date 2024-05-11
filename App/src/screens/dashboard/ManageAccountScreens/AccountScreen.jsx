@@ -6,6 +6,12 @@ import {
   Spinner,
   Table,
   Form,
+  Row,
+  Col,
+  Container,
+  InputGroup,
+  DropdownButton,
+  Dropdown,
 } from "react-bootstrap";
 import {
   deleteUser,
@@ -15,22 +21,21 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import "../ManageAccountScreens/accountScreen.scss";
 const AccountScreen = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const [filterOn, setFilterOn] = useState(null);
-  const [filterQuery, setFilterQuery] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [filterOn, setFilterOn] = useState("");
+  const [filterQuery, setFilterQuery] = useState("");
 
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
 
   const fetchUsers = () => {
-    getUsers(filterOn, filterQuery, pageNumber, pageSize)
+    getUsers(filterOn, filterQuery)
       .then((res) => {
         if (res.success) {
           setUsers(res.data);
@@ -42,11 +47,10 @@ const AccountScreen = () => {
       });
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, filterQuery, filterOn) => {
     e.preventDefault();
-    setFilterQuery(e.target.value);
 
-    getUsers(filterOn, filterQuery, pageNumber, pageSize)
+    getUsers(filterOn, filterQuery)
       .then((res) => {
         if (res.success) {
           setUsers(res.data);
@@ -93,38 +97,56 @@ const AccountScreen = () => {
       <Card>
         <Card.Header
           style={{
-            background: "black  ",
-            padding: "20px ",
+            background: "black",
+            padding: "20px",
             color: "white",
           }}
         >
-          Manage Accounts
-          <NavLink to="/dashboard/signup">
-            <Button className="float-end">Add New User</Button>{" "}
-          </NavLink>
-          <Form
-            onSubmit={(e) => {
-              handleChange(e);
-            }}
-          >
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="mr-sm-2"
-              aria-label="Search"
-              value={filterQuery}
-              onChange={(e) => {
-                setFilterQuery(e.target.value);
-              }}
-            />
-            <Button
-              variant="outline-success"
-              className="my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </Button>
-          </Form>
+          <Row className="align-items-center">
+            <Col>
+              <p>Manage Accounts</p>
+            </Col>
+
+            <Col>
+              <Container fluid className="d-flex justify-content-center h-100">
+                <Form
+                  onSubmit={(e) => handleChange(e, filterQuery, filterOn)}
+                  className="search"
+                >
+                  <InputGroup>
+                    <DropdownButton
+                      id="dropdown-basic-button"
+                      title="Filter"
+                      onSelect={(eventKey) => setFilterOn(eventKey)}
+                    >
+                      <Dropdown.Item eventKey="role">Role</Dropdown.Item>
+                      <Dropdown.Item eventKey="firstName">Name</Dropdown.Item>
+                    </DropdownButton>
+                    <FormControl
+                      type="text"
+                      className="search-input"
+                      placeholder="search..."
+                      value={filterQuery}
+                      onChange={(e) => setFilterQuery(e.target.value)}
+                    />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="search-icon"
+                    >
+                      <i className="fa fa-search"></i>
+                    </Button>
+                  </InputGroup>
+                </Form>
+              </Container>
+            </Col>
+
+            <Col className="text-end">
+              <NavLink to="/dashboard/createUser">
+                <Button className="btn-custom">Create User</Button>
+              </NavLink>
+            </Col>
+          </Row>
         </Card.Header>
 
         <Card.Body>
@@ -153,7 +175,8 @@ const AccountScreen = () => {
                   <td>Active</td>
                   <td style={{ display: "flex", gap: "8px" }}>
                     <Button
-                      className="btn btn-danger"
+                      ClassName="btn-custom"
+                      variant="danger"
                       onClick={() => {
                         handleDelete(user.id);
                       }}
@@ -161,7 +184,8 @@ const AccountScreen = () => {
                       Delete
                     </Button>
                     <Button
-                      className="btn btn-primary"
+                      ClassName="btn-custom"
+                      variant="primary"
                       onClick={() => {
                         handleEdit(user.id);
                       }}

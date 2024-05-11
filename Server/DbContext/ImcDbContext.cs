@@ -57,7 +57,15 @@ namespace imc_web_api
             .HasOne(o => o.OrderBy)             // Order has one User
             .WithMany(u => u.OrdersByUser)         // User has many Orders
             .HasForeignKey(o => o.OrderByUserId)
+                .IsRequired(false)
             .OnDelete(DeleteBehavior.ClientCascade);
+
+            builder.Entity<order>()
+           .HasOne(o => o.OrderTo)             // Order has one User
+           .WithMany(u => u.OrderToUser)         // User has many Orders
+           .HasForeignKey(o => o.OrderToUserId)
+               .IsRequired(false)
+           .OnDelete(DeleteBehavior.ClientCascade);
 
             // Configure the relationship between orderItem and service
             builder.Entity<orderItem>()

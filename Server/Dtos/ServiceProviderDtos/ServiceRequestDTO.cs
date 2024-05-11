@@ -10,7 +10,7 @@
 
         public bool QualityTermsAgreedWithAdmin { get; set; }
 
-     
+      
         public int TotalQuantity { get; set; }
     }
 }

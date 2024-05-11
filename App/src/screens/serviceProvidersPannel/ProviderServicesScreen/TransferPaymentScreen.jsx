@@ -2,21 +2,28 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { addRevenue } from "../../../services/revenueService";
+import {
+  UpdateOrderStatus,
+  UpdatePaymentTransferStatus,
+} from "../../../services/orderService";
 
-const TransferPaymentScreen = (props) => {
+const TransferPaymentScreen = () => {
   const [message, setMessage] = useState("");
+  const { state } = useLocation();
   const navigate = useNavigate();
 
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
 
+  const { id, amount } = state.order;
+
   const formik = useFormik({
     initialValues: {
-      amount: props.amount,
+      amount: amount,
       paymentMethod: "",
       payerId: "",
     },
@@ -29,9 +36,13 @@ const TransferPaymentScreen = (props) => {
       try {
         const res = await addRevenue(data, loggedIn_User);
         if (res.success) {
+          var payment = await UpdatePaymentTransferStatus(id, loggedIn_User);
+
           formik.resetForm();
-          setMessage("Payement Transfer Successfully!");
-          setTimeout(() => navigate("/dashboard"), 1000);
+          if (payment.success) {
+            setMessage("Payement Transfer Successfully!");
+            setTimeout(() => navigate("/dashboard"), 2000);
+          }
         }
       } catch (err) {
         setMessage(err.response.data.message);

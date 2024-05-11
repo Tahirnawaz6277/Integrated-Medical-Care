@@ -29,17 +29,18 @@ namespace imc_web_api.Models
         public bool IsDeleted { get; set; }
 
         //--> fk for Order By
-        public string OrderByUserId { get; set; }
+        public string? OrderByUserId { get; set; }
 
         [ForeignKey("OrderByUserId")]
         public user OrderBy { get; set; }
 
         //--> fk for OrderTo
-        //public string? OrderToUserId { get; set; }
+        public string? OrderToUserId { get; set; }
 
-        //[ForeignKey("OrderToUserId")]
-        //public user OrderTo { get; set; }
+        [ForeignKey("OrderToUserId")]
+        public user OrderTo { get; set; }
 
+        public bool IsTransferPayment { get; set; }
     
 
         public List<orderItem> OrderItems { get; set; }

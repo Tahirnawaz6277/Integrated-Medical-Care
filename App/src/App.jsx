@@ -43,6 +43,7 @@ import AddExpenseScreen from "./screens/dashboard/RevenueExpenseScreens/AddExpen
 import ExpenseScreen from "./screens/dashboard/RevenueExpenseScreens/ExpenseScreen";
 import UpdateExpenseScreen from "./screens/dashboard/RevenueExpenseScreens/UpdateExpenseScreen";
 import TransferPaymentScreen from "./screens/serviceProvidersPannel/ProviderServicesScreen/TransferPaymentScreen";
+import CreateUser from "./screens/dashboard/ManageAccountScreens/CreateUser";
 
 function App() {
   return (
@@ -156,6 +157,15 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["Admin"]}>
                 <AccountScreen />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path={RouteNames.Admin.ManageAccount.CreatUser.route}
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <CreateUser />
               </ProtectedRoute>
             }
           />

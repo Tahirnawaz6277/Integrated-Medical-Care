@@ -66,7 +66,7 @@ const OrderScreen = () => {
         >
           Manage Orders
           <NavLink to="/dashboard/AddOrderScreen">
-            <Button className="float-end">Create Order</Button>
+            <Button className="btn-custom float-end">Create Order</Button>
           </NavLink>
         </Card.Header>
 
@@ -103,8 +103,8 @@ const OrderScreen = () => {
                   </td>
 
                   <td style={{ display: "flex", gap: "8px" }}>
-                    <Dropdown className="float-end" key={order.id}>
-                      <Dropdown.Toggle variant="success">
+                    <Dropdown key={order.id}>
+                      <Dropdown.Toggle className="btn-custom" variant="success">
                         Order Status
                       </Dropdown.Toggle>
                       <Dropdown.Menu style={{ width: "200px" }}>
@@ -143,6 +143,7 @@ const OrderScreen = () => {
                     </Dropdown>
                     <Button
                       variant="danger"
+                      className="btn-custom"
                       onClick={() => {
                         handleDelete(order.id);
                       }}

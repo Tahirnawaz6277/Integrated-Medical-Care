@@ -15,12 +15,26 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         }
 
         //-->  Place/Create Order
-        public async Task<order> AddOrder(order UserInputReguest, string CurrentUserId)
+        public async Task<order> AddOrder(order UserInputReguest, string CurrentUserId, string loggednInUserRole)
         {
+            bool isAdmin = loggednInUserRole == "Admin";
+
             UserInputReguest.OrderByUserId = CurrentUserId;
+
             UserInputReguest.orderStatus = OrderStatusEnum.OrderStatus.Pending;
             UserInputReguest.IsDeleted = false;
             UserInputReguest.Paid = UserInputReguest.Paid;
+            UserInputReguest.IsTransferPayment = false;
+
+            if (isAdmin)
+            {
+                UserInputReguest.OrderToUserId = UserInputReguest.OrderToUserId;
+            }
+            else
+            {
+                UserInputReguest.OrderToUserId = null;
+            }
+
             await _ImcDbContext.Orders.AddAsync(UserInputReguest);
             _ImcDbContext.SaveChanges();
 
@@ -66,6 +80,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
         {
             IQueryable<order> query = _ImcDbContext.Orders
             .Include(o => o.OrderBy)
+            .Include(o => o.OrderTo)
             .Include(o => o.OrderItems)
             .ThenInclude(oi => oi.Service);
 

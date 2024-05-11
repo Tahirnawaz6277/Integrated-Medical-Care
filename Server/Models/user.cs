@@ -38,7 +38,7 @@ namespace imc_web_api.Models
         public List<promotion> PromoteBy { get; set; }
 
         public List<order> OrdersByUser { get; set; }
-        //public List<order> OrderToUser { get; set; }
+        public List<order> OrderToUser { get; set; }
 
         public List<Revenue> revenues { get; set; }
 

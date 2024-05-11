@@ -1,22 +1,17 @@
-import { useState } from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Button, Form, Row, Col, Image, Card, CardBody } from "react-bootstrap";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "../HCPScreens/AddNewHCP.scss";
+import "./createUser.scss";
 
-import { useNavigate } from "react-router";
-
+import React, { useState } from "react";
+import { AddServiceProviders } from "../../../services/serviceProvidersService";
 import {
   Add_User_Qualification,
   registerUser,
 } from "../../../services/accountService";
-import { AddServiceProviders } from "../../../services/serviceProvidersService";
 
-const AddNewHCPScreen = () => {
-  const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-
+const CreateUser = () => {
   const [providerType, setProviderType] = useState("");
   const formik = useFormik({
     initialValues: {
@@ -28,7 +23,7 @@ const AddNewHCPScreen = () => {
       qualification: "",
       experience: "",
       password: "",
-      role: "ServiceProvider",
+      role: "",
       providerType: "",
       phoneNumber: "",
     },
@@ -45,7 +40,6 @@ const AddNewHCPScreen = () => {
       role: Yup.string().required(),
       phoneNumber: Yup.string().required(),
     }),
-
     onSubmit: async (values) => {
       try {
         if (values.role != "Customer" && values.role != "Admin") {
@@ -74,7 +68,7 @@ const AddNewHCPScreen = () => {
               const registerRes = await registerUser(values, providerId);
               if (registerRes.success) {
                 formik.resetForm();
-                formik.setFieldValue("general", "Service Provider Added!");
+                formik.setFieldValue("general", registerRes.message);
               }
             }
           }
@@ -82,7 +76,7 @@ const AddNewHCPScreen = () => {
           const registerRes = await registerUser(values);
           if (registerRes.success) {
             formik.resetForm();
-            formik.setFieldValue("general", "Service Provider Added!");
+            formik.setFieldValue("general", registerRes.message);
           }
         }
       } catch (err) {
@@ -103,10 +97,10 @@ const AddNewHCPScreen = () => {
             color: "white",
           }}
         >
-          Manage Health Care Providers
+          Manage Accounts
         </Card.Header>
         <Card.Body>
-          <Form onSubmit={formik.handleSubmit} className="hcp-form">
+          <Form onSubmit={formik.handleSubmit}>
             <Row className="mb-3">
               <Col md={6}>
                 <Form.Group className="mb-3">
@@ -200,8 +194,9 @@ const AddNewHCPScreen = () => {
                     className="form-select"
                   >
                     <option value="" label="Select Role" />
-
+                    <option value="Customer">Customer</option>
                     <option value="ServiceProvider">ServiceProvider</option>
+                    <option value="Admin">Admin</option>
                   </Form.Select>
                   {formik.touched.role && (
                     <Form.Text className="text-danger">
@@ -327,7 +322,7 @@ const AddNewHCPScreen = () => {
               type="submit"
               variant="primary w-100"
             >
-              Create
+              Create User
             </Button>
           </Form>
         </Card.Body>
@@ -336,4 +331,4 @@ const AddNewHCPScreen = () => {
   );
 };
 
-export default AddNewHCPScreen;
+export default CreateUser;

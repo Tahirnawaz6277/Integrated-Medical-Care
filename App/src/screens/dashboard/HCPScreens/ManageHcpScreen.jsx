@@ -53,7 +53,7 @@ const ManageHcpScreen = () => {
         >
           Manage Health Care Providers
           <NavLink to="/dashboard/AddNewHCPScreen">
-            <Button className="float-end btn-custom">Add NEW HCP</Button>
+            <Button className="btn-custom float-end">Add NEW HCP</Button>
           </NavLink>
         </Card.Header>
 
@@ -81,6 +81,7 @@ const ManageHcpScreen = () => {
                   <td style={{ display: "flex", gap: "8px" }}>
                     <Button
                       variant="danger"
+                      className="btn-custom"
                       onClick={() => {
                         handleDelete(user.id);
                       }}

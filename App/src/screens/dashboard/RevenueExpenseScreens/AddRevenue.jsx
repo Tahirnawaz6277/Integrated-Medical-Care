@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -44,62 +44,76 @@ const AddRevenue = () => {
   });
   return (
     <>
-      {message && (
-        <Form.Text
-          className={`text-${
-            message.toLowerCase().includes("success") ? "success" : "danger"
-          }`}
-          style={{ float: "end", fontSize: "20px", fontWeight: "bold" }}
+      <Card>
+        <Card.Header
+          style={{
+            background: "black",
+            padding: "20px",
+            color: "white",
+          }}
         >
-          {message}
-        </Form.Text>
-      )}
-      <Form onSubmit={formik.handleSubmit} className="hcp-form">
-        <Form.Group className="mb-3">
-          <Form.Label>Amount</Form.Label>
-          <Form.Control
-            type="number"
-            name="amount"
-            value={formik.values.amount}
-            placeholder="Enter Amount "
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.amount && (
-            <Form.Text className="text-danger">
-              {formik.errors.amount}
+          Manage Revenue
+        </Card.Header>
+        <Card.Body>
+          {message && (
+            <Form.Text
+              className={`text-${
+                message.toLowerCase().includes("success") ? "success" : "danger"
+              }`}
+              style={{ float: "end", fontSize: "20px", fontWeight: "bold" }}
+            >
+              {message}
             </Form.Text>
           )}
-        </Form.Group>
+          <Form onSubmit={formik.handleSubmit} className="hcp-form">
+            <Form.Group className="mb-3">
+              <Form.Label>Amount</Form.Label>
+              <Form.Control
+                type="number"
+                name="amount"
+                value={formik.values.amount}
+                placeholder="Enter Amount "
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.amount && (
+                <Form.Text className="text-danger">
+                  {formik.errors.amount}
+                </Form.Text>
+              )}
+            </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Payment Method</Form.Label>
-          <Form.Select
-            name="paymentMethod"
-            value={formik.values.paymentMethod}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            isInvalid={
-              formik.touched.paymentMethod && formik.errors.paymentMethod
-            }
-          >
-            <option value="">Select Payment Method</option>
-            <option value="Cash">Cash</option>
-            <option value="Debit Card">other</option>
-          </Form.Select>
-          <Form.Control.Feedback type="invalid">
-            {formik.errors.paymentMethod}
-          </Form.Control.Feedback>
-        </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Payment Method</Form.Label>
+              <Form.Select
+                name="paymentMethod"
+                value={formik.values.paymentMethod}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                isInvalid={
+                  formik.touched.paymentMethod && formik.errors.paymentMethod
+                }
+              >
+                <option value="">Select Payment Method</option>
+                <option value="Cash">Cash</option>
+                <option value="Debit Card">other</option>
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.paymentMethod}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-        <Button
-          disabled={!formik.isValid}
-          type="submit"
-          variant="primary w-100"
-        >
-          Add Revenue
-        </Button>
-      </Form>
+            <Button
+              disabled={!formik.isValid}
+              type="submit"
+              variant="primary w-100"
+              className="btn-custom"
+            >
+              Add Revenue
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </>
   );
 };

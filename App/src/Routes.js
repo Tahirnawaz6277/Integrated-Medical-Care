@@ -22,6 +22,11 @@ export const RouteNames = {
     ManageAccount: {
       route: "/dashboard/accounts",
       roles: [ROLES.ADMIN],
+
+      CreatUser: {
+        route: "/dashboard/createUser",
+        roles: [ROLES.ADMIN],
+      },
     },
     Orders: {
       route: "/dashboard/orders",

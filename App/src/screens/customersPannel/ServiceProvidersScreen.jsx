@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Image, Row, Spinner } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Dropdown,
+  DropdownButton,
+  Form,
+  FormControl,
+  Image,
+  InputGroup,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { GetServiceProviders } from "../../services/serviceProvidersService";
 import "./ServiceProviders.scss";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../../services/accountService";
 
 const ServiceProvidersScreen = () => {
   const [HCP, setHCP] = useState([]);
+
   const [loading, setLoading] = useState(true);
+  const [filterOn, setFilterOn] = useState("");
+  const [filterQuery, setFilterQuery] = useState("");
   const navigate = useNavigate();
 
   const fetchHcps = () => {
-    GetServiceProviders()
+    GetServiceProviders(filterOn, filterQuery)
       .then((res) => {
         if (res.success) {
           let hcps = res.data.filter((hcp) => {
@@ -26,6 +43,28 @@ const ServiceProvidersScreen = () => {
       });
   };
 
+  const handleChange = (e, filterQuery, filterOn) => {
+    e.preventDefault();
+
+    getUsers(filterOn, filterQuery)
+      .then((res) => {
+        if (res.success) {
+          console.log(res);
+          var serviceProviders = res.data.filter((sp) => {
+            return sp.role === "ServiceProvider";
+          });
+          setHCP(serviceProviders);
+
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(true);
+      });
+
+    setFilterQuery("");
+  };
+
   const hanldeFeedbackRating = (id) => {
     navigate("/dashboard/feedback", { state: { id: id } });
   };
@@ -36,6 +75,47 @@ const ServiceProvidersScreen = () => {
 
   return (
     <>
+      <Row>
+        <Col className="mb-5">
+          <Container fluid className="d-flex justify-content-center h-100">
+            <Form
+              onSubmit={(e) => handleChange(e, filterQuery, filterOn)}
+              className="search"
+            >
+              <InputGroup>
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Filter"
+                  onSelect={(eventKey) => setFilterOn(eventKey)}
+                >
+                  <Dropdown.Item eventKey="Rating">Rating</Dropdown.Item>
+                  <Dropdown.Item eventKey="providerType">
+                    Ambulance
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="providerType">
+                    Pharmacy
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="providerType">Doctor</Dropdown.Item>
+                  <Dropdown.Item eventKey="providerType">
+                    Hospital
+                  </Dropdown.Item>
+                </DropdownButton>
+                <FormControl
+                  type="text"
+                  className="search-input"
+                  placeholder="search..."
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                />
+                <Button variant="primary" type="submit" className="search-icon">
+                  <i className="fa fa-search"></i>
+                </Button>
+              </InputGroup>
+            </Form>
+          </Container>
+        </Col>
+      </Row>
+
       <Row className="row ">
         {loading && <Spinner animation="border" />}
 
@@ -68,7 +148,7 @@ const ServiceProvidersScreen = () => {
             </Col>
           ))
         ) : (
-          <b>Services Not Available</b>
+          <b>Service Provider Not Found</b>
         )}
       </Row>
     </>

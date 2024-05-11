@@ -125,8 +125,8 @@ const Customer_FeedbackScreen = () => {
                   <td>{feedback.service.serviceName}</td>
                   <td>{feedback.rating}</td>
                   <td>{feedback.createdAt}</td>
-                  {/* <td style={{ display: "flex", gap: "8px" }}> */}
-                  {/* <Button
+                  <td style={{ display: "flex", gap: "8px" }}>
+                    <Button
                       variant="primary"
                       onClick={() => {
                         handleDelete(feedback.id);
@@ -142,7 +142,7 @@ const Customer_FeedbackScreen = () => {
                     >
                       Delete
                     </Button>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>

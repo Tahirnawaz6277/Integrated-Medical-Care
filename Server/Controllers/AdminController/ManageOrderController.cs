@@ -35,6 +35,7 @@ namespace imc_web_api.Controllers.AdminController
             try
             {
                 var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var loggednInUserRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
 
                 if (string.IsNullOrEmpty(CurrentUserId))
                 {
@@ -47,7 +48,7 @@ namespace imc_web_api.Controllers.AdminController
                 }
                 var Order_Model = _mapper.Map<order>(Order_Input_Request);
 
-                var Order_Model_Result = await _manageOrderService.AddOrder(Order_Model, CurrentUserId);
+                var Order_Model_Result = await _manageOrderService.AddOrder(Order_Model, CurrentUserId , loggednInUserRole);
 
                 var Order_DTO_Result = _mapper.Map<OrderResponseDTO>(Order_Model_Result);
 

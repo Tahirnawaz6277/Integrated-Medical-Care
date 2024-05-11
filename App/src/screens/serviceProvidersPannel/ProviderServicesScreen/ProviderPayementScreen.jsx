@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
-import { getOrders } from "../../../services/orderService";
+import { getOrder, getOrders } from "../../../services/orderService";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import TransferPaymentScreen from "./TransferPaymentScreen";
 
 const ProviderPayementScreen = () => {
   const [orders, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalAmount, setTotalAmounts] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const [paidAmount, setPaidAmount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -23,8 +19,11 @@ const ProviderPayementScreen = () => {
         if (res.success) {
           // Filter orders with status "Delivered"
           const deliveredOrders = res.data.filter(
-            (order) => order.orderStatus === "Delivered"
+            (order) =>
+              order.orderStatus === "Delivered" &&
+              order.isTransferPayment === false
           );
+
           setOrder(deliveredOrders);
           setLoading(false);
         }
@@ -34,19 +33,23 @@ const ProviderPayementScreen = () => {
       });
   };
 
-  const handleTransferPayement = () => {
-    setIsVisible(true);
+  const handleTransferPayement = (id) => {
+    getOrder(id, loggedIn_User)
+      .then((res) => {
+        if (res.success) {
+          navigate("/dashboard/transferPayement", {
+            state: { order: res.data },
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     fetchOrders();
   }, []);
-
-  // Calculate total amount when orders change or paidAmount changes
-  useEffect(() => {
-    const total = orders.reduce((acc, order) => acc + order.amount, 0);
-    setTotalAmounts(total - paidAmount); // Subtract paidAmount from total
-  }, [orders, paidAmount]);
 
   // Function to format date
   const formatDate = (dateString) => {
@@ -63,44 +66,42 @@ const ProviderPayementScreen = () => {
           color: "white",
         }}
       >
-        Total Amount :<b>{totalAmount}$</b>
-        <Button
-          className="float-end"
-          disabled={!isVisible && totalAmount <= 0}
-          onClick={handleTransferPayement}
-        >
-          Transfer Payment
-        </Button>
+        Recieved Orders Amount
       </Card.Header>
 
-      {isVisible && totalAmount > 0 && (
-        <TransferPaymentScreen amount={totalAmount} />
-      )}
-
-      {!isVisible && (
-        <Card.Body>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Payement Type</th>
-                <th>Amount</th>
-                <th>Patient</th>
+      <Card.Body>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Payement Type</th>
+              <th>Amount</th>
+              <th>Patient</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={index}>
+                <td>{formatDate(order.orderDate)}</td>
+                <td>{order.paymentMode}</td>
+                <td>{order.amount}</td>
+                <td>{order.orderBy.firstName}</td>
+                <td>
+                  <Button
+                    className="float-end"
+                    onClick={() => {
+                      handleTransferPayement(order.id);
+                    }}
+                  >
+                    Transfer Payment
+                  </Button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
-                  <td>{formatDate(order.orderDate)}</td>
-                  <td>{order.paymentMode}</td>
-                  <td>{order.amount}</td>
-                  <td>{order.orderBy.firstName}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Card.Body>
-      )}
+            ))}
+          </tbody>
+        </Table>
+      </Card.Body>
     </Card>
   );
 };

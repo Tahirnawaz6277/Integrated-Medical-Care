@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { updateExpense } from "../../../services/expenseServices";
 import * as Yup from "yup";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 
 const UpdateExpenseScreen = () => {
   const [message, setMessage] = useState([]);
@@ -45,58 +45,73 @@ const UpdateExpenseScreen = () => {
   });
   return (
     <>
-      {message && (
-        <p
-          className={`text-${message.success == true ? "success" : "danger"}`}
-          style={{ float: "end", fontSize: "20px", fontWeight: "bold" }}
+      <Card>
+        <Card.Header
+          style={{
+            background: "black",
+            padding: "20px",
+            color: "white",
+          }}
         >
-          {message}
-        </p>
-      )}
-
-      <Form onSubmit={formik.handleSubmit} className="hcp-form">
-        <Form.Group className="mb-3">
-          <Form.Label>Amount</Form.Label>
-          <Form.Control
-            type="number"
-            name="amount"
-            value={formik.values.amount}
-            placeholder="Enter Amount "
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.amount && (
-            <Form.Text className="text-danger">
-              {formik.errors.amount}
-            </Form.Text>
+          Manage Expense
+        </Card.Header>
+        <Card.Body>
+          {message && (
+            <p
+              className={`text-${
+                message.success == true ? "success" : "danger"
+              }`}
+              style={{ float: "end", fontSize: "20px", fontWeight: "bold" }}
+            >
+              {message}
+            </p>
           )}
-        </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Expense Category</Form.Label>
-          <Form.Control
-            type="text"
-            name="expenseCategory"
-            value={formik.values.expenseCategory}
-            placeholder="Enter Expense Category "
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.expenseCategory && (
-            <Form.Text className="text-danger">
-              {formik.errors.expenseCategory}
-            </Form.Text>
-          )}
-        </Form.Group>
+          <Form onSubmit={formik.handleSubmit} className="hcp-form">
+            <Form.Group className="mb-3">
+              <Form.Label>Amount</Form.Label>
+              <Form.Control
+                type="number"
+                name="amount"
+                value={formik.values.amount}
+                placeholder="Enter Amount "
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.amount && (
+                <Form.Text className="text-danger">
+                  {formik.errors.amount}
+                </Form.Text>
+              )}
+            </Form.Group>
 
-        <Button
-          disabled={!formik.isValid}
-          type="submit"
-          variant="primary w-100"
-        >
-          Save Expense
-        </Button>
-      </Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Expense Category</Form.Label>
+              <Form.Control
+                type="text"
+                name="expenseCategory"
+                value={formik.values.expenseCategory}
+                placeholder="Enter Expense Category "
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.expenseCategory && (
+                <Form.Text className="text-danger">
+                  {formik.errors.expenseCategory}
+                </Form.Text>
+              )}
+            </Form.Group>
+
+            <Button
+              disabled={!formik.isValid}
+              type="submit"
+              variant="primary w-100"
+            >
+              Save Expense
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </>
   );
 };

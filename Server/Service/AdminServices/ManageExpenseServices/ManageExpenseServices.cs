@@ -12,9 +12,9 @@ namespace imc_web_api.Service.AdminServices.ManageExpenseServices
             _ImcDbContext = imcDbContext;
         }
 
-        public async Task<Expense> AddExpenseAsync(Expense expense, string CurrentUserId)
+        public async Task<Expense> AddExpenseAsync(Expense expense)
         {
-            expense.PayeeId = CurrentUserId;
+          
             await _ImcDbContext.Expenses.AddAsync(expense);
             await _ImcDbContext.SaveChangesAsync();
 

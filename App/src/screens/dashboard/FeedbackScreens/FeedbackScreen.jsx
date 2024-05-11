@@ -83,6 +83,7 @@ const FeedbackScreen = () => {
                 <td style={{ display: "flex", gap: "8px" }}>
                   <Button
                     variant="danger"
+                    className="btn-custom"
                     onClick={() => {
                       handleDelete(feedback.id);
                     }}

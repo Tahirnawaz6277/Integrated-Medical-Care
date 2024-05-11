@@ -17,6 +17,8 @@ namespace imc_web_api.Dtos.ServiceProviderDtos
         public bool QualityAgreementApproved { get; set; }
         public bool Status { get; set; }
 
+        public int Ranking { get; set; } 
+        public double Rating { get; set; }
         public string CreatedById { get; set; }
 
         [ForeignKey("CreatedById")]

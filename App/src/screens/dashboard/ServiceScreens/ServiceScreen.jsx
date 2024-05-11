@@ -71,7 +71,7 @@ const ServiceScreen = () => {
       >
         Manage Services
         <NavLink to="/dashboard/AddNewServiceScreen">
-          <Button className="float-end">Add New Service</Button>
+          <Button className="btn-custom float-end">Add New Service</Button>
         </NavLink>
       </Card.Header>
 
@@ -118,6 +118,7 @@ const ServiceScreen = () => {
                 <td style={{ display: "flex", gap: "8px" }}>
                   <Button
                     variant="primary"
+                    className="btn-custom"
                     onClick={() => {
                       handleEditService(service.id);
                     }}
@@ -126,6 +127,7 @@ const ServiceScreen = () => {
                   </Button>
                   <Button
                     variant="danger"
+                    className="btn-custom"
                     onClick={() => {
                       handleDelete(service.id);
                     }}

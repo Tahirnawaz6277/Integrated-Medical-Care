@@ -90,25 +90,43 @@ export const HcpRecordScreen = () => {
                         ))
                       : "N/A"}
                   </td>
+
                   <td>
                     {hcp.services.length > 0 ? (
-                      hcp.services.map((service, serviceIndex) => (
-                        <span key={serviceIndex}>
-                          {service.user_Feedbacks.length > 0 ? (
-                            <b>
-                              {(
-                                service.user_Feedbacks.reduce(
-                                  (total, feedback) => total + feedback.rating,
-                                  0
-                                ) / service.user_Feedbacks.length
-                              ).toFixed(2)}
-                            </b>
-                          ) : (
-                            <p>N/A</p>
-                          )}
-                          {serviceIndex !== hcp.services.length - 1 && ", "}
-                        </span>
-                      ))
+                      hcp.services.some(
+                        (service) =>
+                          service.user_Feedbacks &&
+                          service.user_Feedbacks.length > 0
+                      ) ? (
+                        <b>
+                          {(
+                            hcp.services.reduce((total, service) => {
+                              if (
+                                service.user_Feedbacks &&
+                                service.user_Feedbacks.length > 0
+                              ) {
+                                return (
+                                  total +
+                                  service.user_Feedbacks.reduce(
+                                    (acc, feedback) => acc + feedback.rating,
+                                    0
+                                  ) /
+                                    service.user_Feedbacks.length
+                                );
+                              } else {
+                                return total;
+                              }
+                            }, 0) /
+                            hcp.services.filter(
+                              (service) =>
+                                service.user_Feedbacks &&
+                                service.user_Feedbacks.length > 0
+                            ).length
+                          ).toFixed(2)}
+                        </b>
+                      ) : (
+                        <p>N/A</p>
+                      )
                     ) : (
                       <p>N/A</p>
                     )}
@@ -116,7 +134,7 @@ export const HcpRecordScreen = () => {
 
                   <td>
                     <Button
-                      className="btn btn-danger"
+                      className="btn-custom btn btn-danger"
                       onClick={() => {
                         handleDelete(hcp.id);
                       }}

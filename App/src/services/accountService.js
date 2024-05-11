@@ -12,8 +12,8 @@ export const registerUser = async (
   return result.data;
 };
 
-export const getUsers = async (filterOn, filterQuery, pageNumber, pageSize) => {
-  const url = `${endPoints.Account.GetUsers}?filterOn=${filterOn}&filterQuery=${filterQuery}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+export const getUsers = async (filterOn = null, filterQuery = null) => {
+  const url = `${endPoints.Account.GetUsers}?filterOn=${filterOn}&filterQuery=${filterQuery}`;
   let result = await axios.get(url);
   return result.data;
 };

@@ -9,7 +9,7 @@ namespace imc_web_api.Service.AdminServices.ManageExpenseServices
 
         Task<Expense?> GetExpenseByIdAsync(Guid id);
 
-        Task<Expense> AddExpenseAsync(Expense expense , string CurrentUserId);
+        Task<Expense> AddExpenseAsync(Expense expense );
 
         Task<Expense?> DeleteExpenseAsync(Guid id);
 

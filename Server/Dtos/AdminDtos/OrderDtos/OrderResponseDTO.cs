@@ -21,6 +21,13 @@ namespace imc_web_api.Dtos.AdminDtos.OrderDtos
         [ForeignKey("OrderByUserId")]
         public user OrderBy { get; set; }
 
+        //--> fk for OrderTo
+        public string? OrderToUserId { get; set; }
+
+        [ForeignKey("OrderToUserId")]
+        public user OrderTo { get; set; }
+        public bool IsTransferPayment { get; set; }
+        public int TotalAmount { get; set; }
         public DateTime OrderDate { get; set; }
     }
 }

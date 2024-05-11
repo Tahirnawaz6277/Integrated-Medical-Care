@@ -1,8 +1,9 @@
 import axios from "axios";
 import { endPoints } from "../config/endPoints";
 
-export const GetServiceProviders = async () => {
-  const result = await axios.get(endPoints.Account.GetUsers);
+export const GetServiceProviders = async (filterOn, filterQuery) => {
+  const url = `${endPoints.Account.GetUsers}?filterOn=${filterOn}&filterQuery=${filterQuery}`;
+  const result = await axios.get(url);
   return result.data;
 };
 

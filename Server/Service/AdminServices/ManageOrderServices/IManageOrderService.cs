@@ -9,7 +9,7 @@ namespace imc_web_api.Service.AdminServices.ManageOrderServices
 
         Task<order?> GetOrderById(Guid id);
 
-        Task<order> AddOrder(order UserInputReguest, string CurrentUserId);
+        Task<order> AddOrder(order UserInputReguest, string CurrentUserId , string loggednInUserRole);
 
         Task<order?> DeleteOrder(Guid id , string userRole);
 

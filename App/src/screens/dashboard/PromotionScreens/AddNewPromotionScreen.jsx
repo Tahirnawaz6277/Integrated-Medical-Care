@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Form, Button, Spinner, Card } from "react-bootstrap";
 import * as Yup from "yup";
 import { getUsers } from "../../../services/accountService";
 import { SendPromotion } from "../../../services/promotionService";
@@ -48,7 +48,11 @@ const AddNewPromotionScreen = () => {
     getUsers()
       .then((res) => {
         if (res.success) {
-          setCustomers(res.data);
+          var customers = res.data.filter((user) => {
+            return user.role === "Customer";
+          });
+
+          setCustomers(customers);
         }
       })
       .catch((error) => {
@@ -57,97 +61,110 @@ const AddNewPromotionScreen = () => {
   }, []);
 
   return (
-    <>
-      {message && (
-        <Form.Text
-          className={`text-${
-            message.toLowerCase().includes("success") ? "danger" : "success"
-          }`}
-          style={{ fontSize: "20px", fontWeight: "bold" }}
-        >
-          {message}
-        </Form.Text>
-      )}
+    <Card>
+      <Card.Header
+        style={{
+          background: "black",
+          padding: "20px",
+          color: "white",
+        }}
+      >
+        Manage Promotion
+      </Card.Header>
 
-      <Form onSubmit={formik.handleSubmit}>
-        <Form.Group className="mb-3 ">
-          <Form.Label>Promotion Type</Form.Label>
-          <Form.Control
-            type="text"
-            name="promotion_Type"
-            value={formik.values.promotion_Type}
-            placeholder="Enter Promotion Type"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.promotion_Type && (
-            <Form.Text className="text-danger">
-              {formik.errors.promotion_Type}
-            </Form.Text>
-          )}
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Select Customer</Form.Label>
-          <Form.Select
-            name="promoteToId"
-            aria-label="Customer"
-            value={formik.values.promoteToId}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+      <Card.Body>
+        {message && (
+          <Form.Text
+            className={`text-${
+              message.toLowerCase().includes("success") ? "danger" : "success"
+            }`}
+            style={{ fontSize: "20px", fontWeight: "bold" }}
           >
-            <option value="" label="Select Customer" />
+            {message}
+          </Form.Text>
+        )}
 
-            {customers.map((customer) => (
-              <option key={customer.id} value={customer.id}>
-                {customer.firstName}
-              </option>
-            ))}
-          </Form.Select>
-          {formik.touched.customers && (
-            <Form.Text className="text-danger">
-              {formik.errors.customers}
-            </Form.Text>
-          )}
-        </Form.Group>
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group className="mb-3 ">
+            <Form.Label>Promotion Type</Form.Label>
+            <Form.Control
+              type="text"
+              name="promotion_Type"
+              value={formik.values.promotion_Type}
+              placeholder="Enter Promotion Type"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.promotion_Type && (
+              <Form.Text className="text-danger">
+                {formik.errors.promotion_Type}
+              </Form.Text>
+            )}
+          </Form.Group>
 
-        <Form.Group className="mb-3 ">
-          <Form.Label>Message</Form.Label>
-          <Form.Control
-            type="text"
-            name="description"
-            value={formik.values.description}
-            placeholder="Enter Promotion Type"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.description && (
-            <Form.Text className="text-danger">
-              {formik.errors.description}
-            </Form.Text>
-          )}
-        </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Select Customer</Form.Label>
+            <Form.Select
+              name="promoteToId"
+              aria-label="Customer"
+              value={formik.values.promoteToId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              <option value="" label="Select Customer" />
 
-        <Button
-          disabled={!formik.isValid}
-          type="submit"
-          variant="primary w-100"
-        >
-          {loading ? (
-            <>
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              <span>Sending...</span>
-            </>
-          ) : (
-            <>Submit</>
-          )}
-        </Button>
-      </Form>
-    </>
+              {customers.map((customer) => (
+                <option key={customer.id} value={customer.id}>
+                  {customer.firstName}
+                </option>
+              ))}
+            </Form.Select>
+            {formik.touched.customers && (
+              <Form.Text className="text-danger">
+                {formik.errors.customers}
+              </Form.Text>
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Message</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="description"
+              rows={4}
+              value={formik.values.description}
+              placeholder="Enter Promotion Type"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.description && (
+              <Form.Text className="text-danger">
+                {formik.errors.description}
+              </Form.Text>
+            )}
+          </Form.Group>
+
+          <Button
+            disabled={!formik.isValid}
+            type="submit"
+            className="btn-custom"
+          >
+            {loading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span>Sending...</span>
+              </>
+            ) : (
+              <>Send Promotion</>
+            )}
+          </Button>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

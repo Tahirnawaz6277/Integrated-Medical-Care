@@ -5,7 +5,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 {
     public interface IManageAccountService
     {
-        Task<List<user>> GetUsers(string? filterOn =null, string? filterQuery =null, int pageNumber = 1, int pageSize = 100);
+        Task<List<user>> GetUsers(string? filterOn =null, string? filterQuery =null);
         Task<user?> GetUserById(Guid id);
         Task<user> AddUser(RegisterRequestDTO UserInputReguest);
         Task<user?> DeleteUser(Guid id);

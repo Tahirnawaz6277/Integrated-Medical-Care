@@ -67,7 +67,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
 
                 .FirstOrDefaultAsync(u => u.Id == id.ToString());
 
-            var revenue = await _imcDbContext.Revenues.FirstAsync(u => u.PayerId == id.ToString());
+            var revenue = await _imcDbContext.Revenues.FirstOrDefaultAsync(u => u.PayerId == id.ToString());
 
             if (user == null)
             {
@@ -81,6 +81,22 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 _imcDbContext.Revenues.Remove(revenue);
                 await _imcDbContext.SaveChangesAsync();
             }
+
+
+            // Delete related OrderItems
+            var orderItemsByUser = await _imcDbContext.OrderItems.Where(oi => oi.Order.OrderByUserId == user.Id).ToListAsync();
+            if (orderItemsByUser.Any())
+            {
+                _imcDbContext.OrderItems.RemoveRange(orderItemsByUser);
+            }
+
+            // Delete related Expenses
+            var expensesByUser = await _imcDbContext.Expenses.Where(e => e.PayeeId == user.Id).ToListAsync();
+            if (expensesByUser.Any())
+            {
+                _imcDbContext.Expenses.RemoveRange(expensesByUser);
+            }
+
 
             // Get all associated services with the user
 
@@ -131,7 +147,7 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         }
 
         //---> GetUsers
-        public async Task<List<user>> GetUsers(string? filterOn = null, string? filterQuery = null, int pageNumber = 1, int pageSize = 100)
+        public async Task<List<user>> GetUsers(string? filterOn = null, string? filterQuery = null)
         {
             var data = _userManager.Users
 
@@ -141,13 +157,29 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                  .Include(u => u.User_Feedbacks)
                  .Include(u => u.services).AsQueryable();
 
-            //if (filterOn.Equals("firstname", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    data=data.Where(u => u.FirstName.Contains(filterQuery));
-            //}
+            if (!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
+            {
+                switch (filterOn.ToLower())
+                {
+                    case "firstname":
+                        data = data.Where(u => u.FirstName.Contains(filterQuery));
+                        break;
 
-            //var pagination = (pageNumber - 1) * pageSize;
-            //data = data.Skip(pagination).Take(pageSize);
+                    case "role":
+                        data = data.Where(u => u.Role.Contains(filterQuery));
+                        break;
+
+                    case "providertype":
+
+                        data = data.Where(u => u.ServiceProviderType != null && u.ServiceProviderType.ProviderName.Contains(filterQuery));
+                        break;
+
+                    default:
+
+                        return await data.ToListAsync();
+                }
+            }
+
             return await data.ToListAsync();
         }
 

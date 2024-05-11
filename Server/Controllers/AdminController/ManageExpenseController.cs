@@ -37,15 +37,9 @@ namespace imc_web_api.Controllers
                 }
 
 
-                var CurrentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-                if (string.IsNullOrEmpty(CurrentUserId))
-                {
-                    return Unauthorized("User is not authenticated.");
-                }
 
                 var Expense_Model = _mapper.Map<Expense>(ExpenseRequest);
-                var Expense_Result = await _manageExpenseService.AddExpenseAsync(Expense_Model , CurrentUserId);
+                var Expense_Result = await _manageExpenseService.AddExpenseAsync(Expense_Model );
 
                 var Result = _mapper.Map<ExpenseResponseDto>(Expense_Result);
 

@@ -47,7 +47,7 @@ const SignupScreen = () => {
 
           if (providerId) {
             let qualificationId = null;
-            if (provider.providerName === "Doctor") {
+            if (provider.providerName === "doctor") {
               const qualificationRes = await Add_User_Qualification({
                 qualification: values.qualification,
                 experience: values.experience,

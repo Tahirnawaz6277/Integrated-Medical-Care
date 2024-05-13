@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 
-const ProfileCard = () => {
+const ProfileCard = ({ user }) => {
   return (
     <>
       <Card className="p-4">
@@ -17,8 +17,8 @@ const ProfileCard = () => {
               alt="Profile"
             />
           </Button>
-          <span className="name mt-3">Aamir Nawaz</span>
-          <span className="name mt-3">Administrator</span>
+          <span className="name mt-3">{user.Name}</span>
+          <span className="name mt-3">{user.role}</span>
         </div>
       </Card>
     </>

@@ -82,7 +82,6 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                 await _imcDbContext.SaveChangesAsync();
             }
 
-
             // Delete related OrderItems
             var orderItemsByUser = await _imcDbContext.OrderItems.Where(oi => oi.Order.OrderByUserId == user.Id).ToListAsync();
             if (orderItemsByUser.Any())
@@ -96,7 +95,6 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
             {
                 _imcDbContext.Expenses.RemoveRange(expensesByUser);
             }
-
 
             // Get all associated services with the user
 
@@ -151,11 +149,14 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
         {
             var data = _userManager.Users
 
-                 .Include(u => u.ServiceProviderType)
-                 .Include(u => u.User_Qualification)
+                   .Include(u => u.User_Qualification)
+                .Include(u => u.ServiceProviderType)
+
                  .Include(u => u.OrdersByUser)
-                 .Include(u => u.User_Feedbacks)
-                 .Include(u => u.services).AsQueryable();
+
+                 .Include(u => u.services)
+                 .ThenInclude(u => u.User_Feedbacks)
+                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
             {
@@ -172,6 +173,30 @@ namespace imc_web_api.Service.AdminServices.ManageAccountServices
                     case "providertype":
 
                         data = data.Where(u => u.ServiceProviderType != null && u.ServiceProviderType.ProviderName.Contains(filterQuery));
+                        break;
+
+                    case "pharmacy":
+
+                        data = data.Where(u => u.ServiceProviderType != null && u.ServiceProviderType.ProviderName.Contains("pharmacy"));
+                        break;
+
+                    case "doctor":
+
+                        data = data.Where(u => u.ServiceProviderType != null && u.ServiceProviderType.ProviderName.Contains("doctor"));
+                        break;
+
+                    case "experience":
+
+                        int experienceFilter;
+                        if (int.TryParse(filterQuery, out experienceFilter))
+                        {
+                            data = data.Where(u => u.User_Qualification != null && Convert.ToInt32(u.User_Qualification.experience) >= experienceFilter);
+                        }
+                        break;
+
+                    case "ambulance":
+
+                        data = data.Where(u => u.ServiceProviderType != null && u.ServiceProviderType.ProviderName.Contains("ambulance"));
                         break;
 
                     default:

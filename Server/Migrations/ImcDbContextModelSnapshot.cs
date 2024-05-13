@@ -51,22 +51,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1388f5ee-3199-4c53-a187-91694717ec45",
-                            ConcurrencyStamp = "1388f5ee-3199-4c53-a187-91694717ec45",
+                            Id = "1ef4c6fd-2230-4bd4-84bd-ff6dd30d181a",
+                            ConcurrencyStamp = "1ef4c6fd-2230-4bd4-84bd-ff6dd30d181a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "97ec4b40-4e98-453e-909d-e54ea3eff8c4",
-                            ConcurrencyStamp = "97ec4b40-4e98-453e-909d-e54ea3eff8c4",
+                            Id = "fb5688c8-bed8-4e34-a773-46c502910799",
+                            ConcurrencyStamp = "fb5688c8-bed8-4e34-a773-46c502910799",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "227db33a-128b-44ff-9b9e-7ccad521a9a0",
-                            ConcurrencyStamp = "227db33a-128b-44ff-9b9e-7ccad521a9a0",
+                            Id = "1499e25e-4ca2-48a0-8f24-452a49c5de6c",
+                            ConcurrencyStamp = "1499e25e-4ca2-48a0-8f24-452a49c5de6c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -234,8 +234,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "2f8d1d57-b758-4253-b328-9908fe486e81",
-                            RoleId = "1388f5ee-3199-4c53-a187-91694717ec45"
+                            UserId = "01077353-705b-4fcc-bb4a-210cfe557af9",
+                            RoleId = "1ef4c6fd-2230-4bd4-84bd-ff6dd30d181a"
                         });
                 });
 
@@ -513,10 +513,6 @@ namespace imc_web_api.Migrations
                     b.Property<decimal>("charges")
                         .HasColumnType("decimal(19, 4)");
 
-                    b.Property<string>("image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
@@ -607,21 +603,21 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2f8d1d57-b758-4253-b328-9908fe486e81",
+                            Id = "01077353-705b-4fcc-bb4a-210cfe557af9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a590694a-9345-43b9-891e-3b1b75f1db9e",
+                            ConcurrencyStamp = "1b25a423-5b1d-4d51-9eb5-b9c589e2f0de",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGompjPuDxHfRyoirCpHHUGm9O/ts+sAO0LAui0wPaEJPESspHEdcZu2VzJxbNCtMA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMjCE1EfPhhrp7mnijy8KP2WJpAxGpX7xp6R2MC7t/2lQRjH5J3KbHSpqcQmP0x6jg==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5fe99157-a85b-4fac-83d2-efc995409acc",
+                            SecurityStamp = "e56b766c-0c89-45cb-b106-afe5d39a1c78",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
-                            CreatedAt = new DateTime(2024, 5, 9, 5, 22, 55, 990, DateTimeKind.Utc).AddTicks(5925),
+                            CreatedAt = new DateTime(2024, 5, 13, 16, 28, 40, 471, DateTimeKind.Utc).AddTicks(454),
                             FirstName = "Aamir",
                             Gender = "Male",
                             LastName = "nawaz",

@@ -20,7 +20,7 @@ const AddNewServiceScreen = () => {
     initialValues: {
       serviceName: "",
       charges: "",
-      image: "",
+
       availableQuantity: "",
       totalQuantity: "",
     },
@@ -106,23 +106,6 @@ const AddNewServiceScreen = () => {
               {formik.touched.charges && (
                 <Form.Text className="text-danger">
                   {formik.errors.charges}
-                </Form.Text>
-              )}
-            </Form.Group>
-
-            <Form.Group className="mb-3 ">
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type="text"
-                name="image"
-                value={formik.values.image}
-                placeholder="Upload the Image "
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.image && (
-                <Form.Text className="text-danger">
-                  {formik.errors.image}
                 </Form.Text>
               )}
             </Form.Group>

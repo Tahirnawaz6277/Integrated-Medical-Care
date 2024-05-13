@@ -41,6 +41,7 @@ const LoginScreen = () => {
           const userData = {
             token: res.data.jwtToken,
             LoggedIn_User_Id: res.data.current_LoggedIn_Id,
+            Name: res.data.firstName + res.data.lastName,
             Email: res.data.email,
             role: res.data.role,
           };

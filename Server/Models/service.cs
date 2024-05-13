@@ -16,7 +16,7 @@ namespace imc_web_api.Models
         [Column(TypeName = "decimal(19, 4)")]
         public decimal charges { get; set; } = 0;
 
-        public string image { get; set; }
+      
 
         [Required(ErrorMessage = "Available quantity is required.")]
         [Range(0, int.MaxValue, ErrorMessage = "Available quantity must be a non-negative value.")]

@@ -51,10 +51,10 @@ const CheckoutScreen = () => {
 
       const res = await AddOrder(orderDetails, loggedIn_User);
 
-      if (res[0].data.success) {
+      if (res.success) {
         setTimeout(() => {
           formik.resetForm();
-          setMessage(res[0].data.message);
+          setMessage(res.data.message);
           Swal.fire({
             title: "Congratulation's",
             text: "Order Placed Successfully!",

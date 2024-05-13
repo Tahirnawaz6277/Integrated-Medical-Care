@@ -16,7 +16,6 @@ const Sidebar = () => {
   const loggedInUser = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
-
   let getCartItems = useSelector((state) => state.actionsReducer.Cart);
 
   const handleLogout = () => {
@@ -24,7 +23,7 @@ const Sidebar = () => {
     navigate("/");
   };
   const showProfilePicture = () => {
-    const htmlContent = renderToString(<ProfileCard />);
+    const htmlContent = renderToString(<ProfileCard user={loggedInUser} />);
     swal
       .fire({
         html: htmlContent,
@@ -54,8 +53,13 @@ const Sidebar = () => {
         <a
           className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
           href="/dashboard/cart"
+          style={{
+            fontSize: "40px",
+            fontWeight: "800",
+            fontFamily: "FontAwesome",
+          }}
         >
-          <Image src="../../../images/logo.png" style={{ width: "20%" }} />
+          IMC
         </a>
 
         <button
@@ -100,7 +104,7 @@ const Sidebar = () => {
             )}
 
             <strong style={{ color: "white", marginTop: "13px" }}>
-              Aamir Nawaz
+              {loggedInUser.Name}
             </strong>
             <span
               className="nav-link px-3"
@@ -131,7 +135,7 @@ const Sidebar = () => {
                 }
                 to="/dashboard"
               >
-                <i class="fa fa-file-alt"></i>
+                <i className="fa fa-file-alt"></i>
 
                 <span>Dashboard</span>
               </NavLink>
@@ -147,7 +151,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/accounts"
                   >
-                    <i class="fa fa-users-cog"></i>
+                    <i className="fa fa-users-cog"></i>
                     <span> Manage Accounts</span>
                   </NavLink>
                 </li>
@@ -160,7 +164,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/orders"
                   >
-                    <i class="fa fa-file-invoice-dollar"></i>
+                    <i className="fa fa-file-invoice-dollar"></i>
                     <span>Manage Orders</span>
                   </NavLink>
                 </li>
@@ -173,7 +177,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/healthcareproviders"
                   >
-                    <i class="fa fa-clinic-medical"></i>
+                    <i className="fa fa-clinic-medical"></i>
 
                     <span> Manage HCP's</span>
                   </NavLink>
@@ -186,7 +190,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/ManageHcpRecord"
                   >
-                    <i class="fa fa-file-alt"></i>
+                    <i className="fa fa-file-alt"></i>
                     <span> Manage HCP Records</span>
                   </NavLink>
                 </li>
@@ -199,7 +203,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/feedbacks"
                   >
-                    <i class="fa fa-comments"></i>
+                    <i className="fa fa-comments"></i>
                     <span> Manage Feedback</span>
                   </NavLink>
                 </li>
@@ -212,7 +216,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/customerrecord"
                   >
-                    <i class="fa fa-users"></i>
+                    <i className="fa fa-users"></i>
 
                     <span> Manage Customer Record</span>
                   </NavLink>
@@ -226,7 +230,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/services"
                   >
-                    <i class="fa fa-store"></i>
+                    <i className="fa fa-store"></i>
 
                     <span> Manage Services</span>
                   </NavLink>
@@ -240,7 +244,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/inventory"
                   >
-                    <i class="fa fa-hammer"></i>
+                    <i className="fa fa-hammer"></i>
                     <span> Manage Inventory</span>
                   </NavLink>
                 </li>
@@ -253,7 +257,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/Revenue"
                   >
-                    <i class="fa fa-money-bill"></i>
+                    <i className="fa fa-money-bill"></i>
 
                     <span> Manage Revenue & Expense</span>
                   </NavLink>
@@ -267,7 +271,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/promotions"
                   >
-                    <i class="fa fa-tags"></i>
+                    <i className="fa fa-tags"></i>
 
                     <span> Manage Promotion</span>
                   </NavLink>
@@ -287,7 +291,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/provider_services"
                   >
-                    <i class="fa fa-store"></i>
+                    <i className="fa fa-store"></i>
                     <span>Services </span>
                   </NavLink>
                 </li>
@@ -300,7 +304,8 @@ const Sidebar = () => {
                     }
                     to="/dashboard/serviceProviders"
                   >
-                    Service Providers
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>Service Providers </span>
                   </NavLink>
                 </li>
 
@@ -312,7 +317,8 @@ const Sidebar = () => {
                     }
                     to="/dashboard/Customerfeedback"
                   >
-                    Feedbacks
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <span> Feedbacks </span>
                   </NavLink>
                 </li>
               </>
@@ -329,7 +335,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/pservices"
                   >
-                    <i class="fa fa-store"></i>
+                    <i className="fa fa-store"></i>
                     <span>Manage Services </span>
                   </NavLink>
                 </li>
@@ -342,7 +348,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/order"
                   >
-                    <i class="fa fa-file-invoice-dollar"></i>
+                    <i className="fa fa-file-invoice-dollar"></i>
                     <span> Manage Orders</span>
                   </NavLink>
                 </li>
@@ -355,7 +361,8 @@ const Sidebar = () => {
                     }
                     to="/dashboard/payement"
                   >
-                    Payement
+                    <i className="fa fa-dollar"></i>
+                    <span>Payement</span>
                   </NavLink>
                 </li>
               </>

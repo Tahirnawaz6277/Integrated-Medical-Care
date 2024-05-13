@@ -17,13 +17,16 @@ import { GetServiceProviders } from "../../services/serviceProvidersService";
 import "./ServiceProviders.scss";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../services/accountService";
+import { FaStar } from "react-icons/fa";
 
 const ServiceProvidersScreen = () => {
   const [HCP, setHCP] = useState([]);
+  const [showRanking, setShowRanking] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [filterOn, setFilterOn] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
+
   const navigate = useNavigate();
 
   const fetchHcps = () => {
@@ -34,7 +37,32 @@ const ServiceProvidersScreen = () => {
             return hcp.role === "ServiceProvider";
           });
 
-          setHCP(hcps);
+          // Calculate average rating for each service provider
+          let updatedHCPs = hcps.map((hcp) => {
+            if (hcp.services.length > 0) {
+              let totalRating = hcp.services.reduce((total, service) => {
+                if (
+                  service.user_Feedbacks &&
+                  service.user_Feedbacks.length > 0
+                ) {
+                  return (
+                    total +
+                    service.user_Feedbacks.reduce(
+                      (acc, feedback) => acc + feedback.rating,
+                      0
+                    ) /
+                      service.user_Feedbacks.length
+                  );
+                } else {
+                  return total;
+                }
+              }, 0);
+              hcp.averageRating = totalRating / hcp.services.length;
+            }
+            return hcp; // Return the modified object
+          });
+
+          setHCP(updatedHCPs);
           setLoading(false);
         }
       })
@@ -43,26 +71,92 @@ const ServiceProvidersScreen = () => {
       });
   };
 
-  const handleChange = (e, filterQuery, filterOn) => {
-    e.preventDefault();
+  const handleChange = (eventKey) => {
+    eventKey === "Doctor" ? setShowRanking(true) : setShowRanking(false);
 
-    getUsers(filterOn, filterQuery)
+    GetServiceProviders(eventKey, eventKey)
       .then((res) => {
         if (res.success) {
-          console.log(res);
-          var serviceProviders = res.data.filter((sp) => {
-            return sp.role === "ServiceProvider";
+          let hcps = res.data.filter((hcp) => {
+            return hcp.role === "ServiceProvider";
           });
-          setHCP(serviceProviders);
 
+          // Calculate average rating for each service provider
+          let updatedHCPs = hcps.map((hcp) => {
+            if (hcp.services.length > 0) {
+              let totalRating = hcp.services.reduce((total, service) => {
+                if (
+                  service.user_Feedbacks &&
+                  service.user_Feedbacks.length > 0
+                ) {
+                  return (
+                    total +
+                    service.user_Feedbacks.reduce(
+                      (acc, feedback) => acc + feedback.rating,
+                      0
+                    ) /
+                      service.user_Feedbacks.length
+                  );
+                } else {
+                  return total;
+                }
+              }, 0);
+              hcp.averageRating = totalRating / hcp.services.length;
+            }
+            return hcp;
+          });
+
+          setHCP(updatedHCPs);
           setLoading(false);
         }
       })
       .catch((err) => {
         setLoading(true);
       });
+  };
 
-    setFilterQuery("");
+  const handleRanking = (e, filterOn, filterQuery) => {
+    e.preventDefault();
+
+    GetServiceProviders(filterOn, filterQuery)
+      .then((res) => {
+        if (res.success) {
+          let hcps = res.data.filter((hcp) => {
+            return hcp.role === "ServiceProvider";
+          });
+
+          // Calculate average rating for each service provider
+          let updatedHCPs = hcps.map((hcp) => {
+            if (hcp.services.length > 0) {
+              let totalRating = hcp.services.reduce((total, service) => {
+                if (
+                  service.user_Feedbacks &&
+                  service.user_Feedbacks.length > 0
+                ) {
+                  return (
+                    total +
+                    service.user_Feedbacks.reduce(
+                      (acc, feedback) => acc + feedback.rating,
+                      0
+                    ) /
+                      service.user_Feedbacks.length
+                  );
+                } else {
+                  return total;
+                }
+              }, 0);
+              hcp.averageRating = totalRating / hcp.services.length;
+            }
+            return hcp;
+          });
+
+          setHCP(updatedHCPs);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(true);
+      });
   };
 
   const hanldeFeedbackRating = (id) => {
@@ -78,27 +172,19 @@ const ServiceProvidersScreen = () => {
       <Row>
         <Col className="mb-5">
           <Container fluid className="d-flex justify-content-center h-100">
-            <Form
-              onSubmit={(e) => handleChange(e, filterQuery, filterOn)}
-              className="search"
-            >
-              <InputGroup>
+            {!showRanking && (
+              <Form
+                onSubmit={(e) => handleChange(e, filterQuery, filterOn)}
+                className="search"
+              >
                 <DropdownButton
                   id="dropdown-basic-button"
-                  title="Filter"
-                  onSelect={(eventKey) => setFilterOn(eventKey)}
+                  title="Filter On"
+                  onSelect={(eventKey) => handleChange(eventKey)}
                 >
-                  <Dropdown.Item eventKey="Rating">Rating</Dropdown.Item>
-                  <Dropdown.Item eventKey="providerType">
-                    Ambulance
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="providerType">
-                    Pharmacy
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="providerType">Doctor</Dropdown.Item>
-                  <Dropdown.Item eventKey="providerType">
-                    Hospital
-                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="Ambulance">Ambulance</Dropdown.Item>
+                  <Dropdown.Item eventKey="Pharmacy">Pharmacy</Dropdown.Item>
+                  <Dropdown.Item eventKey="Doctor">Doctor</Dropdown.Item>
                 </DropdownButton>
                 <FormControl
                   type="text"
@@ -110,8 +196,33 @@ const ServiceProvidersScreen = () => {
                 <Button variant="primary" type="submit" className="search-icon">
                   <i className="fa fa-search"></i>
                 </Button>
-              </InputGroup>
-            </Form>
+              </Form>
+            )}
+
+            {showRanking && (
+              <Form
+                onSubmit={(e) => handleRanking(e, filterOn, filterQuery)}
+                className="search"
+              >
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Ranking"
+                  onSelect={(eventKey) => setFilterOn(eventKey)}
+                >
+                  <Dropdown.Item eventKey="Experience">Exprience</Dropdown.Item>
+                </DropdownButton>
+                <FormControl
+                  type="text"
+                  className="search-input"
+                  placeholder="search..."
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                />
+                <Button variant="primary" type="submit" className="search-icon">
+                  <i className="fa fa-search"></i>
+                </Button>
+              </Form>
+            )}
           </Container>
         </Col>
       </Row>
@@ -130,6 +241,45 @@ const ServiceProvidersScreen = () => {
                 />
 
                 <Card.Body className="Card-Body">
+                  {user.services.map((service, serviceIndex) => (
+                    <div key={serviceIndex}>
+                      {service.user_Feedbacks &&
+                      service.user_Feedbacks.length > 0 ? (
+                        <span>
+                          {Array(5)
+                            .fill(0)
+                            .map((_, index) => (
+                              <FaStar
+                                key={index}
+                                style={{
+                                  fontSize: "28px",
+                                  marginBottom: "30px",
+                                }}
+                                color={
+                                  index < Math.ceil(user.averageRating)
+                                    ? "#fbb238"
+                                    : "black"
+                                }
+                              />
+                            ))}
+                        </span>
+                      ) : (
+                        <span>
+                          {[...Array(5)].map((_, index) => (
+                            <FaStar
+                              key={index}
+                              style={{
+                                fontSize: "28px",
+                                marginBottom: "30px",
+                              }}
+                              color="black"
+                            />
+                          ))}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+
                   <Card.Title className="mb-3">
                     {user.firstName} {user.lastName}
                   </Card.Title>

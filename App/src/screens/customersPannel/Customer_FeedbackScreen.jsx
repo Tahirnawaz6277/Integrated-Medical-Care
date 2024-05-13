@@ -20,11 +20,6 @@ const Customer_FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [filterOn, setFilterOn] = useState("firstName");
-  const [filterQuery, setFilterQuery] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-
   const loggedIn_User = useSelector(
     (state) => state.actionsReducer.LOGGED_IN_USER
   );
@@ -40,22 +35,6 @@ const Customer_FeedbackScreen = () => {
       .catch((err) => {
         setLoading(true);
       });
-  };
-
-  const handleChange = (e) => {
-    // e.preventDefault();
-    // setFilterQuery(e.target.value);
-    // (filterOn, filterQuery, pageNumber, pageSize)
-    //   .then((res) => {
-    //     if (res.success) {
-    //       setUsers(res.data);
-    //       setLoading(false);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(true);
-    //   });
-    // setFilterQuery("");
   };
 
   const handleDelete = (id) => {
@@ -77,28 +56,14 @@ const Customer_FeedbackScreen = () => {
   return (
     <>
       <Card>
-        <Card.Header>
-          <Row>
-            <Col className="col-md-6">
-              <span>Feedbacks</span>
-            </Col>
-            <Col className="col-md-6">
-              <Form onSubmit={handleChange} className="searchForm">
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="basic-addon2"
-                    value={filterQuery}
-                    onChange={(e) => setFilterQuery(e.target.value)}
-                  />
-                  <Button variant="primary" id="button-addon2">
-                    <i className="fas fa-search"></i>
-                  </Button>
-                </InputGroup>
-              </Form>
-            </Col>
-          </Row>
+        <Card.Header
+          style={{
+            background: "black",
+            padding: "20px",
+            color: "white",
+          }}
+        >
+          Manage Feedback
         </Card.Header>
 
         <Card.Body>
@@ -126,14 +91,6 @@ const Customer_FeedbackScreen = () => {
                   <td>{feedback.rating}</td>
                   <td>{feedback.createdAt}</td>
                   <td style={{ display: "flex", gap: "8px" }}>
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        handleDelete(feedback.id);
-                      }}
-                    >
-                      Edit
-                    </Button>
                     <Button
                       variant="danger"
                       onClick={() => {

@@ -73,7 +73,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
             if (ExistingService != null)
             {
                 ExistingService.ServiceName = ServiceInputRequest.ServiceName;
-                ExistingService.image = ServiceInputRequest.image;
+            
 
                 ExistingService.Id = id;
                 ExistingService.charges = ServiceInputRequest.charges;

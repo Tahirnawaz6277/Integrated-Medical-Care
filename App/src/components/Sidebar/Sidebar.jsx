@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loggedOut_User } from "../../Redux/Action";
 import { Badge, Button, Image } from "react-bootstrap";
 import swal from "sweetalert2";
-import ProfileCard from "./profileCard";
+import ProfileCard from "./ProfileCard";
 import { renderToString } from "react-dom/server";
 import "./ProfileCard.scss";
 const Sidebar = () => {
@@ -49,7 +49,7 @@ const Sidebar = () => {
   }, [loggedInUser]);
   return (
     <>
-      <header className="navbar p-3 navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <header className="navbar p-3 navbar-dark sticky-top  flex-md-nowrap p-0 shadow">
         <a
           className="navbar-brand col-md-3 col-lg-2 me-0 px-3"
           href="/dashboard/cart"
@@ -103,7 +103,8 @@ const Sidebar = () => {
               </NavLink>
             )}
 
-            <strong style={{ color: "white", marginTop: "13px" }}>
+            <strong style={{ textAlign:"center", color: "white", marginTop: "13px" }}>
+              Wellcome<br/>
               {loggedInUser.Name}
             </strong>
             <span
@@ -123,7 +124,7 @@ const Sidebar = () => {
 
       <nav
         id="sidebarMenu"
-        className="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse"
+        className="col-md-3 col-lg-2 d-md-block  sidebar collapse"
       >
         <div className="position-sticky pt-3">
           <ul className="nav flex-column ">
@@ -304,7 +305,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/serviceProviders"
                   >
-                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <i className="fa fa-users" aria-hidden="true"></i>
                     <span>Service Providers </span>
                   </NavLink>
                 </li>
@@ -317,7 +318,7 @@ const Sidebar = () => {
                     }
                     to="/dashboard/Customerfeedback"
                   >
-                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <i className="fa fa-comments" aria-hidden="true"></i>
                     <span> Feedbacks </span>
                   </NavLink>
                 </li>

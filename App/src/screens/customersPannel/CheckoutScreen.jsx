@@ -3,10 +3,11 @@ import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 import "./checkout.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddOrder } from "../../services/orderService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Cart_Empty } from "../../Redux/Action";
 
 const CheckoutScreen = () => {
   const [services, setServices] = useState([]);
@@ -15,6 +16,7 @@ const CheckoutScreen = () => {
   const [show, setShow] = useState(true);
 
   const navigate = useNavigate();
+const dispatch = useDispatch();
 
   const getCartServices = useSelector((state) => state.actionsReducer.Cart);
   const loggedIn_User = useSelector(
@@ -59,8 +61,14 @@ const CheckoutScreen = () => {
             title: "Congratulation's",
             text: "Order Placed Successfully!",
             icon: "success",
+
+
           }).then(() => {
-            navigate("/dashboard/provider_services");
+            dispatch(Cart_Empty()); 
+            setTimeout(() => {
+              navigate("/dashboard/provider_services");
+            }, 5000);
+   
           });
         }, 100);
       }

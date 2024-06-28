@@ -71,7 +71,7 @@ const AddNewServiceScreen = () => {
             color: "white",
           }}
         >
-          Manage Services
+           Manage Services
         </CardHeader>
 
         <CardBody>

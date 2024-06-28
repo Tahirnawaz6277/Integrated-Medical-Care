@@ -2,6 +2,7 @@
 using imc_web_api.Dtos.AdminDtos.InventoryDtos;
 using imc_web_api.Models;
 using imc_web_api.Service.AdminServices.ManageInventoryServices;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace imc_web_api.Controllers.AdminController
@@ -178,5 +179,46 @@ namespace imc_web_api.Controllers.AdminController
                 });
             }
         }
+
+
+
+
+        [HttpPatch]
+		[Route("UpdateIventory/{id:Guid}")]
+		public async Task<IActionResult> UpdateSingleInventory(Guid id, [FromBody] JsonPatchDocument<Inventory> jsonPatchDocument)
+        {
+		
+
+            try
+            {
+				if (jsonPatchDocument == null || id == Guid.Empty)
+				{
+					return BadRequest();
+				}
+
+				var Inventory = await _manageInventoryService.UpdateSingleInventoryAsync(id, jsonPatchDocument);
+
+				if (Inventory == null)
+				{
+					return NotFound("Record Not Found!");
+				}
+
+				return Ok(new
+				{
+					Success = true,
+					Message = "Inventory Updated!",
+				});
+			}
+            catch (Exception ex)
+            {
+				return BadRequest(new
+				{
+					Success = false,
+					ErrorMessage = ex.Message
+				});
+			}
+		}
+
+
     }
 }

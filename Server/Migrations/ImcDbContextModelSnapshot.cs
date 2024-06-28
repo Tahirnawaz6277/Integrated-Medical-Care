@@ -51,22 +51,22 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c049c95-76e6-47e7-a1e6-a076a014d63c",
-                            ConcurrencyStamp = "6c049c95-76e6-47e7-a1e6-a076a014d63c",
+                            Id = "a440a947-598f-4d1a-897f-62c7be03d74b",
+                            ConcurrencyStamp = "a440a947-598f-4d1a-897f-62c7be03d74b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "928ddf6f-f875-4dcc-b3bc-c4d8c5b7ab36",
-                            ConcurrencyStamp = "928ddf6f-f875-4dcc-b3bc-c4d8c5b7ab36",
+                            Id = "22420a22-43d8-4fd8-97c6-b9299e856e56",
+                            ConcurrencyStamp = "22420a22-43d8-4fd8-97c6-b9299e856e56",
                             Name = "ServiceProvider",
                             NormalizedName = "SERVICEPROVIDER"
                         },
                         new
                         {
-                            Id = "441ce733-9c3b-4143-baaa-a0baff308804",
-                            ConcurrencyStamp = "441ce733-9c3b-4143-baaa-a0baff308804",
+                            Id = "1266adfd-4216-4ff9-bd21-280fb174b1ee",
+                            ConcurrencyStamp = "1266adfd-4216-4ff9-bd21-280fb174b1ee",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -234,8 +234,8 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e95d952a-0788-4c58-a851-8a8358808bdd",
-                            RoleId = "6c049c95-76e6-47e7-a1e6-a076a014d63c"
+                            UserId = "e4e4a445-1638-43b1-8071-63b015a45366",
+                            RoleId = "a440a947-598f-4d1a-897f-62c7be03d74b"
                         });
                 });
 
@@ -603,21 +603,21 @@ namespace imc_web_api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e95d952a-0788-4c58-a851-8a8358808bdd",
+                            Id = "e4e4a445-1638-43b1-8071-63b015a45366",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "20b3a095-7f4f-46ae-b01b-032c3e1a7185",
+                            ConcurrencyStamp = "c4d6a153-7068-413b-bbc6-3230e8fec03e",
                             Email = "Aamir@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "Aamir@gmail.com",
                             NormalizedUserName = "Aamir@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKpkRUWcCPu932bavHDYU+LWDXcqAqBbspk/5okEPl3+mCplqi8CzuZi4/n98xg3Mg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAAzrdSDbKlK1FG/jT1EETdfI0QEVeyPVacTSXp50ENg79iBbM/pGQxqicgQOx3VgQ==",
                             PhoneNumber = "03457689432",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "41285cf0-0c86-4543-b38a-c09f25a50c3d",
+                            SecurityStamp = "0db785ba-31bc-4499-9ad7-9507b418a6e7",
                             TwoFactorEnabled = false,
                             UserName = "Aamir@gmail.com",
-                            CreatedAt = new DateTime(2024, 5, 13, 21, 52, 30, 603, DateTimeKind.Utc).AddTicks(8392),
+                            CreatedAt = new DateTime(2024, 6, 24, 5, 52, 57, 161, DateTimeKind.Utc).AddTicks(5223),
                             FirstName = "Aamir",
                             Gender = "Male",
                             LastName = "nawaz",

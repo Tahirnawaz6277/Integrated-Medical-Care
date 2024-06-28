@@ -31,7 +31,7 @@ export const DeleteService = async (id, loggedIn_User) => {
       },
     }
   );
-
+console.log(result);
   return result.data;
 };
 

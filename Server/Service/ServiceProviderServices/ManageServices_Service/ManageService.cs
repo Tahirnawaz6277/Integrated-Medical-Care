@@ -91,8 +91,23 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
 
         //--> Delete Service
         public async Task<service> DeleteService(Guid id)
+
+
         {
-            var Service = await _dbContext.Services.FirstOrDefaultAsync(s => s.Id == id);
+
+			var fdbks = _dbContext.Feedbacks.Where(x => x.ratedToId == id).ToList();
+			_dbContext.Feedbacks.RemoveRange(fdbks);
+
+
+			// Find all order items related to the service
+			var orderItems = await _dbContext.OrderItems.Where(o => o.ServiceId == id).ToListAsync();
+
+			// Remove order items
+			_dbContext.OrderItems.RemoveRange(orderItems);
+
+
+
+			var Service = await _dbContext.Services.FindAsync(id);
             if (Service == null)
             {
                 return null;
@@ -100,6 +115,7 @@ namespace imc_web_api.Service.ServiceProviderService.ManageServices_Service.Mana
 
             _dbContext.Services.Remove(Service);
             await _dbContext.SaveChangesAsync();
+  
             return Service;
         }
     }

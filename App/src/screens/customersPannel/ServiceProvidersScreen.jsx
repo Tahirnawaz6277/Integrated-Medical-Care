@@ -9,7 +9,7 @@ import {
   Form,
   FormControl,
   Image,
-  InputGroup,
+
   Row,
   Spinner,
 } from "react-bootstrap";
@@ -167,6 +167,8 @@ const ServiceProvidersScreen = () => {
     fetchHcps();
   }, []);
 
+  console.log(HCP);
+
   return (
     <>
       <Row>
@@ -227,72 +229,43 @@ const ServiceProvidersScreen = () => {
         </Col>
       </Row>
 
-      <Row className="row ">
+    
+
+
+<Row className="row">
         {loading && <Spinner animation="border" />}
 
         {HCP.length > 0 ? (
           HCP.map((user, index) => (
-            <Col className="col-md-4  " key={index}>
-              <Card className="provider-card ">
+            <Col className="col-md-4" key={index}>
+              <Card className="provider-card">
                 <Image
                   src="https://bootdey.com/img/Content/avatar/avatar1.png"
                   className="Card-img rounded-circle img-fluid"
                   alt="providers"
                 />
-
                 <Card.Body className="Card-Body">
-                  {user.services.map((service, serviceIndex) => (
-                    <div key={serviceIndex}>
-                      {service.user_Feedbacks &&
-                      service.user_Feedbacks.length > 0 ? (
-                        <span>
-                          {Array(5)
-                            .fill(0)
-                            .map((_, index) => (
-                              <FaStar
-                                key={index}
-                                style={{
-                                  fontSize: "28px",
-                                  marginBottom: "30px",
-                                }}
-                                color={
-                                  index < Math.ceil(user.averageRating)
-                                    ? "#fbb238"
-                                    : "black"
-                                }
-                              />
-                            ))}
-                        </span>
-                      ) : (
-                        <span>
-                          {[...Array(5)].map((_, index) => (
-                            <FaStar
-                              key={index}
-                              style={{
-                                fontSize: "28px",
-                                marginBottom: "30px",
-                              }}
-                              color="black"
-                            />
-                          ))}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-
+                  <div>
+                    {Array(5)
+                      .fill(0)
+                      .map((_, index) => (
+                        <FaStar
+                          key={index}
+                          style={{ fontSize: "28px", marginBottom: "30px" }}
+                          color={index < Math.ceil(user.averageRating) ? "#fbb238" : "black"}
+                        />
+                      ))}
+                  </div>
                   <Card.Title className="mb-3">
                     {user.firstName} {user.lastName}
                   </Card.Title>
                   <Card.Text>
                     <strong>Email:</strong> {user.email} <br />
                     <strong>Phone Number:</strong> {user.phoneNumber} <br />
-                    <strong>Service:</strong>
-                    {user.serviceProviderType?.providerName || "N/A"}
+                    <strong>Service:</strong> {user.serviceProviderType?.providerName || "N/A"}
                   </Card.Text>
 
-                  <Button onClick={() => hanldeFeedbackRating(user.id)}>
-                    Rate Me
-                  </Button>
+                  <Button onClick={() => hanldeFeedbackRating(user.id)}>Rate Me</Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -301,6 +274,7 @@ const ServiceProvidersScreen = () => {
           <b>Service Provider Not Found</b>
         )}
       </Row>
+
     </>
   );
 };

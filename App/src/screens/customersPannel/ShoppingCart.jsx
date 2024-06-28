@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Card, Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { DeleteFromCart } from "../../Redux/Action";
+import { DecrementQuantity, DeleteFromCart, IncrementQuantity } from "../../Redux/Action";
+import { getService } from "../../services/ManageService";
+import Swal from "sweetalert2";
 
 const ShoppingCart = () => {
   const [cartItem, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+
   const getCartItems = useSelector((state) => state.actionsReducer.Cart);
+  const loggedIn_User = useSelector(
+    (state) => state.actionsReducer.LOGGED_IN_USER
+  );
+
   const dispatch = useDispatch();
 
   const handleDelete = (index) => {
@@ -33,6 +40,28 @@ const ShoppingCart = () => {
   useEffect(() => {
     getTotalPrice();
   }, [cartItem]);
+
+
+
+
+  const increment = async (index) => {
+    const serviceId = getCartItems[index].service_id;
+    const ServiceQuantity = await getService(serviceId, loggedIn_User);
+
+    if (getCartItems[index].quantity <= ServiceQuantity.data.availableQuantity) {
+      dispatch(IncrementQuantity(index));
+    } else {
+      Swal.fire({
+        title: "Maximum Quantity Reached",
+        text: "You have reached the maximum available quantity for this service.",
+        icon: "warning",
+      });
+    }
+  };
+
+  const decrement = (id)=>{
+    dispatch(DecrementQuantity(id));
+  };
 
   return (
     <>
@@ -113,17 +142,25 @@ const ShoppingCart = () => {
                       ${cart.charges}
                     </td>
                     <td className="align-middle p-4">
-                      <i
-                        className="fa fa-plus-circle "
-                        style={{ marginRight: "7px", cursor: "pointer" }}
-                        aria-hidden="true"
-                        onClick={() => {}}
-                      ></i>
-                      {cart.quantity}
-                      <i
-                        class="fa fa-minus-circle "
+ 
+                       <i
+                        className="fa fa-plus-circle  "
                         style={{ marginLeft: "7px", cursor: "pointer" }}
                         aria-hidden="true"
+                        onClick={()=>{
+                          increment(index)
+                        }}
+                      ></i>
+                  
+                     
+                      {cart.quantity}
+                      <i
+                        className="fa fa-minus-circle "
+                        style={{ marginLeft: "7px", cursor: "pointer" }}
+                        aria-hidden="true"
+                        onClick={()=>{
+                          decrement(cart.id)
+                        }}
                       ></i>
                     </td>
                     <td className="text-right font-weight-semibold align-middle p-4">
@@ -137,7 +174,7 @@ const ShoppingCart = () => {
                         onClick={() => {
                           handleDelete(cart.id);
                         }}
-                        class="fa fa-trash"
+                        className="fa fa-trash"
                         aria-hidden="true"
                       ></i>
                     </td>

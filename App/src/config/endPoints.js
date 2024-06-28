@@ -1,4 +1,4 @@
-let BASE_URL = import.meta.env.VITE_API_URL;
+let BASE_URL = import.meta.env.VITE_API_URL; 
 
 export const endPoints = {
   Account: {
@@ -75,5 +75,6 @@ export const endPoints = {
     DeleteInventory: `${BASE_URL}/ManageInventory/DeleteInventory`,
     AddInventory: `${BASE_URL}/ManageInventory/AddInventory`,
     UpdateInventory: `${BASE_URL}/ManageInventory/UpdateInventory`,
+    UpdateInventoryQuantity:`${BASE_URL}/ManageInventory/UpdateIventory`
   },
 };

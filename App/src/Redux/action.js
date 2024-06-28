@@ -24,3 +24,20 @@ export const DeleteFromCart = (id) => {
     payload: id,
   };
 };
+
+
+export const Cart_Empty = () => ({
+  type: "Cart_Empty",
+});
+
+
+export const IncrementQuantity = (id) => ({
+  type: "Increment",
+  payload:id
+});
+
+
+export const DecrementQuantity = (id) => ({
+  type: "Decrement",
+  payload: id,
+});

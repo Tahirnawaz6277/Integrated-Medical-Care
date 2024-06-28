@@ -46,12 +46,28 @@ const CustomerServicesScreen = () => {
       service_id: service.id,
       serviceName: service.serviceName,
       charges: service.charges,
-      service_img: "https://bootdey.com/img/Content/avatar/avatar1.png",
+      service_img: getImageSrc(service.serviceName),
       quantity: 0,
     };
 
     dispatch(AddToCart(data));
     toast("Added to cart!");
+  };
+
+
+  const getImageSrc = (serviceName) => {
+    switch (serviceName.toLowerCase()) {
+      case "ambulance":
+        return '../images/ambulance.jpg';
+      case "panadol":
+        return '../images/tablet.jpg';
+      case "pharmacy":
+        return '../images/service3.jpg';
+      case "surgen":
+        return '../images/service4.jpg';
+      default:
+        return '';
+    }
   };
 
   useEffect(() => {
@@ -85,8 +101,22 @@ const CustomerServicesScreen = () => {
               <Card style={{ cursor: "pointer" }}>
                 <NavLink to="/dashboard/service_details">
                   <Card.Img
-                    src="../images/tablet.jpg"
-                    className="card-img-top"
+                   
+                  src={getImageSrc(service.serviceName)}
+                  //  src={
+                  //   service.serviceName.toLowerCase() === "ambulance"
+                  //     ? '../images/ambulance.jpg'
+                  //     : service.serviceName.toLowerCase() === "panadol"
+                  //     ? '../images/tablet.jpg'
+                  //     : service.serviceName.toLowerCase() === "pharmacy"
+                  //     ? '../images/service3.jpg'
+                  //     : service.serviceName.toLowerCase() === "surgen"
+                  //     ? '../images/service4.jpg'
+                  //     : ''
+                  // }
+                   
+                   
+                   className="card-img-top"
                     alt="..."
                   />
                 </NavLink>
@@ -109,6 +139,14 @@ const CustomerServicesScreen = () => {
                   </Card.Text>
                   <Card.Text>
                     <strong>Publish Date:</strong> {service.createdAt}
+                  </Card.Text>
+
+                  <Card.Text>
+                    <strong>Current Available Quantity:</strong> {service.availableQuantity}
+                  </Card.Text>
+
+                  <Card.Text>
+                    <strong>Total Quantity In Stock:</strong> {service.totalQuantity}
                   </Card.Text>
                   <div
                     style={{

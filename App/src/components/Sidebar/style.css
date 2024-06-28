@@ -3,13 +3,14 @@ nav li .active {
   background-color: white !important;
   padding-bottom: 10%;
 }
-nav li .custom-icon {
+ nav li .custom-icon {
   font-size: 30px;
   margin-right: 10px;
-}
+} 
+
 
 nav {
-  height: 100vh;
+  height: 100vh !important;
 }
 nav li {
   padding-bottom: 10%;
@@ -22,6 +23,8 @@ nav a {
 }
 
 .nav-link {
-  color: white !important; /* Set the color to white */
-  text-decoration: none; /* Remove underline from links */
-}/*# sourceMappingURL=style.css.map */
+  color: white !important; 
+  text-decoration: none; 
+
+}
+

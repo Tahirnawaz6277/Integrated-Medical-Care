@@ -1,4 +1,5 @@
-﻿using imc_web_api.Models;
+﻿using Azure;
+using imc_web_api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace imc_web_api.Service.AdminServices.ManageInventoryServices
@@ -61,5 +62,23 @@ namespace imc_web_api.Service.AdminServices.ManageInventoryServices
             }
             return null;
         }
-    }
+
+
+
+
+		public async Task<Inventory?> UpdateSingleInventoryAsync(Guid id, Microsoft.AspNetCore.JsonPatch.JsonPatchDocument<Inventory> jsonPatchDocument)
+		{
+
+			var inventory = await _ImcDbContext.Inventories.FirstOrDefaultAsync(i => i.Id == id);
+
+			if (inventory != null)
+			{
+				jsonPatchDocument.ApplyTo(inventory);
+
+				_ImcDbContext.SaveChanges();
+				return inventory;
+			}
+			return null;
+		}
+	}
 }

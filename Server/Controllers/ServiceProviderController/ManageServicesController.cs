@@ -201,7 +201,10 @@ namespace imc_web_api.Controllers.ServiceProviderController
                     return BadRequest();
                 }
 
+
+
                 var DeleteService = await _manageServices.DeleteService(id);
+                
 
                 if (DeleteService == null)
                 {

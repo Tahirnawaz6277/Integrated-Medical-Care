@@ -5,16 +5,11 @@ import { useSelector } from "react-redux";
 import {
   Button,
   Card,
-  Col,
-  Form,
-  FormControl,
-  InputGroup,
-  NavLink,
-  Row,
+ 
   Spinner,
   Table,
 } from "react-bootstrap";
-import { getFeedbacks } from "../../services/feedbackService";
+import { DeleteFeedback, getFeedbacks } from "../../services/feedbackService";
 
 const Customer_FeedbackScreen = () => {
   const [feedbacks, setFeedbacks] = useState([]);

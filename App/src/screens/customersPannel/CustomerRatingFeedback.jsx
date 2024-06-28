@@ -26,6 +26,8 @@ const CustomerRatingFeedback = () => {
   const fetchServices = (id) => {
     GetSingleServiceProvider(id)
       .then((res) => {
+
+        console.log(res);
         if (res.success && res.data?.services) {
           setServices(res.data.services);
         }
